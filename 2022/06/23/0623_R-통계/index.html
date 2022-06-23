@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0623_R 통계 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="통계 기술통계 : 평균, 최솟값, 최댓값, 중간값  추론통계 : 변수간의 관계를 파악&#x2F; 새로운 사실을 추정(&#x3D;발견)        + 평균 차이 검정          - 수치 데이터          - 가설 검정 : 각 그룹간의 평균값의 차이를 검정          - 남자의 평균 키와 여자의 키는 차이가 있을 것이다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0623_R 통계">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/06/23/0623_R-%ED%86%B5%EA%B3%84/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="통계 기술통계 : 평균, 최솟값, 최댓값, 중간값  추론통계 : 변수간의 관계를 파악&#x2F; 새로운 사실을 추정(&#x3D;발견)        + 평균 차이 검정          - 수치 데이터          - 가설 검정 : 각 그룹간의 평균값의 차이를 검정          - 남자의 평균 키와 여자의 키는 차이가 있을 것이다.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-2-1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-5-1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-23-1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-24-1.png">
+<meta property="article:published_time" content="2022-06-23T01:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-23T09:18:02.735Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-2-1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0623_R-통계" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/23/0623_R-%ED%86%B5%EA%B3%84/" class="article-date">
+  <time class="dt-published" datetime="2022-06-23T01:00:00.000Z" itemprop="datePublished">2022-06-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0623_R 통계
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="통계"><a href="#통계" class="headerlink" title="통계"></a>통계</h2><ul>
+<li><p>기술통계 : 평균, 최솟값, 최댓값, 중간값</p>
+</li>
+<li><p>추론통계 : 변수간의 관계를 파악&#x2F; 새로운 사실을 추정(&#x3D;발견)</p>
+<pre><code>       + 평균 차이 검정
+         - 수치 데이터
+         - 가설 검정 : 각 그룹간의 평균값의 차이를 검정
+         - 남자의 평균 키와 여자의 키는 차이가 있을 것이다.
+         
+       + 교차 분석 (= 빈도분석)
+         - 범주 데이터
+         - 가설 검정 : 각 범주별 빈도를 활용해서 관계성을 검정
+         
+       + 상관 관계 분석 
+         - 수치 데이터  
+         - 상향될 경우 양의 상관관계, 하향될 경우 음의 상관관계
+         - 두 변수간의 상관관계가 있느냐 없느냐?
+         
+       + 단순 회귀 분석
+         - y = ax + b
+         - 온도, 판매량
+         - 가설 검정
+           + 기온(독립변수)가 판매량(종속변수)에 긍적적인영향을 
+             주고 있을 것이다.
+</code></pre>
+</li>
+</ul>
+<h3 id="통계-검정"><a href="#통계-검정" class="headerlink" title="통계 검정"></a>통계 검정</h3><ul>
+<li><p>가설</p>
+</li>
+<li><p>Hypothesis<br> —&gt; 공부 방법 : 선행 연구, 해당 분석방법의 가설설정 예시 존재</p>
+</li>
+<li><p>연구 : 내가 궁금한 것을 찾아내는 것 (ex) 남자와 여자의 키가 동일</p>
+</li>
+<li><p>귀무가설 : 두 그룹 간의 평균 차이가 없다.</p>
+</li>
+<li><p>대립가설 : 두 그룹 간의 평균 차이가 있다.</p>
+</li>
+<li><p>가설검정에서 인정하는 유의 수준</p>
+<ul>
+<li>5%, 1%, 0.1% 또는 10%</li>
+</ul>
+</li>
+<li><p>오차범위 내에 있다. </p>
+<ul>
+<li>여론 조사 A 후보 44%, B 후보 42% 시 누가 우세하다 할 수 없음.</li>
+<li>오차범위 내에 있을 시정확한 결과를 가져올 수 없음.</li>
+</ul>
+</li>
+<li><p>오차범위 밖에 있다.</p>
+<ul>
+<li>조사의 결과가 확실함.</li>
+</ul>
+</li>
+<li><p>자 평균 키, 여자 평균 키 실험  </p>
+<ul>
+<li>유의 수준 &gt; 0.05</li>
+</ul>
+</li>
+</ul>
+<h3 id="두-집단의-평균-차이-검정"><a href="#두-집단의-평균-차이-검정" class="headerlink" title="두 집단의 평균 차이 검정"></a>두 집단의 평균 차이 검정</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mpg1 <span class="operator">&lt;-</span> read.csv<span class="punctuation">(</span><span class="string">&quot;data/mpg1.csv&quot;</span><span class="punctuation">,</span> stringsAsFactors <span class="operator">=</span> <span class="built_in">F</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">t.test<span class="punctuation">(</span>data<span class="operator">=</span>mpg1<span class="punctuation">,</span> cty<span class="operator">~</span>trans<span class="punctuation">)</span> <span class="comment">#t.test(mpg1$cty~mpg1$trans)와 같음</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## 	Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  cty by trans</span><br><span class="line">## t = -4.5375, df = 132.32, p-value = 1.263e-05</span><br><span class="line">## alternative hypothesis: true difference in means between group auto and group manual is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -3.887311 -1.527033</span><br><span class="line">## sample estimates:</span><br><span class="line">##   mean in group auto mean in group manual </span><br><span class="line">##             15.96815             18.67532</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>t.test</p>
+<ul>
+<li>어떻게 데이터를 입력하는지 확인</li>
+<li>p-value, 유의수준 0.05 이상 : 귀무가설, 0.05 이내 :대립가설</li>
+</ul>
+</li>
+<li><p>시각화</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>ggplot2<span class="punctuation">)</span></span><br><span class="line">ggplot<span class="punctuation">(</span>mpg1<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>trans<span class="punctuation">,</span> y<span class="operator">=</span>cty<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_boxplot<span class="punctuation">(</span><span class="punctuation">)</span> </span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-2-1.png"><!-- --><br>    - 시각화로 명확하게 결과를 나타내기가 어려움 - t.test 검정 필요</p>
+<ul>
+<li>t.test 검정<ul>
+<li>귀무가설 : auto 와 manual의 cty 평균은 차이가 없다.</li>
+<li>대립가설 : auto 와 manual의 cty 평균은 차이가 있다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.test<span class="punctuation">(</span>data <span class="operator">=</span>mpg1<span class="punctuation">,</span> cty <span class="operator">~</span> trans<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## 	Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  cty by trans</span><br><span class="line">## t = -4.5375, df = 132.32, p-value = 1.263e-05</span><br><span class="line">## alternative hypothesis: true difference in means between group auto and group manual is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -3.887311 -1.527033</span><br><span class="line">## sample estimates:</span><br><span class="line">##   mean in group auto mean in group manual </span><br><span class="line">##             15.96815             18.67532</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 종속변수 ~ 독립변수</span></span><br><span class="line"><span class="comment"># 반응변수 ~ 설명변수</span></span><br><span class="line"><span class="comment"># y          x</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="두-그룹의-평균-차이-검정"><a href="#두-그룹의-평균-차이-검정" class="headerlink" title="두 그룹의 평균 차이 검정"></a>두 그룹의 평균 차이 검정</h3><ul>
+<li>사전 필수 검증</li>
+<li>등분산 검정<ul>
+<li>두 그룹간의 분산이 비슷하면 –&gt; t.test (모수 검정)</li>
+<li>두 그룹간의 분산이 다르면 –&gt; 비모수 검정</li>
+</ul>
+</li>
+<li>등분산 검정<ul>
+<li>귀무가설 : 두 그룹간ㅇ의 분산이 비슷하다.</li>
+</ul>
+<ul>
+<li>p.value &gt; 0.05</li>
+</ul>
+<ul>
+<li>대립가설 : 두 그룹간의 분산이 다르다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var.test<span class="punctuation">(</span>data <span class="operator">=</span> mpg1<span class="punctuation">,</span> cty<span class="operator">~</span>trans<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## 	F test to compare two variances</span><br><span class="line">## </span><br><span class="line">## data:  cty by trans</span><br><span class="line">## F = 0.73539, num df = 156, denom df = 76, p-value = 0.1101</span><br><span class="line">## alternative hypothesis: true ratio of variances is not equal to 1</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  0.4912917 1.0719468</span><br><span class="line">## sample estimates:</span><br><span class="line">## ratio of variances </span><br><span class="line">##          0.7353887</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>mpg1<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>cty<span class="punctuation">,</span> fill<span class="operator">=</span>trans<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> <span class="comment">#geom_histogram()</span></span><br><span class="line">  geom_density<span class="punctuation">(</span>alpha <span class="operator">=</span> <span class="number">0.1</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-5-1.png"><!-- --></p>
+<h3 id="교차-분석-x3D-gt-개발자도-알-필요가-있음"><a href="#교차-분석-x3D-gt-개발자도-알-필요가-있음" class="headerlink" title="교차 분석 &#x3D;&gt; 개발자도 알 필요가 있음."></a>교차 분석 &#x3D;&gt; 개발자도 알 필요가 있음.</h3><pre><code>- 범주형 변수들이 관계가 있다는 것을 검정
+- 비율에 차이가 있는지 검정
+- 교차분석 검정은 R의 chisq.test() 함수로 진행
+- 귀무가설 : trans에 따라 drv(4, f,r)의 (비율) 차이가 없다.
+- 대립가설 : trans에 따라 drv 차이가 있다.
+- 빈도표 / 비율
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table<span class="punctuation">(</span>mpg1<span class="operator">$</span>trans<span class="punctuation">,</span> mpg1<span class="operator">$</span>drv<span class="punctuation">)</span> <span class="comment">#교차분석</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">##         </span><br><span class="line">##           4  f  r</span><br><span class="line">##   auto   75 65 17</span><br><span class="line">##   manual 28 41  8</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prop.table<span class="punctuation">(</span>table<span class="punctuation">(</span>mpg1<span class="operator">$</span>trans<span class="punctuation">,</span>mpg1<span class="operator">$</span>drv<span class="punctuation">)</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">##         </span><br><span class="line">##                  4         f         r</span><br><span class="line">##   auto   0.4777070 0.4140127 0.1082803</span><br><span class="line">##   manual 0.3636364 0.5324675 0.1038961</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>auto 4륜 구동 (4) 인 47.8%</p>
+</li>
+<li><p>manual 전륜구동(f) 53.2% 가장 많음</p>
+</li>
+<li><p>실제로 통계적으로 봤을 때, 차이가 있는지 검정</p>
+</li>
+<li><p>귀무가설 : trans에 따라 drv(4, f,r)의 (비율) 차이가 없다.</p>
+</li>
+<li><p>대립가설 : trans에 따라 drv 차이가 있다.</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chisq.test<span class="punctuation">(</span>mpg1<span class="operator">$</span>trans<span class="punctuation">,</span> mpg1<span class="operator">$</span>drv<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## 	Pearson&#x27;s Chi-squared test</span><br><span class="line">## </span><br><span class="line">## data:  mpg1$trans and mpg1$drv</span><br><span class="line">## X-squared = 3.1368, df = 2, p-value = 0.2084</span><br></pre></td></tr></table></figure>
+
+<h2 id="실습"><a href="#실습" class="headerlink" title="실습"></a>실습</h2><ul>
+<li>패키지 설치 및 데이터 불러오기</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install.packages(&quot;dplyr&quot;)</span></span><br><span class="line"><span class="comment"># install.packages(&quot;ggplot2&quot;)</span></span><br><span class="line">library<span class="punctuation">(</span>dplyr<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## 다음의 패키지를 부착합니다: &#x27;dplyr&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## The following objects are masked from &#x27;package:stats&#x27;:</span><br><span class="line">## </span><br><span class="line">##     filter, lag</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## The following objects are masked from &#x27;package:base&#x27;:</span><br><span class="line">## </span><br><span class="line">##     intersect, setdiff, setequal, union</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>ggplot2<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install.packages(&quot;readxl&quot;)</span></span><br><span class="line">library<span class="punctuation">(</span>readxl<span class="punctuation">)</span></span><br><span class="line">seoulair <span class="operator">&lt;-</span>read_excel<span class="punctuation">(</span><span class="string">&quot;data/서울대기오염_2019.xlsx&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">str<span class="punctuation">(</span>seoulair<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">## tibble [9,491 × 8] (S3: tbl_df/tbl/data.frame)</span><br><span class="line">##  $ 날짜                   : chr [1:9491] &quot;전체&quot; &quot;2019-12-31&quot; &quot;2019-12-31&quot; &quot;2019-12-31&quot; ...</span><br><span class="line">##  $ 측정소명               : chr [1:9491] &quot;평균&quot; &quot;평균&quot; &quot;강남구&quot; &quot;강동구&quot; ...</span><br><span class="line">##  $ 미세먼지               : num [1:9491] 42 26 22 27 31 29 36 22 25 23 ...</span><br><span class="line">##  $ 초미세먼지             : num [1:9491] 25 15 14 19 17 16 18 10 16 18 ...</span><br><span class="line">##  $ 오존                   : num [1:9491] 0.025 0.022 0.025 0.019 0.022 0.022 0.026 0.019 0.022 0.019 ...</span><br><span class="line">##  $ 이산화질소</span><br><span class="line">## NO2 (ppm): num [1:9491] 0.028 0.016 0.014 0.02 0.022 0.017 0.013 0.016 0.02 0.019 ...</span><br><span class="line">##  $ 일산화탄소</span><br><span class="line">## CO (ppm) : num [1:9491] 0.5 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.3 0.4 ...</span><br><span class="line">##  $ 아황산가스</span><br><span class="line">## SO2(ppm) : num [1:9491] 0.004 0.003 0.003 0.003 0.002 0.004 0.003 0.002 0.004 0.003 ...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>분석 변수 추출, 변수이름 변경</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">seoulair <span class="operator">&lt;-</span> seoulair <span class="operator">%&gt;%</span></span><br><span class="line">  rename<span class="punctuation">(</span>date <span class="operator">=</span> <span class="string">&quot;날짜&quot;</span><span class="punctuation">,</span></span><br><span class="line">         district <span class="operator">=</span><span class="string">&quot;측정소명&quot;</span><span class="punctuation">,</span></span><br><span class="line">         pm10<span class="operator">=</span><span class="string">&quot;미세먼지&quot;</span><span class="punctuation">,</span></span><br><span class="line">         pm2.5<span class="operator">=</span><span class="string">&quot;초미세먼지&quot;</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  select<span class="punctuation">(</span>date<span class="punctuation">,</span> district<span class="punctuation">,</span> pm10<span class="punctuation">,</span> pm2.5<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>변수의 결측치 이상치 확인하고 처리하기<ul>
+<li>문자형 변수</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table<span class="punctuation">(</span>seoulair<span class="operator">$</span>date<span class="punctuation">)</span> <span class="comment"># 빈도분석으로 date변수의 이상치 확인</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## 2019-01-01 2019-01-02 2019-01-03 2019-01-04 2019-01-05 2019-01-06 2019-01-07 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-01-08 2019-01-09 2019-01-10 2019-01-11 2019-01-12 2019-01-13 2019-01-14 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-01-15 2019-01-16 2019-01-17 2019-01-18 2019-01-19 2019-01-20 2019-01-21 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-01-22 2019-01-23 2019-01-24 2019-01-25 2019-01-26 2019-01-27 2019-01-28 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-01-29 2019-01-30 2019-01-31 2019-02-01 2019-02-02 2019-02-03 2019-02-04 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-02-05 2019-02-06 2019-02-07 2019-02-08 2019-02-09 2019-02-10 2019-02-11 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-02-12 2019-02-13 2019-02-14 2019-02-15 2019-02-16 2019-02-17 2019-02-18 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-02-19 2019-02-20 2019-02-21 2019-02-22 2019-02-23 2019-02-24 2019-02-25 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-02-26 2019-02-27 2019-02-28 2019-03-01 2019-03-02 2019-03-03 2019-03-04 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-03-05 2019-03-06 2019-03-07 2019-03-08 2019-03-09 2019-03-10 2019-03-11 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-03-12 2019-03-13 2019-03-14 2019-03-15 2019-03-16 2019-03-17 2019-03-18 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-03-19 2019-03-20 2019-03-21 2019-03-22 2019-03-23 2019-03-24 2019-03-25 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-03-26 2019-03-27 2019-03-28 2019-03-29 2019-03-30 2019-03-31 2019-04-01 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-04-02 2019-04-03 2019-04-04 2019-04-05 2019-04-06 2019-04-07 2019-04-08 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-04-09 2019-04-10 2019-04-11 2019-04-12 2019-04-13 2019-04-14 2019-04-15 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-04-16 2019-04-17 2019-04-18 2019-04-19 2019-04-20 2019-04-21 2019-04-22 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-04-23 2019-04-24 2019-04-25 2019-04-26 2019-04-27 2019-04-28 2019-04-29 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-04-30 2019-05-01 2019-05-02 2019-05-03 2019-05-04 2019-05-05 2019-05-06 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-05-07 2019-05-08 2019-05-09 2019-05-10 2019-05-11 2019-05-12 2019-05-13 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-05-14 2019-05-15 2019-05-16 2019-05-17 2019-05-18 2019-05-19 2019-05-20 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-05-21 2019-05-22 2019-05-23 2019-05-24 2019-05-25 2019-05-26 2019-05-27 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-05-28 2019-05-29 2019-05-30 2019-05-31 2019-06-01 2019-06-02 2019-06-03 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-06-04 2019-06-05 2019-06-06 2019-06-07 2019-06-08 2019-06-09 2019-06-10 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-06-11 2019-06-12 2019-06-13 2019-06-14 2019-06-15 2019-06-16 2019-06-17 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-06-18 2019-06-19 2019-06-20 2019-06-21 2019-06-22 2019-06-23 2019-06-24 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-06-25 2019-06-26 2019-06-27 2019-06-28 2019-06-29 2019-06-30 2019-07-01 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-07-02 2019-07-03 2019-07-04 2019-07-05 2019-07-06 2019-07-07 2019-07-08 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-07-09 2019-07-10 2019-07-11 2019-07-12 2019-07-13 2019-07-14 2019-07-15 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-07-16 2019-07-17 2019-07-18 2019-07-19 2019-07-20 2019-07-21 2019-07-22 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-07-23 2019-07-24 2019-07-25 2019-07-26 2019-07-27 2019-07-28 2019-07-29 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-07-30 2019-07-31 2019-08-01 2019-08-02 2019-08-03 2019-08-04 2019-08-05 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-08-06 2019-08-07 2019-08-08 2019-08-09 2019-08-10 2019-08-11 2019-08-12 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-08-13 2019-08-14 2019-08-15 2019-08-16 2019-08-17 2019-08-18 2019-08-19 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-08-20 2019-08-21 2019-08-22 2019-08-23 2019-08-24 2019-08-25 2019-08-26 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-08-27 2019-08-28 2019-08-29 2019-08-30 2019-08-31 2019-09-01 2019-09-02 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-09-03 2019-09-04 2019-09-05 2019-09-06 2019-09-07 2019-09-08 2019-09-09 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-09-10 2019-09-11 2019-09-12 2019-09-13 2019-09-14 2019-09-15 2019-09-16 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-09-17 2019-09-18 2019-09-19 2019-09-20 2019-09-21 2019-09-22 2019-09-23 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-09-24 2019-09-25 2019-09-26 2019-09-27 2019-09-28 2019-09-29 2019-09-30 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-10-01 2019-10-02 2019-10-03 2019-10-04 2019-10-05 2019-10-06 2019-10-07 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-10-08 2019-10-09 2019-10-10 2019-10-11 2019-10-12 2019-10-13 2019-10-14 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-10-15 2019-10-16 2019-10-17 2019-10-18 2019-10-19 2019-10-20 2019-10-21 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-10-22 2019-10-23 2019-10-24 2019-10-25 2019-10-26 2019-10-27 2019-10-28 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-10-29 2019-10-30 2019-10-31 2019-11-01 2019-11-02 2019-11-03 2019-11-04 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-11-05 2019-11-06 2019-11-07 2019-11-08 2019-11-09 2019-11-10 2019-11-11 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-11-12 2019-11-13 2019-11-14 2019-11-15 2019-11-16 2019-11-17 2019-11-18 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-11-19 2019-11-20 2019-11-21 2019-11-22 2019-11-23 2019-11-24 2019-11-25 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-11-26 2019-11-27 2019-11-28 2019-11-29 2019-11-30 2019-12-01 2019-12-02 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-12-03 2019-12-04 2019-12-05 2019-12-06 2019-12-07 2019-12-08 2019-12-09 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-12-10 2019-12-11 2019-12-12 2019-12-13 2019-12-14 2019-12-15 2019-12-16 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-12-17 2019-12-18 2019-12-19 2019-12-20 2019-12-21 2019-12-22 2019-12-23 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-12-24 2019-12-25 2019-12-26 2019-12-27 2019-12-28 2019-12-29 2019-12-30 </span><br><span class="line">##         26         26         26         26         26         26         26 </span><br><span class="line">## 2019-12-31       전체 </span><br><span class="line">##         26          1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table<span class="punctuation">(</span>seoulair<span class="operator">$</span>district<span class="punctuation">)</span><span class="comment"># 빈도분석으로 district 변수의 이상치 확인</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##   강남구   강동구   강북구   강서구   관악구   광진구   구로구   금천구 </span><br><span class="line">##      365      365      365      365      365      365      365      365 </span><br><span class="line">##   노원구   도봉구 동대문구   동작구   마포구 서대문구   서초구   성동구 </span><br><span class="line">##      365      365      365      365      365      365      365      365 </span><br><span class="line">##   성북구   송파구   양천구 영등포구   용산구   은평구   종로구     중구 </span><br><span class="line">##      365      365      365      365      365      365      365      365 </span><br><span class="line">##   중랑구     평균 </span><br><span class="line">##      365      366</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># seoulair에서date가 &#x27;전체&#x27;가 아니고, district가 &#x27;평균&#x27;이 아닌 데이터만 추출</span></span><br><span class="line">seoulair <span class="operator">&lt;-</span> seoulair <span class="operator">%&gt;%</span> filter<span class="punctuation">(</span>date<span class="operator">!=</span><span class="string">&quot;전체&quot;</span><span class="operator">&amp;</span>district<span class="operator">!=</span><span class="string">&quot;평균&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>실수형 변수</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary<span class="punctuation">(</span>seoulair<span class="operator">$</span>pm10<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#x27;s </span><br><span class="line">##    3.00   24.00   36.00   41.76   52.00  228.00     213</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary<span class="punctuation">(</span>seoulair<span class="operator">$</span>pm2.5<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#x27;s </span><br><span class="line">##    1.00   14.00   21.00   24.93   30.00  153.00     203</span><br></pre></td></tr></table></figure>
+<ul>
+<li>파생 변수 만들기<ul>
+<li>month, day 만들기</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># month 변수 만들기, 6번째 데이터 시작,7번째 데이터 끝</span></span><br><span class="line">seoulair<span class="operator">$</span>month <span class="operator">&lt;-</span> substr<span class="punctuation">(</span>seoulair<span class="operator">$</span>date<span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">,</span> <span class="number">7</span><span class="punctuation">)</span> </span><br><span class="line"><span class="comment"># day 변수 만들기, 9번째 데이터 시작, 10번째 데이터 끝</span></span><br><span class="line">seoulair<span class="operator">$</span>day <span class="operator">&lt;-</span> substr<span class="punctuation">(</span>seoulair<span class="operator">$</span>date<span class="punctuation">,</span> <span class="number">9</span><span class="punctuation">,</span> <span class="number">10</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">class</span><span class="punctuation">(</span>seoulair<span class="operator">$</span>month<span class="punctuation">)</span><span class="comment"># 변수 유형 확인</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &quot;character&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">class</span><span class="punctuation">(</span>seoulair<span class="operator">$</span>day<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &quot;character&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">seoulair<span class="operator">$</span>month <span class="operator">&lt;-</span><span class="built_in">as.numeric</span><span class="punctuation">(</span>seoulair<span class="operator">$</span>month<span class="punctuation">)</span> <span class="comment"># 변수를 숫자형으로 변환</span></span><br><span class="line">seoulair<span class="operator">$</span>day <span class="operator">&lt;-</span> <span class="built_in">as.numeric</span><span class="punctuation">(</span>seoulair<span class="operator">$</span>day<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<pre><code>- season 변수 만들기
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">class</span><span class="punctuation">(</span>seoulair<span class="operator">$</span>month<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &quot;numeric&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">seoulair<span class="operator">$</span>season <span class="operator">&lt;-</span> ifelse<span class="punctuation">(</span>seoulair<span class="operator">$</span>month<span class="operator">%in%</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;3&quot;</span><span class="punctuation">,</span><span class="string">&quot;4&quot;</span><span class="punctuation">,</span><span class="string">&quot;5&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="string">&quot;spring&quot;</span><span class="punctuation">,</span></span><br><span class="line">                        ifelse<span class="punctuation">(</span>seoulair<span class="operator">$</span>month<span class="operator">%in%</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;6&quot;</span><span class="punctuation">,</span><span class="string">&quot;7&quot;</span><span class="punctuation">,</span><span class="string">&quot;8&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="string">&quot;summer&quot;</span><span class="punctuation">,</span></span><br><span class="line">                         ifelse<span class="punctuation">(</span>seoulair<span class="operator">$</span>month<span class="operator">%in%</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;9&quot;</span><span class="punctuation">,</span><span class="string">&quot;10&quot;</span><span class="punctuation">,</span><span class="string">&quot;11&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span><span class="string">&quot;autumn&quot;</span><span class="punctuation">,</span><span class="string">&quot;winter&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="comment"># 3,4,5,6,7,8,9,10,11을 캐릭터로 인지</span></span><br></pre></td></tr></table></figure>
+<pre><code>- 분석데이터 최종 확인
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str<span class="punctuation">(</span>seoulair<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## tibble [9,125 × 7] (S3: tbl_df/tbl/data.frame)</span><br><span class="line">##  $ date    : chr [1:9125] &quot;2019-12-31&quot; &quot;2019-12-31&quot; &quot;2019-12-31&quot; &quot;2019-12-31&quot; ...</span><br><span class="line">##  $ district: chr [1:9125] &quot;강남구&quot; &quot;강동구&quot; &quot;강북구&quot; &quot;강서구&quot; ...</span><br><span class="line">##  $ pm10    : num [1:9125] 22 27 31 29 36 22 25 23 22 19 ...</span><br><span class="line">##  $ pm2.5   : num [1:9125] 14 19 17 16 18 10 16 18 17 12 ...</span><br><span class="line">##  $ month   : num [1:9125] 12 12 12 12 12 12 12 12 12 12 ...</span><br><span class="line">##  $ day     : num [1:9125] 31 31 31 31 31 31 31 31 31 31 ...</span><br><span class="line">##  $ season  : chr [1:9125] &quot;winter&quot; &quot;winter&quot; &quot;winter&quot; &quot;winter&quot; ...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>데이터 분석<ul>
+<li>연간 미세먼지 평균 알아보기</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mean<span class="punctuation">(</span>seoulair<span class="operator">$</span>pm10<span class="punctuation">,</span> na.rm <span class="operator">=</span> <span class="built_in">T</span><span class="punctuation">)</span> <span class="comment"># 미세먼지 평균 알아보기기</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 41.76167</span><br></pre></td></tr></table></figure>
+<pre><code>- 미세먼지가 가장 심했던 날짜 알아보기
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">seoulair <span class="operator">%&gt;%</span> </span><br><span class="line">  filter<span class="punctuation">(</span><span class="operator">!</span><span class="built_in">is.na</span><span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 결측치 없는 자료 추출</span></span><br><span class="line">  filter<span class="punctuation">(</span>pm10<span class="operator">==</span><span class="built_in">max</span><span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># pm10 최댓값행 추출</span></span><br><span class="line">  select<span class="punctuation">(</span>date<span class="punctuation">,</span>district<span class="punctuation">,</span>pm10<span class="punctuation">)</span> <span class="comment"># 3개 변수만 출력력</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## # A tibble: 1 × 3</span><br><span class="line">##   date       district  pm10</span><br><span class="line">##   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt;</span><br><span class="line">## 1 2019-03-05 강북구     228</span><br></pre></td></tr></table></figure>
+<pre><code> - 구별 미세먼지 평균비교
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">seoulair <span class="operator">%&gt;%</span></span><br><span class="line">  filter<span class="punctuation">(</span><span class="operator">!</span><span class="built_in">is.na</span><span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 결측치가 아닌 행만 추출</span></span><br><span class="line">  group_by<span class="punctuation">(</span>district<span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 구를 기준으로 데이터 분류</span></span><br><span class="line">  summarise<span class="punctuation">(</span>m<span class="operator">=</span>mean<span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 구별로 pm10 평균구하기</span></span><br><span class="line">  arrange<span class="punctuation">(</span>m<span class="punctuation">)</span> <span class="operator">%&gt;%</span>  <span class="comment"># 평균 기준으로 오름차순 정렬</span></span><br><span class="line">  head<span class="punctuation">(</span><span class="number">5</span><span class="punctuation">)</span> <span class="comment"># 상위 5개행 출력력</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## # A tibble: 5 × 2</span><br><span class="line">##   district     m</span><br><span class="line">##   &lt;chr&gt;    &lt;dbl&gt;</span><br><span class="line">## 1 용산구    34.1</span><br><span class="line">## 2 중랑구    37.3</span><br><span class="line">## 3 중구      37.6</span><br><span class="line">## 4 종로구    37.7</span><br><span class="line">## 5 도봉구    38.0</span><br></pre></td></tr></table></figure>
+<pre><code> - 계절별 분석
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">seoulair <span class="operator">%&gt;%</span> </span><br><span class="line">  filter<span class="punctuation">(</span><span class="operator">!</span><span class="built_in">is.na</span><span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="operator">&amp;</span><span class="operator">!</span><span class="built_in">is.na</span><span class="punctuation">(</span>pm2.5<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span>  <span class="comment"># 두개의 시간대의 결측치 동시 제거</span></span><br><span class="line">  group_by<span class="punctuation">(</span>season<span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># season 변수로 데이터 분류</span></span><br><span class="line">  summarise<span class="punctuation">(</span>m1<span class="operator">=</span>mean<span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">,</span>   <span class="comment"># 평균구하기</span></span><br><span class="line">            m2<span class="operator">=</span>mean<span class="punctuation">(</span>pm2.5<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">              arrange<span class="punctuation">(</span>m1<span class="punctuation">)</span> <span class="comment"># pm10 평균을 기준으로 오름차순 정렬</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">## # A tibble: 4 × 3</span><br><span class="line">##   season    m1    m2</span><br><span class="line">##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span><br><span class="line">## 1 summer  26.3  18.1</span><br><span class="line">## 2 autumn  31.1  15.7</span><br><span class="line">## 3 spring  54.1  31.6</span><br><span class="line">## 4 winter  54.7  33.7</span><br></pre></td></tr></table></figure>
+<pre><code> - 미세먼지 등급 분석
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">seoulair <span class="operator">%&gt;%</span> </span><br><span class="line">  filter<span class="punctuation">(</span><span class="operator">!</span><span class="built_in">is.na</span><span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  mutate<span class="punctuation">(</span>pm_grade<span class="operator">=</span>ifelse<span class="punctuation">(</span>pm10<span class="operator">&lt;=</span><span class="number">30</span><span class="punctuation">,</span> <span class="string">&quot;good&quot;</span><span class="punctuation">,</span> <span class="comment"># pm 변수 만들기</span></span><br><span class="line">                         ifelse<span class="punctuation">(</span>pm10<span class="operator">&lt;=</span><span class="number">81</span><span class="punctuation">,</span> <span class="string">&quot;normal&quot;</span><span class="punctuation">,</span></span><br><span class="line">                        ifelse<span class="punctuation">(</span>pm10<span class="operator">&lt;=</span><span class="number">150</span><span class="punctuation">,</span> <span class="string">&quot;bad&quot;</span><span class="punctuation">,</span> <span class="string">&quot;worse&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  group_by<span class="punctuation">(</span>pm_grade<span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 변수를 기준으로 분류</span></span><br><span class="line">  summarise<span class="punctuation">(</span>n<span class="operator">=</span>n<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 등급별 빈도 구하기</span></span><br><span class="line">  mutate<span class="punctuation">(</span>total<span class="operator">=</span><span class="built_in">sum</span><span class="punctuation">(</span>n<span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 변수의 빈도 총계구하기</span></span><br><span class="line">         pct<span class="operator">=</span><span class="built_in">round</span><span class="punctuation">(</span>n<span class="operator">/</span>total<span class="operator">*</span><span class="number">100</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span>  <span class="comment"># 백분율을 소수점 한자리까지 구하기</span></span><br><span class="line">  select<span class="punctuation">(</span>pm_grade<span class="punctuation">,</span>n<span class="punctuation">,</span>pct<span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment">#출력변수 지정</span></span><br><span class="line">  arrange<span class="punctuation">(</span>desc<span class="punctuation">(</span>n<span class="punctuation">)</span><span class="punctuation">)</span><span class="comment">#빈도 기준으로 내림차순 정렬</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">## # A tibble: 4 × 3</span><br><span class="line">##   pm_grade     n   pct</span><br><span class="line">##   &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;</span><br><span class="line">## 1 normal    4842  54.3</span><br><span class="line">## 2 good      3412  38.3</span><br><span class="line">## 3 bad        577   6.5</span><br><span class="line">## 4 worse       81   0.9</span><br></pre></td></tr></table></figure>
+<pre><code> -구별 미ㅔ먼지 등급 비교
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">seoulair <span class="operator">%&gt;%</span> </span><br><span class="line">  filter<span class="punctuation">(</span><span class="operator">!</span><span class="built_in">is.na</span><span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  mutate<span class="punctuation">(</span>pm_grade<span class="operator">=</span>ifelse<span class="punctuation">(</span>pm10<span class="operator">&lt;=</span><span class="number">30</span><span class="punctuation">,</span> <span class="string">&quot;good&quot;</span><span class="punctuation">,</span></span><br><span class="line">                         ifelse<span class="punctuation">(</span>pm10 <span class="operator">&lt;=</span> <span class="string">&quot;81&quot;</span><span class="punctuation">,</span> <span class="string">&quot;normal&quot;</span><span class="punctuation">,</span></span><br><span class="line">                                ifelse<span class="punctuation">(</span>pm10 <span class="operator">&lt;=</span> <span class="number">150</span><span class="punctuation">,</span> <span class="string">&quot;bad&quot;</span><span class="punctuation">,</span> <span class="string">&quot;worse&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  </span><br><span class="line">  group_by<span class="punctuation">(</span>district<span class="punctuation">,</span>pm_grade<span class="punctuation">)</span> <span class="operator">%&gt;%</span><span class="comment"># district별로 pm_grade 등급 분류</span></span><br><span class="line">  summarise<span class="punctuation">(</span>n<span class="operator">=</span>n<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 등급별 빈도 구하기</span></span><br><span class="line">  mutate<span class="punctuation">(</span>total<span class="operator">=</span><span class="built_in">sum</span><span class="punctuation">(</span>n<span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 변수의 빈도 총계구하기</span></span><br><span class="line">         pct<span class="operator">=</span><span class="built_in">round</span><span class="punctuation">(</span>n<span class="operator">/</span>total<span class="operator">*</span><span class="number">100</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span>  <span class="comment"># 백분율을 소수점 한자리까지 구하기</span></span><br><span class="line">  filter<span class="punctuation">(</span>pm_grade<span class="operator">==</span><span class="string">&quot;good&quot;</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment">#good 등급 데이터 추출</span></span><br><span class="line">  select<span class="punctuation">(</span>district<span class="punctuation">,</span>n<span class="punctuation">,</span>pct<span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 3개변수만 추출</span></span><br><span class="line">  arrange<span class="punctuation">(</span>desc<span class="punctuation">(</span>pct<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment">#백분율</span></span><br><span class="line">  head<span class="punctuation">(</span><span class="number">5</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## `summarise()` has grouped output by &#x27;district&#x27;. You can override using the</span><br><span class="line">## `.groups` argument.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">## # A tibble: 5 × 3</span><br><span class="line">## # Groups:   district [5]</span><br><span class="line">##   district     n   pct</span><br><span class="line">##   &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;</span><br><span class="line">## 1 용산구     196  54  </span><br><span class="line">## 2 중구       169  46.3</span><br><span class="line">## 3 중랑구     151  46.2</span><br><span class="line">## 4 종로구     163  44.7</span><br><span class="line">## 5 금천구     161  44.4</span><br></pre></td></tr></table></figure>
+<pre><code>- 1년 간 미세먼지 추이를 그래프로 그리기
+</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>data<span class="operator">=</span>seoulair<span class="punctuation">,</span>aes<span class="punctuation">(</span>x<span class="operator">=</span>date<span class="punctuation">,</span>y<span class="operator">=</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span>geom_line<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## Warning: Removed 48 row(s) containing missing values (geom_path).</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-23-1.png"><!-- --><br>    - 계절별 미세먼지 등급 비율 그래프 그리기</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">season_grade <span class="operator">&lt;-</span> seoulair <span class="operator">%&gt;%</span> </span><br><span class="line"> filter<span class="punctuation">(</span><span class="operator">!</span><span class="built_in">is.na</span><span class="punctuation">(</span>pm10<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line"> mutate<span class="punctuation">(</span>pm_grade<span class="operator">=</span>ifelse<span class="punctuation">(</span>pm10<span class="operator">&lt;=</span><span class="number">30</span><span class="punctuation">,</span> <span class="string">&quot;good&quot;</span><span class="punctuation">,</span></span><br><span class="line">                         ifelse<span class="punctuation">(</span>pm10 <span class="operator">&lt;=</span> <span class="string">&quot;81&quot;</span><span class="punctuation">,</span> <span class="string">&quot;normal&quot;</span><span class="punctuation">,</span></span><br><span class="line">                                ifelse<span class="punctuation">(</span>pm10 <span class="operator">&lt;=</span> <span class="number">150</span><span class="punctuation">,</span> <span class="string">&quot;bad&quot;</span><span class="punctuation">,</span> <span class="string">&quot;worse&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  group_by<span class="punctuation">(</span>season<span class="punctuation">,</span>pm_grade<span class="punctuation">)</span> <span class="operator">%&gt;%</span><span class="comment"># district별로 pm_grade 등급 분류</span></span><br><span class="line">  summarise<span class="punctuation">(</span>n<span class="operator">=</span>n<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span> <span class="comment"># 등급별 빈도 구하기</span></span><br><span class="line">  mutate<span class="punctuation">(</span>total<span class="operator">=</span><span class="built_in">sum</span><span class="punctuation">(</span>n<span class="punctuation">)</span><span class="punctuation">,</span> <span class="comment"># 변수의 빈도 총계구하기</span></span><br><span class="line">         pct<span class="operator">=</span><span class="built_in">round</span><span class="punctuation">(</span>n<span class="operator">/</span>total<span class="operator">*</span><span class="number">100</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span>  <span class="comment"># 백분율을 소수점 한자리까지 구하기</span></span><br><span class="line">  select<span class="punctuation">(</span>season<span class="punctuation">,</span>pm_grade<span class="punctuation">,</span>pct<span class="punctuation">)</span>  <span class="comment"># 3개변수만 추출</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## `summarise()` has grouped output by &#x27;season&#x27;. You can override using the</span><br><span class="line">## `.groups` argument.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>data<span class="operator">=</span>season_grade<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>season<span class="punctuation">,</span> y<span class="operator">=</span>pct<span class="punctuation">,</span> fill<span class="operator">=</span>pm_grade<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">   geom_col<span class="punctuation">(</span>position <span class="operator">=</span> <span class="string">&quot;dodge&quot;</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">   scale_x_discrete<span class="punctuation">(</span>limits<span class="operator">=</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;spring&quot;</span><span class="punctuation">,</span><span class="string">&quot;summer&quot;</span><span class="punctuation">,</span><span class="string">&quot;autumn&quot;</span><span class="punctuation">,</span><span class="string">&quot;winter&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">   ggtitle<span class="punctuation">(</span><span class="string">&quot;2019년 서울의 계절별 미세먼지 실태&quot;</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">   xlab<span class="punctuation">(</span><span class="string">&quot;계절&quot;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">   ylab<span class="punctuation">(</span><span class="string">&quot;등급별 비율&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0623_R-%ED%86%B5%EA%B3%84_files/figure-html/unnamed-chunk-24-1.png"><!-- --></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/06/23/0623_R-%ED%86%B5%EA%B3%84/" data-id="cl4qtajgd00000wtvhidt519n" data-title="0623_R 통계" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/06/23/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          그래프 옵션
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/22/day0622/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">day0622</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/23/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98/">그래프 옵션</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/23/0623_R-%ED%86%B5%EA%B3%84/">0623_R 통계</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/22/day0622/">day0622</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/22/day0622_visual/">day0622_visual</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/21/test0621/">데이터 불러오기, 연산 및 기본 함수</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
