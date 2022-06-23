@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>그래프 옵션 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="제목 변경 아래와 같이 작성 시 md 파일 왼쪽에 빠르게 찾아가기가 생성된다.  title: “”output: html_document:  toc: true  toc_float: true  keep_md: truedate: ‘2022-06-23 10:00:00    그래프 복습iris 데이터, sepal.length, sepal.width 활용해서 종별로">
+<meta property="og:type" content="article">
+<meta property="og:title" content="그래프 옵션">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/06/23/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="제목 변경 아래와 같이 작성 시 md 파일 왼쪽에 빠르게 찾아가기가 생성된다.  title: “”output: html_document:  toc: true  toc_float: true  keep_md: truedate: ‘2022-06-23 10:00:00    그래프 복습iris 데이터, sepal.length, sepal.width 활용해서 종별로">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98_files/figure-html/unnamed-chunk-1-1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98_files/figure-html/unnamed-chunk-1-2.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98_files/figure-html/unnamed-chunk-1-3.png">
+<meta property="article:published_time" content="2022-06-23T01:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-23T03:12:22.851Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98_files/figure-html/unnamed-chunk-1-1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0623_그래프-옵션" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/23/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98/" class="article-date">
+  <time class="dt-published" datetime="2022-06-23T01:00:00.000Z" itemprop="datePublished">2022-06-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      그래프 옵션
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="제목-변경"><a href="#제목-변경" class="headerlink" title="제목 변경"></a>제목 변경</h2><ul>
+<li><p>아래와 같이 작성 시 md 파일 왼쪽에 빠르게 찾아가기가 생성된다.</p>
+<ul>
+<li>title: “”<br>output:<br> html_document:<br>  toc: true<br>  toc_float: true<br>  keep_md: true<br>date: ‘2022-06-23 10:00:00</li>
+</ul>
+</li>
+</ul>
+<h2 id="그래프-복습"><a href="#그래프-복습" class="headerlink" title="그래프 복습"></a>그래프 복습</h2><p>iris 데이터, sepal.length, sepal.width 활용해서 종별로 산점도를 그리세요.<br>(제목과 x축, y축 제목을 변경하세요</p>
+<ul>
+<li>x축 길이, y축 너비)</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#install.packages(&quot;ggplot2&quot;)</span></span><br><span class="line">library<span class="punctuation">(</span>ggplot2<span class="punctuation">)</span></span><br><span class="line">str<span class="punctuation">(</span>iris<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## &#x27;data.frame&#x27;:	150 obs. of  5 variables:</span><br><span class="line">##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...</span><br><span class="line">##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...</span><br><span class="line">##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...</span><br><span class="line">##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...</span><br><span class="line">##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>iris<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> Sepal.Length<span class="punctuation">,</span> y<span class="operator">=</span>Sepal.Width<span class="punctuation">,</span> </span><br><span class="line">                 <span class="comment">#종별 산점도</span></span><br><span class="line">                colour <span class="operator">=</span> Species<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_point<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  labs <span class="punctuation">(</span>title <span class="operator">=</span> <span class="string">&quot;제목&quot;</span><span class="punctuation">,</span></span><br><span class="line">    x <span class="operator">=</span> <span class="string">&quot;길이&quot;</span><span class="punctuation">,</span></span><br><span class="line">    y <span class="operator">=</span> <span class="string">&quot;너비&quot;</span></span><br><span class="line">  <span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98_files/figure-html/unnamed-chunk-1-1.png"><!-- --></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#옵션 추가</span></span><br><span class="line">ggplot<span class="punctuation">(</span>iris<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> Sepal.Length<span class="punctuation">,</span> y<span class="operator">=</span>Sepal.Width<span class="punctuation">,</span> </span><br><span class="line">                 <span class="comment">#종별 산점도</span></span><br><span class="line">                colour <span class="operator">=</span> Species<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_point<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  labs <span class="punctuation">(</span>title <span class="operator">=</span> <span class="string">&quot;제목&quot;</span><span class="punctuation">,</span></span><br><span class="line">    x <span class="operator">=</span> <span class="string">&quot;길이&quot;</span><span class="punctuation">,</span></span><br><span class="line">    y <span class="operator">=</span> <span class="string">&quot;너비&quot;</span></span><br><span class="line">  <span class="punctuation">)</span> <span class="operator">+</span> <span class="comment"># 종별로 다른색 칠하기</span></span><br><span class="line">  scale_color_manual<span class="punctuation">(</span>labels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;setosa&quot;</span><span class="punctuation">,</span> <span class="string">&quot;versicolor&quot;</span><span class="punctuation">,</span> <span class="string">&quot;virginica&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">                     values <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;red&quot;</span><span class="punctuation">,</span> <span class="string">&quot;blue&quot;</span><span class="punctuation">,</span> <span class="string">&quot;yellow&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  <span class="comment"># 그래프 테마 바꾸기</span></span><br><span class="line">  theme_classic<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98_files/figure-html/unnamed-chunk-1-2.png"><!-- --></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str<span class="punctuation">(</span>economics<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">## spec_tbl_df [574 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span><br><span class="line">##  $ date    : Date[1:574], format: &quot;1967-07-01&quot; &quot;1967-08-01&quot; ...</span><br><span class="line">##  $ pce     : num [1:574] 507 510 516 512 517 ...</span><br><span class="line">##  $ pop     : num [1:574] 198712 198911 199113 199311 199498 ...</span><br><span class="line">##  $ psavert : num [1:574] 12.6 12.6 11.9 12.9 12.8 11.8 11.7 12.3 11.7 12.3 ...</span><br><span class="line">##  $ uempmed : num [1:574] 4.5 4.7 4.6 4.9 4.7 4.8 5.1 4.5 4.1 4.6 ...</span><br><span class="line">##  $ unemploy: num [1:574] 2944 2945 2958 3143 3066 ...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>economics<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>pop<span class="punctuation">,</span> y<span class="operator">=</span>psavert<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_point<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98_files/figure-html/unnamed-chunk-1-3.png"><!-- --></p>
+<p>ggplot2 사이트 참고(<a target="_blank" rel="noopener" href="https://exts.ggplot2.tidyverse.org/gallery/">https://exts.ggplot2.tidyverse.org/gallery/</a>)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/06/23/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98/" data-id="cl4qg74bx00002otv8pr7c7yp" data-title="그래프 옵션" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/22/day0622/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">day0622</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/23/0623_%EA%B7%B8%EB%9E%98%ED%94%84-%EC%98%B5%EC%85%98/">그래프 옵션</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/22/day0622/">day0622</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/22/day0622_visual/">day0622_visual</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/21/test0621/">데이터 불러오기, 연산 및 기본 함수</a>
+          </li>
+        
+          <li>
+            <a href="/2022/06/21/test0/">6/17 github 블로그</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
