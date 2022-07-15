@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0715_계산기 만들기 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="계산기 만들기1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0715_계산기 만들기">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/07/15/%EA%B3%84%EC%82%B0%EA%B8%B0_%EB%A7%8C%EB%93%A4%EA%B8%B0/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="계산기 만들기1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-15T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-15T02:35:56.491Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-계산기_만들기" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/15/%EA%B3%84%EC%82%B0%EA%B8%B0_%EB%A7%8C%EB%93%A4%EA%B8%B0/" class="article-date">
+  <time class="dt-published" datetime="2022-07-15T00:00:00.000Z" itemprop="datePublished">2022-07-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0715_계산기 만들기
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="계산기-만들기"><a href="#계산기-만들기" class="headerlink" title="계산기 만들기"></a>계산기 만들기</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">## 계산기 만들기</span><br><span class="line"></span><br><span class="line">## 필요한 모듈, 라이브러리를 불러온다.</span><br><span class="line">import sys</span><br><span class="line">from PyQt5.QtWidgets import *</span><br><span class="line"></span><br><span class="line">## 클래스를 생성한다.</span><br><span class="line">class Main(QDialog):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.init_ui()</span><br><span class="line"></span><br><span class="line">    def init_ui(self):</span><br><span class="line">        main_layout = QVBoxLayout()</span><br><span class="line"></span><br><span class="line">        ### 각 위젯을 배치할 레이아웃을 미리 만들어 놓는다.</span><br><span class="line">        layout_operation = QHBoxLayout()</span><br><span class="line">        layout_clear_equal = QHBoxLayout()</span><br><span class="line">        layout_number = QGridLayout()</span><br><span class="line">        layout_equation_solution = QFormLayout()</span><br><span class="line"></span><br><span class="line">        ### 수식 입력과 답 출력을 위한 LineEdit 위젯 생성한다.</span><br><span class="line">        label_equation = QLabel(&quot;Equation: &quot;)</span><br><span class="line">        label_solution = QLabel(&quot;Solution: &quot;)</span><br><span class="line">        self.equation = QLineEdit(&quot;&quot;)</span><br><span class="line">        self.solution = QLineEdit(&quot;&quot;)</span><br><span class="line"></span><br><span class="line">        ### layout_equation_solution 레이아웃에 수식, 답 위젯을 추가한다.</span><br><span class="line">        layout_equation_solution.addRow(label_equation, self.equation)</span><br><span class="line">        layout_equation_solution.addRow(label_solution, self.solution)</span><br><span class="line"></span><br><span class="line">        ### 사칙연산 버튼 생성한다.</span><br><span class="line">        button_plus = QPushButton(&quot;+&quot;)</span><br><span class="line">        button_minus = QPushButton(&quot;-&quot;)</span><br><span class="line">        button_product = QPushButton(&quot;x&quot;)</span><br><span class="line">        button_division = QPushButton(&quot;/&quot;)</span><br><span class="line"></span><br><span class="line">        ### 사칙연산 버튼을 클릭했을 때, 각 사칙연산 부호가 수식창에 추가될 수 있도록 시그널을 설정한다.</span><br><span class="line">        button_plus.clicked.connect(lambda state, operation = &quot;+&quot;: self.button_operation_clicked(operation))</span><br><span class="line">        button_minus.clicked.connect(lambda state, operation = &quot;-&quot;: self.button_operation_clicked(operation))</span><br><span class="line">        button_product.clicked.connect(lambda state, operation = &quot;*&quot;: self.button_operation_clicked(operation))</span><br><span class="line">        button_division.clicked.connect(lambda state, operation = &quot;/&quot;: self.button_operation_clicked(operation))</span><br><span class="line"></span><br><span class="line">        ### 사칙연산 버튼을 layout_operation 레이아웃에 추가한다.</span><br><span class="line">        layout_operation.addWidget(button_plus)</span><br><span class="line">        layout_operation.addWidget(button_minus)</span><br><span class="line">        layout_operation.addWidget(button_product)</span><br><span class="line">        layout_operation.addWidget(button_division)</span><br><span class="line"></span><br><span class="line">        ### =, clear, backspace 버튼 생성한다.</span><br><span class="line">        button_equal = QPushButton(&quot;=&quot;)</span><br><span class="line">        button_clear = QPushButton(&quot;Clear&quot;)</span><br><span class="line">        button_backspace = QPushButton(&quot;Backspace&quot;)</span><br><span class="line"></span><br><span class="line">        ### =, clear, backspace 버튼 클릭 시 시그널을 설정한다.</span><br><span class="line">        button_equal.clicked.connect(self.button_equal_clicked)</span><br><span class="line">        button_clear.clicked.connect(self.button_clear_clicked)</span><br><span class="line">        button_backspace.clicked.connect(self.button_backspace_clicked)</span><br><span class="line"></span><br><span class="line">        ### =, clear, backspace 버튼을 layout_clear_equal 레이아웃에 추가한다.</span><br><span class="line">        layout_clear_equal.addWidget(button_clear)</span><br><span class="line">        layout_clear_equal.addWidget(button_backspace)</span><br><span class="line">        layout_clear_equal.addWidget(button_equal)</span><br><span class="line"></span><br><span class="line">        ### 숫자 버튼 생성하고, layout_number 레이아웃에 추가</span><br><span class="line">        ### 각 숫자 버튼을 클릭했을 때, 숫자가 수식창에 입력 될 수 있도록 시그널 설정</span><br><span class="line">        number_button_dict = &#123;&#125;</span><br><span class="line">        for number in range(0, 10):</span><br><span class="line">            number_button_dict[number] = QPushButton(str(number))</span><br><span class="line">            number_button_dict[number].clicked.connect(lambda state, num = number:</span><br><span class="line">                                                       self.number_button_clicked(num))</span><br><span class="line">            if number &gt;0:</span><br><span class="line">                x,y = divmod(number-1, 3)</span><br><span class="line">                layout_number.addWidget(number_button_dict[number], x, y)</span><br><span class="line">            elif number==0:</span><br><span class="line">                layout_number.addWidget(number_button_dict[number], 3, 1)</span><br><span class="line"></span><br><span class="line">        ### 소숫점 버튼과 00 버튼을 입력하고 시그널을 설정한다.</span><br><span class="line">        button_dot = QPushButton(&quot;.&quot;)</span><br><span class="line">        button_dot.clicked.connect(lambda state, num = &quot;.&quot;: self.number_button_clicked(num))</span><br><span class="line">        layout_number.addWidget(button_dot, 3, 2)</span><br><span class="line"></span><br><span class="line">        button_double_zero = QPushButton(&quot;00&quot;)</span><br><span class="line">        button_double_zero.clicked.connect(lambda state, num = &quot;00&quot;: self.number_button_clicked(num))</span><br><span class="line">        layout_number.addWidget(button_double_zero, 3, 0)</span><br><span class="line"></span><br><span class="line">        ### 각 레이아웃을 main_layout 레이아웃에 추가한다.</span><br><span class="line">        main_layout.addLayout(layout_equation_solution)</span><br><span class="line">        main_layout.addLayout(layout_operation)</span><br><span class="line">        main_layout.addLayout(layout_clear_equal)</span><br><span class="line">        main_layout.addLayout(layout_number)</span><br><span class="line"></span><br><span class="line">        self.setLayout(main_layout)</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def number_button_clicked(self, num):</span><br><span class="line">        equation = self.equation.text()</span><br><span class="line">        equation += str(num)</span><br><span class="line">        self.equation.setText(equation)</span><br><span class="line"></span><br><span class="line">    def button_operation_clicked(self, operation):</span><br><span class="line">        equation = self.equation.text()</span><br><span class="line">        equation += operation</span><br><span class="line">        self.equation.setText(equation)</span><br><span class="line"></span><br><span class="line">    def button_equal_clicked(self):</span><br><span class="line">        equation = self.equation.text()</span><br><span class="line">        solution = eval(equation)</span><br><span class="line">        self.solution.setText(str(solution))</span><br><span class="line"></span><br><span class="line">    def button_clear_clicked(self):</span><br><span class="line">        self.equation.setText(&quot;&quot;)</span><br><span class="line">        self.solution.setText(&quot;&quot;)</span><br><span class="line"></span><br><span class="line">    def button_backspace_clicked(self):</span><br><span class="line">        equation = self.equation.text()</span><br><span class="line">        equation = equation[:-1]</span><br><span class="line">        self.equation.setText(equation)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    app = QApplication(sys.argv)</span><br><span class="line">    main = Main()</span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/15/%EA%B3%84%EC%82%B0%EA%B8%B0_%EB%A7%8C%EB%93%A4%EA%B8%B0/" data-id="cl5lup1ws00017ctvbfev9j3z" data-title="0715_계산기 만들기" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          0715_exe파일로 변환하기
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/08/sonham-s-sample%20(1)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0707_KAGGLE입문</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/">0715_exe파일로 변환하기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/15/%EA%B3%84%EC%82%B0%EA%B8%B0_%EB%A7%8C%EB%93%A4%EA%B8%B0/">0715_계산기 만들기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/08/sonham-s-sample%20(1)/">0707_KAGGLE입문</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/08/final-lecture-0708/">0708_KAGGLE입문</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/06/0706/">0706</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
