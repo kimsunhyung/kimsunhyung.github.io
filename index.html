@@ -71,6 +71,590 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-0718" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/18/0718/" class="article-date">
+  <time class="dt-published" datetime="2022-07-18T06:53:02.000Z" itemprop="datePublished">2022-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd </span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> mlflow </span><br><span class="line"><span class="keyword">import</span> mlflow.sklearn</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split, KFold</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_auc_score, plot_roc_curve, confusion_matrix </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;numpy version <span class="subst">&#123;np.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;pandas version <span class="subst">&#123;pd.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;matplotlib version <span class="subst">&#123;mpl.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;seaborn version <span class="subst">&#123;sns.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;sklearn version <span class="subst">&#123;sklearn.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;MLFlow version <span class="subst">&#123;mlflow.__version__&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>numpy version 1.23.1
+pandas version 1.4.3
+matplotlib version 3.5.2
+seaborn version 0.11.2
+sklearn version 1.1.1
+MLFlow version 1.27.0
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.getcwd()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;C:\\Users\\User\\Desktop\\mlops_sample\\src&#39;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">DATA_PATH = <span class="string">&quot;C:\\Users\\User\\Desktop\\mlops_sample\\data\\&quot;</span></span><br><span class="line"></span><br><span class="line">train_df = pd.read_csv(DATA_PATH + <span class="string">&quot;train.csv&quot;</span>)</span><br><span class="line">test = pd.read_csv(DATA_PATH + <span class="string">&quot;test.csv&quot;</span>)</span><br><span class="line">submission = pd.read_csv(DATA_PATH +<span class="string">&quot;gender_submission.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line">train_df.shape, test.shape, submission.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((891, 12), (418, 11), (418, 2))
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+</code></pre>
+<ul>
+<li>age, cabin, emarbked에 대해 결측치 존재함</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df.isnull().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
+</code></pre>
+<h2 id="데이터-시각화"><a href="#데이터-시각화" class="headerlink" title="데이터 시각화"></a>데이터 시각화</h2><ul>
+<li>종속 변수는 survived임</li>
+<li>숫자 1은 생존을 의미하고, 0은 사망을 의미</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">survived = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">1</span>]</span><br><span class="line">deceased = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Survived:<span class="subst">&#123;survived.shape&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Deceased:<span class="subst">&#123;deceased.shape&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Survived:(342, 12)
+Deceased:(549, 12)
+</code></pre>
+<ul>
+<li>seaborn</li>
+<li>matplot</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class_df = train_df[<span class="string">&#x27;Survived&#x27;</span>].value_counts(sort=<span class="literal">True</span>)</span><br><span class="line">class_df</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line">ax.bar(class_df.index,class_df.values, color = <span class="string">&#x27;maroon&#x27;</span>, width = <span class="number">0.4</span>)</span><br><span class="line">ax.set_xticks(<span class="built_in">range</span>(<span class="number">2</span>), [<span class="string">&#x27;Deceased&#x27;</span>,<span class="string">&#x27;Survived&#x27;</span>])</span><br><span class="line">ax.set_title(<span class="string">&#x27;Class Distribution&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;Counts&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;Class Label&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_9_0.png" alt="png"></p>
+<ul>
+<li>연령별 분포를 확인한다.</li>
+<li>연령별로 확인 구분이 잘 안됨.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots()</span><br><span class="line">ax.scatter(train_df[<span class="string">&#x27;Age&#x27;</span>], train_df[<span class="string">&#x27;Survived&#x27;</span>])</span><br><span class="line">ax.set_title(<span class="string">&quot;Age by Survived&quot;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&quot;Class&quot;</span>)</span><br><span class="line">ax.set_yticks(<span class="built_in">range</span>(<span class="number">2</span>), [<span class="string">&quot;Deceased&quot;</span>, <span class="string">&quot;Survived&quot;</span>])</span><br><span class="line">ax.set_xlabel(<span class="string">&quot;Survived By Age&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_11_0.png" alt="png"></p>
+<ul>
+<li>사용자 정의함수를 만들어서 활용</li>
+<li>seaborn counyplot()   함수 활용</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column =<span class="string">&#x27;Sex&#x27;</span></span><br><span class="line">train_df[[column, <span class="string">&#x27;Survived&#x27;</span>]].groupby([column]).mean().plot.bar()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;Sex&#39;&gt;
+</code></pre>
+<p><img src="/images/0718/output_13_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_bar</span>(<span class="params">data, column=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> column <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># 시각화 코드 작성</span></span><br><span class="line">        fig, ax = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">18</span>, <span class="number">8</span>))</span><br><span class="line">        data[[column, <span class="string">&quot;Survived&quot;</span>]].groupby([column]).mean().plot.bar(ax=ax[<span class="number">0</span>])</span><br><span class="line">        sns.countplot(x = column, hue = <span class="string">&quot;Survived&quot;</span>, data = data, ax=ax[<span class="number">1</span>])</span><br><span class="line">        ax[<span class="number">1</span>].legend(labels = [<span class="string">&#x27;Dead&#x27;</span>, <span class="string">&#x27;Survived&#x27;</span>])</span><br><span class="line">        ax[<span class="number">1</span>].set_title(<span class="string">f&#x27;<span class="subst">&#123;column&#125;</span>:Survived vs Dead&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Please Enter Column&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># return No</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>여성이 남성보다 상대적으로 많이 생존했다</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column = <span class="string">&#x27;Sex&#x27;</span></span><br><span class="line">plot_bar(train_df,column)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_16_0.png" alt="png"></p>
+<ul>
+<li>pclass 변 생존 유무 막대그래프를 그려본다</li>
+<li>1번 클래스에 속할수록 생존확률이 높다</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column = <span class="string">&quot;Pclass&quot;</span></span><br><span class="line">plot_bar(train_df, column)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_18_0.png" alt="png"></p>
+<h2 id="결측치-대치"><a href="#결측치-대치" class="headerlink" title="결측치 대치"></a>결측치 대치</h2><ul>
+<li>컬럼 3개</li>
+<li>cabin 컬럼 삭제</li>
+<li>embarked 2개뿐, 최빈도로 채워넣기</li>
+<li>age 117개</li>
+<li>그룹으로 대치</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+</code></pre>
+<ul>
+<li>NAME 피처확인</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Name&#x27;</span>][:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0                              Braund, Mr. Owen Harris
+1    Cumings, Mrs. John Bradley (Florence Briggs Th...
+2                               Heikkinen, Miss. Laina
+3         Futrelle, Mrs. Jacques Heath (Lily May Peel)
+4                             Allen, Mr. William Henry
+Name: Name, dtype: object
+</code></pre>
+<ul>
+<li>호칭의 패턴을 보고 데이터 추출</li>
+<li>정규 표현식 키워드</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Initial&#x27;</span>] = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> [train_df, test]:</span><br><span class="line">    train_df[<span class="string">&#x27;Initial&#x27;</span>] = train_df[<span class="string">&#x27;Name&#x27;</span>].<span class="built_in">str</span>.extract(<span class="string">&#x27;([A-Za-z]+)\.&#x27;</span>) <span class="comment"># </span></span><br><span class="line">    test[<span class="string">&#x27;Initial&#x27;</span>] = test[<span class="string">&#x27;Name&#x27;</span>].<span class="built_in">str</span>.extract(<span class="string">&#x27;([A-Za-z]+)\.&#x27;</span>) <span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df[[<span class="string">&#x27;Name&#x27;</span>,<span class="string">&#x27;Initial&#x27;</span>]].head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Initial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>Mr</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>Mrs</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>Miss</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>Mrs</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Allen, Mr. William Henry</td>
+      <td>Mr</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.crosstab(train_df[<span class="string">&#x27;Initial&#x27;</span>],train_df[<span class="string">&#x27;Sex&#x27;</span>]).T</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Initial</th>
+      <th>Capt</th>
+      <th>Col</th>
+      <th>Countess</th>
+      <th>Don</th>
+      <th>Dr</th>
+      <th>Jonkheer</th>
+      <th>Lady</th>
+      <th>Major</th>
+      <th>Master</th>
+      <th>Miss</th>
+      <th>Mlle</th>
+      <th>Mme</th>
+      <th>Mr</th>
+      <th>Mrs</th>
+      <th>Ms</th>
+      <th>Rev</th>
+      <th>Sir</th>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>female</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>182</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>125</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>6</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>40</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>517</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.crosstab(test[<span class="string">&#x27;Initial&#x27;</span>], test[<span class="string">&#x27;Sex&#x27;</span>]).T</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Initial</th>
+      <th>Col</th>
+      <th>Dona</th>
+      <th>Dr</th>
+      <th>Master</th>
+      <th>Miss</th>
+      <th>Mr</th>
+      <th>Mrs</th>
+      <th>Ms</th>
+      <th>Rev</th>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>female</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>78</td>
+      <td>0</td>
+      <td>72</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>21</td>
+      <td>0</td>
+      <td>240</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<ul>
+<li>미성년자, MISS, MR, MRS, OTHER</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b4_title    = [<span class="string">&#x27;Mlle&#x27;</span>,<span class="string">&#x27;Mme&#x27;</span>,<span class="string">&#x27;Ms&#x27;</span>,<span class="string">&#x27;Dr&#x27;</span>,<span class="string">&#x27;Major&#x27;</span>,<span class="string">&#x27;Lady&#x27;</span>,<span class="string">&#x27;Countess&#x27;</span>,<span class="string">&#x27;Jonkheer&#x27;</span>,<span class="string">&#x27;Col&#x27;</span>,<span class="string">&#x27;Rev&#x27;</span>,<span class="string">&#x27;Capt&#x27;</span>,<span class="string">&#x27;Sir&#x27;</span>,<span class="string">&#x27;Don&#x27;</span>, <span class="string">&#x27;Dona&#x27;</span>]</span><br><span class="line">after_title = [<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mrs&#x27;</span>,<span class="string">&#x27;Mrs&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>, <span class="string">&#x27;Miss&#x27;</span>]</span><br><span class="line"></span><br><span class="line">train_df[<span class="string">&#x27;Initial&#x27;</span>] = train_df[<span class="string">&#x27;Initial&#x27;</span>].replace(b4_title, after_title)</span><br><span class="line">train_df.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(891, 13)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test[<span class="string">&#x27;Initial&#x27;</span>] = test[<span class="string">&#x27;Initial&#x27;</span>].replace(b4_title,after_title)</span><br><span class="line">test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(418, 12)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ini_age_df = train_df.groupby(<span class="string">&#x27;Initial&#x27;</span>)[<span class="string">&#x27;Age&#x27;</span>].mean()</span><br><span class="line">ini_age_df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Initial
+Master     4.574167
+Miss      21.860000
+Mr        32.739609
+Mrs       35.981818
+Other     45.888889
+Name: Age, dtype: float64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ini_age_df[<span class="string">&#x27;Master&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>4.574166666666667
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mr&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">33</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mrs&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">36</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Master&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">5</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Miss&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">22</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Other&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">46</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mr&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">33</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mrs&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">39</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Master&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">8</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Miss&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">22</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Other&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">43</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fare Median</span></span><br><span class="line">test[<span class="string">&#x27;Fare&#x27;</span>] = test[<span class="string">&#x27;Fare&#x27;</span>].fillna(np.mean(test[<span class="string">&#x27;Fare&#x27;</span>]))</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>].value_counts()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>S    644
+C    168
+Q     77
+Name: Embarked, dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>] = train_df[<span class="string">&#x27;Embarked&#x27;</span>].fillna(<span class="string">&#x27;S&#x27;</span>)</span><br><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>].isnull().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column = <span class="string">&#x27;Initial&#x27;</span></span><br><span class="line">plot_bar(train_df, column)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_37_0.png" alt="png"></p>
+<h2 id="Feature-제거"><a href="#Feature-제거" class="headerlink" title="Feature 제거"></a>Feature 제거</h2><ul>
+<li>불필요한 컬럼을 제거한다<ul>
+<li>Name 피처 제거</li>
+<li>Ticket 피처 제거(무작위 문자열)</li>
+<li>Cabin 결측치 너무 많음</li>
+<li>Passenger ID 제거</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cols = [<span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>, <span class="string">&#x27;Cabin&#x27;</span>, <span class="string">&#x27;PassengerId&#x27;</span>]</span><br><span class="line">train_df = train_df.drop(cols, axis = <span class="number">1</span>)</span><br><span class="line">test = test.drop(cols, axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">train_df.shape, test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((891, 9), (418, 8))
+</code></pre>
+<h2 id="인코딩-변환"><a href="#인코딩-변환" class="headerlink" title="인코딩 변환"></a>인코딩 변환</h2><ul>
+<li>ordinal encoding, label encoding, one - hot encoding</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_df = pd.get_dummies(train_df)</span><br><span class="line">test = pd.get_dummies(test)</span><br><span class="line"></span><br><span class="line">train_df.shape, test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((891, 16), (418, 15))
+</code></pre>
+<h2 id="데이터-셋-분리"><a href="#데이터-셋-분리" class="headerlink" title="데이터 셋 분리"></a>데이터 셋 분리</h2><ul>
+<li>분류 학습 진행 시, 불균형 데이터셋을 분리할때 종종 쓰는 코드</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deceased = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">0</span>].sample(frac=<span class="number">0.5</span>, random_state=<span class="number">42</span>).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">survived = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">deceased_train, deceased_test = train_test_split(deceased, test_size = <span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line">survived_train, survived_test = train_test_split(survived, test_size = <span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">deceased_train, deceased_validate = train_test_split(deceased_train, test_size = <span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line">survived_train, survived_validate = train_test_split(survived_train, test_size = <span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">deceased_train.shape, deceased_validate.shape, survived_train.shape, survived_validate.shape </span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((164, 16), (55, 16), (204, 16), (69, 16))
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">X_train = pd.concat((deceased_train, survived_train))</span><br><span class="line">X_test = pd.concat((deceased_test, survived_test))</span><br><span class="line">X_validate = pd.concat((deceased_validate, survived_validate))</span><br><span class="line"></span><br><span class="line">y_train = np.array(X_train[<span class="string">&quot;Survived&quot;</span>])</span><br><span class="line">y_test = np.array(X_test[<span class="string">&quot;Survived&quot;</span>])</span><br><span class="line">y_validate = np.array(X_validate[<span class="string">&quot;Survived&quot;</span>])</span><br><span class="line"></span><br><span class="line">X_train = X_train.drop(<span class="string">&quot;Survived&quot;</span>, axis = <span class="number">1</span>)</span><br><span class="line">X_test = X_test.drop(<span class="string">&quot;Survived&quot;</span>, axis = <span class="number">1</span>)</span><br><span class="line">X_validate = X_validate.drop(<span class="string">&quot;Survived&quot;</span>, axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X_train.shape, X_validate.shape, X_test.shape, y_train.shape, y_validate.shape, y_test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((368, 15), (124, 15), (124, 15), (368,), (124,), (124,))
+</code></pre>
+<h2 id="mlflow-학습-및-평가"><a href="#mlflow-학습-및-평가" class="headerlink" title="mlflow 학습 및 평가"></a>mlflow 학습 및 평가</h2><ul>
+<li>모형 만들고, 예측하고, 제출하면 끝</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">ml_model, X_train, y_train</span>):</span><br><span class="line">    ml_model = ml_model.fit(X_train, y_train)</span><br><span class="line">    train_acc = ml_model.score(X_train, y_train)</span><br><span class="line">    mlflow.log_metric(<span class="string">&quot;train_acc&quot;</span>, train_acc)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Train Accuracy: (train_acc:.3%)&quot;</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evaluate</span>(<span class="params">ml_model, X_test, y_test</span>):</span><br><span class="line">    eval_acc = ml_model.score(X_test, y_test)</span><br><span class="line">    preds = ml_model.predict(X_test)</span><br><span class="line">    auc_score = roc_auc_score(y_test, preds)</span><br><span class="line">    mlflow.log_metric(<span class="string">&quot;eval_acc&quot;</span>, eval_acc)</span><br><span class="line">    mlflow.log_metric(<span class="string">&quot;auc_score&quot;</span>, auc_score)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Auc Score : <span class="subst">&#123;auc_score:<span class="number">.3</span>%&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Eval Score : <span class="subst">&#123;eval_acc:<span class="number">.3</span>%&#125;</span>&quot;</span>)</span><br><span class="line">    roc_plot = plot_roc_curve(ml_model, X_test, y_test, name=<span class="string">&quot;Scikit-Learn ROC Curve&quot;</span>)</span><br><span class="line">    plt.savefig(<span class="string">&quot;sklearn_roc_plot.png&quot;</span>)</span><br><span class="line">    plt.show()</span><br><span class="line">    plt.clf()</span><br><span class="line">    conf_matrix = confusion_matrix(y_test, preds)</span><br><span class="line">    ax = sns.heatmap(conf_matrix, annot=<span class="literal">True</span>, fmt=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    ax.invert_xaxis()</span><br><span class="line">    ax.invert_yaxis()</span><br><span class="line">    plt.ylabel(<span class="string">&quot;Actual&quot;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;Predicted&quot;</span>)</span><br><span class="line">    plt.title(<span class="string">&quot;Confusion Matrix&quot;</span>)</span><br><span class="line">    plt.savefig(<span class="string">&quot;sklearn_conf_matrix.png&quot;</span>)</span><br><span class="line">    mlflow.log_artifact(<span class="string">&quot;sklearn_roc_plot.png&quot;</span>)</span><br><span class="line">    mlflow.log_artifact(<span class="string">&quot;sklearn_conf_matrix.png&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>테스트</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ml_model = LogisticRegression(random_state=<span class="literal">None</span>, max_iter=<span class="number">400</span>, solver=<span class="string">&#x27;newton-cg&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 실험 이름 설정</span></span><br><span class="line">mlflow.set_experiment(<span class="string">&quot;human_sklearn_experiment&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 해당 이름으로 실행 배치</span></span><br><span class="line"><span class="keyword">with</span> mlflow.start_run():</span><br><span class="line">    train(ml_model, X_train, y_train)</span><br><span class="line">    evaluate(ml_model, X_test, y_test)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 하나의 MLFlow 실행 컨텍스트에서 모든 코드를 묶을 수 있음. </span></span><br><span class="line">    <span class="comment"># 참조 : https://mlflow.org/docs/latest/models.html#model-customization</span></span><br><span class="line">    mlflow.sklearn.log_model(ml_model, <span class="string">&#x27;log_reg_model&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 본질적으로 모델과 지표가 로깅되는 현재 실행을 가져오고 출력함. </span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model run: &quot;</span>, mlflow.active_run().info.run_uuid)</span><br><span class="line">mlflow.end_run()</span><br></pre></td></tr></table></figure>
+
+<pre><code>Train Accuracy: (train_acc:.3%)
+Auc Score : 78.748%
+Eval Score : 79.839%
+
+
+C:\Users\User\Desktop\mlops_sample\venv\lib\site-packages\sklearn\utils\deprecation.py:87: FutureWarning: Function plot_roc_curve is deprecated; Function :func:`plot_roc_curve` is deprecated in 1.0 and will be removed in 1.2. Use one of the class methods: :meth:`sklearn.metric.RocCurveDisplay.from_predictions` or :meth:`sklearn.metric.RocCurveDisplay.from_estimator`.
+  warnings.warn(msg, category=FutureWarning)
+</code></pre>
+<p><img src="/images/0718/output_48_2.png" alt="png"></p>
+<pre><code>Model run:  2728bd4cd7924dd7ba7f51ded4436897
+
+
+C:\Users\User\Desktop\mlops_sample\venv\lib\site-packages\_distutils_hack\__init__.py:33: UserWarning: Setuptools is replacing distutils.
+  warnings.warn(&quot;Setuptools is replacing distutils.&quot;)
+</code></pre>
+<p><img src="/images/0718/output_48_5.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ml_run_id = <span class="string">&#x27;runs:/2728bd4cd7924dd7ba7f51ded4436897/log_reg_model&#x27;</span></span><br><span class="line">loaded_model = mlflow.sklearn.load_model(ml_run_id)</span><br><span class="line"></span><br><span class="line">final_preds = loaded_model.predict(test)</span><br><span class="line">submission[<span class="string">&#x27;Survived&#x27;</span>]=final_preds</span><br><span class="line">submission.to_csv(DATA_PATH + <span class="string">&quot;submission.csv&quot;</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/18/0718/" data-id="cl5qe8yn40000ustvezswgosz" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-0715_exe파일로_변환하기" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/" class="article-date">
@@ -13101,182 +13685,11 @@ memory usage: 203.2 KB
 
 
   
-    <article id="post-0701chap3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/07/01/0701chap3/" class="article-date">
-  <time class="dt-published" datetime="2022-07-01T00:00:00.000Z" itemprop="datePublished">2022-07-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/07/01/0701chap3/">0701chap3</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="데이터-불러오기"><a href="#데이터-불러오기" class="headerlink" title="데이터 불러오기"></a>데이터 불러오기</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">perch_length = np.array(</span><br><span class="line">    [<span class="number">8.4</span>, <span class="number">13.7</span>, <span class="number">15.0</span>, <span class="number">16.2</span>, <span class="number">17.4</span>, <span class="number">18.0</span>, <span class="number">18.7</span>, <span class="number">19.0</span>, <span class="number">19.6</span>, <span class="number">20.0</span>, </span><br><span class="line">     <span class="number">21.0</span>, <span class="number">21.0</span>, <span class="number">21.0</span>, <span class="number">21.3</span>, <span class="number">22.0</span>, <span class="number">22.0</span>, <span class="number">22.0</span>, <span class="number">22.0</span>, <span class="number">22.0</span>, <span class="number">22.5</span>, </span><br><span class="line">     <span class="number">22.5</span>, <span class="number">22.7</span>, <span class="number">23.0</span>, <span class="number">23.5</span>, <span class="number">24.0</span>, <span class="number">24.0</span>, <span class="number">24.6</span>, <span class="number">25.0</span>, <span class="number">25.6</span>, <span class="number">26.5</span>, </span><br><span class="line">     <span class="number">27.3</span>, <span class="number">27.5</span>, <span class="number">27.5</span>, <span class="number">27.5</span>, <span class="number">28.0</span>, <span class="number">28.7</span>, <span class="number">30.0</span>, <span class="number">32.8</span>, <span class="number">34.5</span>, <span class="number">35.0</span>, </span><br><span class="line">     <span class="number">36.5</span>, <span class="number">36.0</span>, <span class="number">37.0</span>, <span class="number">37.0</span>, <span class="number">39.0</span>, <span class="number">39.0</span>, <span class="number">39.0</span>, <span class="number">40.0</span>, <span class="number">40.0</span>, <span class="number">40.0</span>, </span><br><span class="line">     <span class="number">40.0</span>, <span class="number">42.0</span>, <span class="number">43.0</span>, <span class="number">43.0</span>, <span class="number">43.5</span>, <span class="number">44.0</span>]</span><br><span class="line">     )</span><br><span class="line">perch_weight = np.array(</span><br><span class="line">    [<span class="number">5.9</span>, <span class="number">32.0</span>, <span class="number">40.0</span>, <span class="number">51.5</span>, <span class="number">70.0</span>, <span class="number">100.0</span>, <span class="number">78.0</span>, <span class="number">80.0</span>, <span class="number">85.0</span>, <span class="number">85.0</span>, </span><br><span class="line">     <span class="number">110.0</span>, <span class="number">115.0</span>, <span class="number">125.0</span>, <span class="number">130.0</span>, <span class="number">120.0</span>, <span class="number">120.0</span>, <span class="number">130.0</span>, <span class="number">135.0</span>, <span class="number">110.0</span>, </span><br><span class="line">     <span class="number">130.0</span>, <span class="number">150.0</span>, <span class="number">145.0</span>, <span class="number">150.0</span>, <span class="number">170.0</span>, <span class="number">225.0</span>, <span class="number">145.0</span>, <span class="number">188.0</span>, <span class="number">180.0</span>, </span><br><span class="line">     <span class="number">197.0</span>, <span class="number">218.0</span>, <span class="number">300.0</span>, <span class="number">260.0</span>, <span class="number">265.0</span>, <span class="number">250.0</span>, <span class="number">250.0</span>, <span class="number">300.0</span>, <span class="number">320.0</span>, </span><br><span class="line">     <span class="number">514.0</span>, <span class="number">556.0</span>, <span class="number">840.0</span>, <span class="number">685.0</span>, <span class="number">700.0</span>, <span class="number">700.0</span>, <span class="number">690.0</span>, <span class="number">900.0</span>, <span class="number">650.0</span>, </span><br><span class="line">     <span class="number">820.0</span>, <span class="number">850.0</span>, <span class="number">900.0</span>, <span class="number">1015.0</span>, <span class="number">820.0</span>, <span class="number">1100.0</span>, <span class="number">1000.0</span>, <span class="number">1100.0</span>, </span><br><span class="line">     <span class="number">1000.0</span>, <span class="number">1000.0</span>]</span><br><span class="line">     )</span><br><span class="line"><span class="built_in">print</span>(perch_length, perch_weight.shape)</span><br></pre></td></tr></table></figure>
-
-<pre><code>[ 8.4 13.7 15.  16.2 17.4 18.  18.7 19.  19.6 20.  21.  21.  21.  21.3
- 22.  22.  22.  22.  22.  22.5 22.5 22.7 23.  23.5 24.  24.  24.6 25.
- 25.6 26.5 27.3 27.5 27.5 27.5 28.  28.7 30.  32.8 34.5 35.  36.5 36.
- 37.  37.  39.  39.  39.  40.  40.  40.  40.  42.  43.  43.  43.5 44. ] (56,)
-</code></pre>
-<h2 id="데이터-가공"><a href="#데이터-가공" class="headerlink" title="데이터 가공"></a>데이터 가공</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 훈련세트, 테스트 세트로 나눈 후 1차원 -&gt; 2차원배열로 변환</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">train_input, test_input, train_target, test_target = train_test_split(</span><br><span class="line">    </span><br><span class="line">    perch_length, perch_weight, random_state = <span class="number">42</span></span><br><span class="line">)</span><br><span class="line">train_input.shape, test_input.shape, train_target.shape, test_target.shape</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>((42,), (14,), (42,), (14,))
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1차원 -&gt; 2차원 배열</span></span><br><span class="line">train_input = train_input.reshape(-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">test_input = test_input.reshape(-<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">train_input.shape, test_input.shape</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>((42, 1), (14, 1))
-</code></pre>
-<h2 id="데이터-시각화-gt-데이터-재가공"><a href="#데이터-시각화-gt-데이터-재가공" class="headerlink" title="데이터 시각화 -&gt; 데이터 재가공"></a>데이터 시각화 -&gt; 데이터 재가공</h2><h2 id="모델링"><a href="#모델링" class="headerlink" title="모델링"></a>모델링</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsRegressor</span><br><span class="line">knr = KNeighborsRegressor(n_neighbors=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 모형 훈련</span></span><br><span class="line">knr.fit(train_input, train_target)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>KNeighborsRegressor(n_neighbors=3)
-</code></pre>
-<p>모델평가</p>
-<h2 id="모델-예측"><a href="#모델-예측" class="headerlink" title="모델 예측"></a>모델 예측</h2><ul>
-<li>서비스를 함</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(knr.predict([[<span class="number">50</span>]]))<span class="comment"># 농어의 길이를 작성, 독립변수</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>[1033.33333333]
-</code></pre>
-<h2 id="모형-평가를-위한-시각화"><a href="#모형-평가를-위한-시각화" class="headerlink" title="모형 평가를 위한 시각화"></a>모형 평가를 위한 시각화</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 50cm 농어의 이웃을 3개</span></span><br><span class="line">distances, indexes = knr.kneighbors([[<span class="number">50</span>]])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(distances, indexes)</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line"><span class="comment"># 훈련세트의 산점도 그리기</span></span><br><span class="line">ax.scatter(train_input, train_target)</span><br><span class="line"><span class="comment"># 이웃샘플만 다시 그리자</span></span><br><span class="line">ax.scatter(train_input[indexes], train_target[indexes],marker = <span class="string">&#x27;D&#x27;</span>)</span><br><span class="line"><span class="comment">#50cm 농어 데이터</span></span><br><span class="line">ax.scatter(<span class="number">50</span>,<span class="number">1033</span>,marker=<span class="string">&#x27;^&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;length&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;weight&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>[[6. 7. 7.]] [[34  8 14]]
-</code></pre>
-<p><img src="/images/0701chap3/output_12_1.png" alt="png"></p>
-<ul>
-<li>머신러닝 &#x3D; 알고리즘<ul>
-<li>머신러닝&#x2F;딥러닝 &#x3D; 실험</li>
-</ul>
-</li>
-<li>실험을 한다 &#x3D; 다양한 방법을 써본다</li>
-<li>다양한 알고리즘을 써본다<br>-&gt; 어떻게 해서 몇개의 알고리즘 선택 받았을까? -&gt; 대중적인 몇개의 알고리즘만 기억</li>
-</ul>
-<h2 id="선형-회귀"><a href="#선형-회귀" class="headerlink" title="선형 회귀"></a>선형 회귀</h2><p>- </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"></span><br><span class="line">lr = LinearRegression()</span><br><span class="line"><span class="comment"># 선형회쉬 모델 훈련</span></span><br><span class="line">lr.fit(train_input,train_target)</span><br><span class="line"><span class="comment"># 농어 예측</span></span><br><span class="line"><span class="built_in">print</span>(lr.predict([[<span class="number">1000</span>]]))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<pre><code>[38308.12631868]
-</code></pre>
-<h3 id="선형회귀-모형"><a href="#선형회귀-모형" class="headerlink" title="선형회귀 모형"></a>선형회귀 모형</h3><ul>
-<li>기울기,절편</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">       <span class="comment"># 기울기   절편</span></span><br><span class="line"><span class="built_in">print</span>(lr.coef_,lr.intercept_)</span><br></pre></td></tr></table></figure>
-
-<pre><code>[  1.01433211 -21.55792498] 116.0502107827827
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots()</span><br><span class="line">ax.scatter(train_input, train_target)</span><br><span class="line">ax.plot([<span class="number">15.50</span>],[<span class="number">15</span>*lr.coef_+lr.intercept_,<span class="number">50</span>*lr.coef_+lr.intercept_])</span><br><span class="line">ax.scatter(<span class="number">50</span>,<span class="number">1241.8</span>,marker=<span class="string">&#x27;^&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;length&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;weight&#x27;</span>)</span><br><span class="line">plt.show</span><br></pre></td></tr></table></figure>
-
-
-<pre><code>---------------------------------------------------------------------------
-
-ValueError                                Traceback (most recent call last)
-
-&lt;ipython-input-44-3aa748dceda6&gt; in &lt;module&gt;()
-      1 fig, ax = plt.subplots()
-      2 ax.scatter(train_input, train_target)
-----&gt; 3 ax.plot([15.50],[15*lr.coef_+lr.intercept_,50*lr.coef_+lr.intercept_])
-      4 ax.scatter(50,1241.8,marker=&#39;^&#39;)
-      5 ax.set_xlabel(&#39;length&#39;)
-
-
-/usr/local/lib/python3.7/dist-packages/matplotlib/axes/_axes.py in plot(self, scalex, scaley, data, *args, **kwargs)
-   1645         &quot;&quot;&quot;
-   1646         kwargs = cbook.normalize_kwargs(kwargs, mlines.Line2D)
--&gt; 1647         lines = [*self._get_lines(*args, data=data, **kwargs)]
-   1648         for line in lines:
-   1649             self.add_line(line)
-
-
-/usr/local/lib/python3.7/dist-packages/matplotlib/axes/_base.py in __call__(self, *args, **kwargs)
-    214                 this += args[0],
-    215                 args = args[1:]
---&gt; 216             yield from self._plot_args(this, kwargs)
-    217 
-    218     def get_next_color(self):
-
-
-/usr/local/lib/python3.7/dist-packages/matplotlib/axes/_base.py in _plot_args(self, tup, kwargs)
-    340 
-    341         if x.shape[0] != y.shape[0]:
---&gt; 342             raise ValueError(f&quot;x and y must have same first dimension, but &quot;
-    343                              f&quot;have shapes &#123;x.shape&#125; and &#123;y.shape&#125;&quot;)
-    344         if x.ndim &gt; 2 or y.ndim &gt; 2:
-
-
-ValueError: x and y must have same first dimension, but have shapes (1,) and (2, 2)
-</code></pre>
-<p><img src="/images/0701chap3/output_18_1.png" alt="png"></p>
-<h2 id="선형회귀"><a href="#선형회귀" class="headerlink" title="선형회귀"></a>선형회귀</h2><ul>
-<li>다항회귀</li>
-<li>농어 1cm &#x3D; -650으로 됨 (잘못된 예측)</li>
-<li>직선의 기울기 대신, 곡선으로 찾자</li>
-<li>직선 &#x3D; 1차방정식, 곡선 &#x3D; 2차 방정식</li>
-<li>$y &#x3D; a길이^2 +b길이 + 절편$</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">train_poly = np.column_stack((train_input**<span class="number">2</span>,train_input))</span><br><span class="line">test_poly = np.column_stack((test_input**<span class="number">2</span>,test_input))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(train_poly.shape, test_poly.shape)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;----train_poly---&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(train_poly[:<span class="number">3</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;----test_poly---&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(test_poly[:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
-
-<pre><code>(42, 2) (14, 2)
-----train_poly---
-[[384.16  19.6 ]
- [484.    22.  ]
- [349.69  18.7 ]]
-----test_poly---
-[[ 70.56   8.4 ]
- [324.    18.  ]
- [756.25  27.5 ]]
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lr = LinearRegression()</span><br><span class="line">lr.fit(train_poly, train_target)</span><br><span class="line"><span class="built_in">print</span>(lr.predict([[<span class="number">50</span>**<span class="number">2</span>,<span class="number">50</span>]]))</span><br></pre></td></tr></table></figure>
-
-<pre><code>[1573.98423528]
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(lr.coef_, lr.intercept_)</span><br></pre></td></tr></table></figure>
-
-<pre><code>[  1.01433211 -21.55792498] 116.0502107827827
-</code></pre>
-<ul>
-<li>무게 &#x3D; 1.01 x $길이^2$ -21.6 길이 +116.05</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kimsunhyung.github.io/2022/07/01/0701chap3/" data-id="cl525yzij0000w8tvf3eaby6i" data-title="0701chap3" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -13308,6 +13721,10 @@ ValueError: x and y must have same first dimension, but have shapes (1,) and (2,
       <ul>
         
           <li>
+            <a href="/2022/07/18/0718/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/">0715_exe파일로 변환하기</a>
           </li>
         
@@ -13321,10 +13738,6 @@ ValueError: x and y must have same first dimension, but have shapes (1,) and (2,
         
           <li>
             <a href="/2022/07/08/final-lecture-0708/">0708_KAGGLE입문</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/06/0706/">0706</a>
           </li>
         
       </ul>

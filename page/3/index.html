@@ -71,6 +71,147 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-0624_R-활용자료" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/24/0624_R-%ED%99%9C%EC%9A%A9%EC%9E%90%EB%A3%8C/" class="article-date">
+  <time class="dt-published" datetime="2022-06-24T00:00:00.000Z" itemprop="datePublished">2022-06-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/06/24/0624_R-%ED%99%9C%EC%9A%A9%EC%9E%90%EB%A3%8C/">0624_R 통계 2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="복습"><a href="#복습" class="headerlink" title="복습"></a>복습</h2><ul>
+<li><p>통계 검정</p>
+<ul>
+<li>평균 차이 검정 : 수치 데이터 + 범주 데이터(두 그룹)<ul>
+<li>중급 이상 : 세 그룹 이상 평균 차이 검정</li>
+</ul>
+</li>
+<li>비율 차이 검정 : 범주 데이터 </li>
+<li>상관 관계 : 수치 데이터</li>
+<li>회귀</li>
+</ul>
+</li>
+<li><p>통계 검정 사전 준비</p>
+<ul>
+<li>분석을 위한 데이터가 적정한지 검정</li>
+<li>등분산 검정, 수치 데이터가 정규 분포를 이루는가 (정규성 검정)</li>
+</ul>
+</li>
+<li><p>귀무 가설, 대립가설 적절하게 설정</p>
+<ul>
+<li>서울이 부산보다 잘 살 것이다 -&gt; 가설이 될 수 없음</li>
+<li>서울의 평균 임금과 부산의 평균 임금이 차이가 있을 것이다 -&gt; 가설 설정 가능</li>
+<li>선행연구 (논문 찾아서 응용)</li>
+</ul>
+</li>
+<li><p>테스트</p>
+<ul>
+<li>t.test, chisq.test, cor.test</li>
+<li>p.value &gt; 0.05 -&gt; 귀무가설 지지</li>
+<li>p.value &lt; 0.05 -&gt; 대립가설 지지</li>
+</ul>
+</li>
+</ul>
+<h2 id="회귀의-중요성"><a href="#회귀의-중요성" class="headerlink" title="회귀의 중요성"></a>회귀의 중요성</h2><ul>
+<li><p>기초통계 : 특정한 결과에 영향을 주는 주 요인을 찾는 것이 회귀</p>
+</li>
+<li><p>회귀분석과 종류</p>
+<ul>
+<li>1세대 회귀 방법론 :다항 회귀분석, 다중 회귀분석, 포아송 회귀분석, etc</li>
+<li>2세대 회귀 방법론 : 구조방정식</li>
+</ul>
+</li>
+<li><p>귀무가설 &amp; 대립가설 존재</p>
+<ul>
+<li>귀무가설 : x(&#x3D;독립변수)가 y(&#x3D;종속변수)에 영향을 주지 않는다</li>
+<li>대립가설 : x가 y에 영향을 준다</li>
+</ul>
+</li>
+<li><p>전진 소거법, 후진 소거법  </p>
+</li>
+<li><p>lm(종속변수 ~ 독립변수, data)</p>
+<ul>
+<li>p.value</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RA <span class="operator">&lt;-</span>lm<span class="punctuation">(</span>data<span class="operator">=</span>mtcars<span class="punctuation">,</span> mpg <span class="operator">~</span> disp<span class="punctuation">)</span></span><br><span class="line">summary<span class="punctuation">(</span>RA<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula = mpg ~ disp, data = mtcars)</span><br><span class="line">## </span><br><span class="line">## Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -4.8922 -2.2022 -0.9631  1.6272  7.2305 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##              Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept) 29.599855   1.229720  24.070  &lt; 2e-16 ***</span><br><span class="line">## disp        -0.041215   0.004712  -8.747 9.38e-10 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 3.251 on 30 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.7183,	Adjusted R-squared:  0.709 </span><br><span class="line">## F-statistic: 76.51 on 1 and 30 DF,  p-value: 9.38e-10</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>p.value 값을 하나씩 빼가면서 진행해야 함. </p>
+</li>
+<li><p>컬럼갯수가 많더라도 진행해야 함.</p>
+</li>
+<li><p>Coefficients:<br>       Estimate Std. Error t value Pr(&gt;|t|)<br>(Intercept) 29.599855   1.229720  24.070  &lt; 2e-16 ***<br>disp        -0.041215   0.004712  -8.747 9.38e-10 ***</p>
+</li>
+</ul>
+<p>var1                                     0.10<br>var2                                     9.38e-10 ***<br>var3                                     0.78</p>
+<p>y &#x3D; ax + bx + c</p>
+<p>Residual standard error: 3.251 on 30 degrees of freedom<br>Multiple R-squared:  0.7183,	Adjusted R-squared:  0.709<br>F-statistic: 76.51 on 1 and 30 DF,  p-value: 9.38e-10</p>
+<ul>
+<li><p>R-squared : 결정계수 &#x3D; 설명력</p>
+<ul>
+<li>1로 수렴할수록 설명력이 좋다 -&gt;<br>1을 수렴하지 못할경우 나머지를 채울 수 있는 요인을 찾아내야 함.</li>
+</ul>
+</li>
+<li><p>ANOVA (분산분석)을 통해서 식 1, 식2 …를 활용해 식을 도출해야 함.</p>
+<ul>
+<li>식 1 : y &#x3D; disp + var1 + var2 + var3 </li>
+<li>식 2 : y &#x3D; disp + var1 + var2</li>
+</ul>
+</li>
+<li><p>Coefficients:<br>       Estimate Std. Error t value Pr(&gt;|t|)<br>(Intercept) 29.599855   1.229720  24.070  &lt; 2e-16 ***<br>disp        -0.041215   0.004712  -8.747 9.38e-10 ***</p>
+</li>
+</ul>
+<p>y(mpg) &#x3D; 29.59985- 0,04125 x disp</p>
+<ul>
+<li><p>머신러닝, 인공지능</p>
+<ul>
+<li>주 목적 -&gt; 예측</li>
+<li>y &#x3D; ax +b</li>
+<li>인공지능이 시작은 회귀에서 부터 시작됨</li>
+</ul>
+</li>
+<li><p>회귀분석에서 고려해야 할 것들</p>
+</li>
+</ul>
+<ol>
+<li>전체 식의 p.value 값이 0.05보다 작은지</li>
+<li>ANOVA를 통해서 식1, 식2 등을 활용해 도출해야함.</li>
+<li>식을 작성할 줄 알아야 함. </li>
+<li>R-squared(결정계수)가 1에 수렴하는지 확인 후 수렴되지 않는 경우 요인에 대해 분석해야 함.</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/06/24/0624_R-%ED%99%9C%EC%9A%A9%EC%9E%90%EB%A3%8C/" data-id="cl4rsr3bo0000cwtvdk4qa777" data-title="0624_R 통계 2" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-0624_R-실습" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/06/24/0624_R-%EC%8B%A4%EC%8A%B5/" class="article-date">
@@ -1619,60 +1760,11 @@
 
 
   
-    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/06/20/test/" class="article-date">
-  <time class="dt-published" datetime="2022-06-20T00:00:00.000Z" itemprop="datePublished">2022-06-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/06/20/test/">데이터 불러오고 저장</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="csv-파일-불러오기"><a href="#csv-파일-불러오기" class="headerlink" title="csv 파일 불러오기"></a>csv 파일 불러오기</h2><ul>
-<li>csv 파일을 불러옵니다.</li>
-</ul>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mpg1 <span class="operator">&lt;-</span> read.csv<span class="punctuation">(</span><span class="string">&quot;mpg1.csv&quot;</span><span class="punctuation">)</span></span><br><span class="line">str<span class="punctuation">(</span>mpg1<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## &#x27;data.frame&#x27;:	234 obs. of  5 variables:</span><br><span class="line">##  $ manufacturer: chr  &quot;audi&quot; &quot;audi&quot; &quot;audi&quot; &quot;audi&quot; ...</span><br><span class="line">##  $ trans       : chr  &quot;auto&quot; &quot;manual&quot; &quot;manual&quot; &quot;auto&quot; ...</span><br><span class="line">##  $ drv         : chr  &quot;f&quot; &quot;f&quot; &quot;f&quot; &quot;f&quot; ...</span><br><span class="line">##  $ cty         : int  18 21 20 21 16 18 18 18 16 20 ...</span><br><span class="line">##  $ hwy         : int  29 29 31 30 26 26 27 26 25 28 ...</span><br></pre></td></tr></table></figure>
-
-<h2 id="데이터-시각화-하기"><a href="#데이터-시각화-하기" class="headerlink" title="데이터 시각화 하기"></a>데이터 시각화 하기</h2><p>-cty, hwy 산점도를 그려본다.</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>ggplot2<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">ggplot<span class="punctuation">(</span>mpg1<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span>cty<span class="punctuation">,</span> y <span class="operator">=</span> hwy<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">  geom_point<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/rmd_0620/unnamed-chunk-2-1.png"><!-- --></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kimsunhyung.github.io/2022/06/20/test/" data-id="cl4mfykii0000u0tv9lmrc743" data-title="데이터 불러오고 저장" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -1704,6 +1796,10 @@
       <ul>
         
           <li>
+            <a href="/2022/07/18/0718/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/">0715_exe파일로 변환하기</a>
           </li>
         
@@ -1717,10 +1813,6 @@
         
           <li>
             <a href="/2022/07/08/final-lecture-0708/">0708_KAGGLE입문</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/06/0706/">0706</a>
           </li>
         
       </ul>

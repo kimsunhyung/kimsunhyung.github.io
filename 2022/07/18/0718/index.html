@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="123456789101112131415161718192021%matplotlib inlineimport numpy as np import pandas as pd import matplotlib as mplimport matplotlib.pyplot as plt import sklearnimport seaborn as snsimport mlflow impor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="손햄의 개발 이야기">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/07/18/0718/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="123456789101112131415161718192021%matplotlib inlineimport numpy as np import pandas as pd import matplotlib as mplimport matplotlib.pyplot as plt import sklearnimport seaborn as snsimport mlflow impor">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_9_0.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_11_0.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_13_1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_16_0.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_18_0.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_37_0.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_48_2.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0718/output_48_5.png">
+<meta property="article:published_time" content="2022-07-18T06:53:02.000Z">
+<meta property="article:modified_time" content="2022-07-18T06:56:38.897Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0718/output_9_0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0718" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/18/0718/" class="article-date">
+  <time class="dt-published" datetime="2022-07-18T06:53:02.000Z" itemprop="datePublished">2022-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd </span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> mlflow </span><br><span class="line"><span class="keyword">import</span> mlflow.sklearn</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split, KFold</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> roc_auc_score, plot_roc_curve, confusion_matrix </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;numpy version <span class="subst">&#123;np.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;pandas version <span class="subst">&#123;pd.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;matplotlib version <span class="subst">&#123;mpl.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;seaborn version <span class="subst">&#123;sns.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;sklearn version <span class="subst">&#123;sklearn.__version__&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;MLFlow version <span class="subst">&#123;mlflow.__version__&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>numpy version 1.23.1
+pandas version 1.4.3
+matplotlib version 3.5.2
+seaborn version 0.11.2
+sklearn version 1.1.1
+MLFlow version 1.27.0
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.getcwd()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;C:\\Users\\User\\Desktop\\mlops_sample\\src&#39;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">DATA_PATH = <span class="string">&quot;C:\\Users\\User\\Desktop\\mlops_sample\\data\\&quot;</span></span><br><span class="line"></span><br><span class="line">train_df = pd.read_csv(DATA_PATH + <span class="string">&quot;train.csv&quot;</span>)</span><br><span class="line">test = pd.read_csv(DATA_PATH + <span class="string">&quot;test.csv&quot;</span>)</span><br><span class="line">submission = pd.read_csv(DATA_PATH +<span class="string">&quot;gender_submission.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line">train_df.shape, test.shape, submission.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((891, 12), (418, 11), (418, 2))
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+</code></pre>
+<ul>
+<li>age, cabin, emarbked에 대해 결측치 존재함</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df.isnull().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
+</code></pre>
+<h2 id="데이터-시각화"><a href="#데이터-시각화" class="headerlink" title="데이터 시각화"></a>데이터 시각화</h2><ul>
+<li>종속 변수는 survived임</li>
+<li>숫자 1은 생존을 의미하고, 0은 사망을 의미</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">survived = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">1</span>]</span><br><span class="line">deceased = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Survived:<span class="subst">&#123;survived.shape&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Deceased:<span class="subst">&#123;deceased.shape&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Survived:(342, 12)
+Deceased:(549, 12)
+</code></pre>
+<ul>
+<li>seaborn</li>
+<li>matplot</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class_df = train_df[<span class="string">&#x27;Survived&#x27;</span>].value_counts(sort=<span class="literal">True</span>)</span><br><span class="line">class_df</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line">ax.bar(class_df.index,class_df.values, color = <span class="string">&#x27;maroon&#x27;</span>, width = <span class="number">0.4</span>)</span><br><span class="line">ax.set_xticks(<span class="built_in">range</span>(<span class="number">2</span>), [<span class="string">&#x27;Deceased&#x27;</span>,<span class="string">&#x27;Survived&#x27;</span>])</span><br><span class="line">ax.set_title(<span class="string">&#x27;Class Distribution&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;Counts&#x27;</span>)</span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;Class Label&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_9_0.png" alt="png"></p>
+<ul>
+<li>연령별 분포를 확인한다.</li>
+<li>연령별로 확인 구분이 잘 안됨.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots()</span><br><span class="line">ax.scatter(train_df[<span class="string">&#x27;Age&#x27;</span>], train_df[<span class="string">&#x27;Survived&#x27;</span>])</span><br><span class="line">ax.set_title(<span class="string">&quot;Age by Survived&quot;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&quot;Class&quot;</span>)</span><br><span class="line">ax.set_yticks(<span class="built_in">range</span>(<span class="number">2</span>), [<span class="string">&quot;Deceased&quot;</span>, <span class="string">&quot;Survived&quot;</span>])</span><br><span class="line">ax.set_xlabel(<span class="string">&quot;Survived By Age&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_11_0.png" alt="png"></p>
+<ul>
+<li>사용자 정의함수를 만들어서 활용</li>
+<li>seaborn counyplot()   함수 활용</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column =<span class="string">&#x27;Sex&#x27;</span></span><br><span class="line">train_df[[column, <span class="string">&#x27;Survived&#x27;</span>]].groupby([column]).mean().plot.bar()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;AxesSubplot:xlabel=&#39;Sex&#39;&gt;
+</code></pre>
+<p><img src="/images/0718/output_13_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_bar</span>(<span class="params">data, column=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">if</span> column <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># 시각화 코드 작성</span></span><br><span class="line">        fig, ax = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">18</span>, <span class="number">8</span>))</span><br><span class="line">        data[[column, <span class="string">&quot;Survived&quot;</span>]].groupby([column]).mean().plot.bar(ax=ax[<span class="number">0</span>])</span><br><span class="line">        sns.countplot(x = column, hue = <span class="string">&quot;Survived&quot;</span>, data = data, ax=ax[<span class="number">1</span>])</span><br><span class="line">        ax[<span class="number">1</span>].legend(labels = [<span class="string">&#x27;Dead&#x27;</span>, <span class="string">&#x27;Survived&#x27;</span>])</span><br><span class="line">        ax[<span class="number">1</span>].set_title(<span class="string">f&#x27;<span class="subst">&#123;column&#125;</span>:Survived vs Dead&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Please Enter Column&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># return No</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>여성이 남성보다 상대적으로 많이 생존했다</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column = <span class="string">&#x27;Sex&#x27;</span></span><br><span class="line">plot_bar(train_df,column)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_16_0.png" alt="png"></p>
+<ul>
+<li>pclass 변 생존 유무 막대그래프를 그려본다</li>
+<li>1번 클래스에 속할수록 생존확률이 높다</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column = <span class="string">&quot;Pclass&quot;</span></span><br><span class="line">plot_bar(train_df, column)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_18_0.png" alt="png"></p>
+<h2 id="결측치-대치"><a href="#결측치-대치" class="headerlink" title="결측치 대치"></a>결측치 대치</h2><ul>
+<li>컬럼 3개</li>
+<li>cabin 컬럼 삭제</li>
+<li>embarked 2개뿐, 최빈도로 채워넣기</li>
+<li>age 117개</li>
+<li>그룹으로 대치</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+</code></pre>
+<ul>
+<li>NAME 피처확인</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Name&#x27;</span>][:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0                              Braund, Mr. Owen Harris
+1    Cumings, Mrs. John Bradley (Florence Briggs Th...
+2                               Heikkinen, Miss. Laina
+3         Futrelle, Mrs. Jacques Heath (Lily May Peel)
+4                             Allen, Mr. William Henry
+Name: Name, dtype: object
+</code></pre>
+<ul>
+<li>호칭의 패턴을 보고 데이터 추출</li>
+<li>정규 표현식 키워드</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Initial&#x27;</span>] = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> [train_df, test]:</span><br><span class="line">    train_df[<span class="string">&#x27;Initial&#x27;</span>] = train_df[<span class="string">&#x27;Name&#x27;</span>].<span class="built_in">str</span>.extract(<span class="string">&#x27;([A-Za-z]+)\.&#x27;</span>) <span class="comment"># </span></span><br><span class="line">    test[<span class="string">&#x27;Initial&#x27;</span>] = test[<span class="string">&#x27;Name&#x27;</span>].<span class="built_in">str</span>.extract(<span class="string">&#x27;([A-Za-z]+)\.&#x27;</span>) <span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df[[<span class="string">&#x27;Name&#x27;</span>,<span class="string">&#x27;Initial&#x27;</span>]].head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Initial</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>Mr</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>Mrs</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>Miss</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>Mrs</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Allen, Mr. William Henry</td>
+      <td>Mr</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.crosstab(train_df[<span class="string">&#x27;Initial&#x27;</span>],train_df[<span class="string">&#x27;Sex&#x27;</span>]).T</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Initial</th>
+      <th>Capt</th>
+      <th>Col</th>
+      <th>Countess</th>
+      <th>Don</th>
+      <th>Dr</th>
+      <th>Jonkheer</th>
+      <th>Lady</th>
+      <th>Major</th>
+      <th>Master</th>
+      <th>Miss</th>
+      <th>Mlle</th>
+      <th>Mme</th>
+      <th>Mr</th>
+      <th>Mrs</th>
+      <th>Ms</th>
+      <th>Rev</th>
+      <th>Sir</th>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>female</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>182</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>125</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>6</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>40</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>517</td>
+      <td>0</td>
+      <td>0</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.crosstab(test[<span class="string">&#x27;Initial&#x27;</span>], test[<span class="string">&#x27;Sex&#x27;</span>]).T</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Initial</th>
+      <th>Col</th>
+      <th>Dona</th>
+      <th>Dr</th>
+      <th>Master</th>
+      <th>Miss</th>
+      <th>Mr</th>
+      <th>Mrs</th>
+      <th>Ms</th>
+      <th>Rev</th>
+    </tr>
+    <tr>
+      <th>Sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>female</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>78</td>
+      <td>0</td>
+      <td>72</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>21</td>
+      <td>0</td>
+      <td>240</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<ul>
+<li>미성년자, MISS, MR, MRS, OTHER</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b4_title    = [<span class="string">&#x27;Mlle&#x27;</span>,<span class="string">&#x27;Mme&#x27;</span>,<span class="string">&#x27;Ms&#x27;</span>,<span class="string">&#x27;Dr&#x27;</span>,<span class="string">&#x27;Major&#x27;</span>,<span class="string">&#x27;Lady&#x27;</span>,<span class="string">&#x27;Countess&#x27;</span>,<span class="string">&#x27;Jonkheer&#x27;</span>,<span class="string">&#x27;Col&#x27;</span>,<span class="string">&#x27;Rev&#x27;</span>,<span class="string">&#x27;Capt&#x27;</span>,<span class="string">&#x27;Sir&#x27;</span>,<span class="string">&#x27;Don&#x27;</span>, <span class="string">&#x27;Dona&#x27;</span>]</span><br><span class="line">after_title = [<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Miss&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mrs&#x27;</span>,<span class="string">&#x27;Mrs&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Other&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>,<span class="string">&#x27;Mr&#x27;</span>, <span class="string">&#x27;Miss&#x27;</span>]</span><br><span class="line"></span><br><span class="line">train_df[<span class="string">&#x27;Initial&#x27;</span>] = train_df[<span class="string">&#x27;Initial&#x27;</span>].replace(b4_title, after_title)</span><br><span class="line">train_df.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(891, 13)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test[<span class="string">&#x27;Initial&#x27;</span>] = test[<span class="string">&#x27;Initial&#x27;</span>].replace(b4_title,after_title)</span><br><span class="line">test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(418, 12)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ini_age_df = train_df.groupby(<span class="string">&#x27;Initial&#x27;</span>)[<span class="string">&#x27;Age&#x27;</span>].mean()</span><br><span class="line">ini_age_df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Initial
+Master     4.574167
+Miss      21.860000
+Mr        32.739609
+Mrs       35.981818
+Other     45.888889
+Name: Age, dtype: float64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ini_age_df[<span class="string">&#x27;Master&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>4.574166666666667
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mr&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">33</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mrs&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">36</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Master&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">5</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Miss&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">22</span></span><br><span class="line">train_df.loc[(train_df[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(train_df[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Other&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">46</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mr&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">33</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Mrs&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">39</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Master&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">8</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Miss&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">22</span></span><br><span class="line">test.loc[(test[<span class="string">&#x27;Age&#x27;</span>].isnull())&amp;(test[<span class="string">&#x27;Initial&#x27;</span>]==<span class="string">&#x27;Other&#x27;</span>),<span class="string">&#x27;Age&#x27;</span>]=<span class="number">43</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Fare Median</span></span><br><span class="line">test[<span class="string">&#x27;Fare&#x27;</span>] = test[<span class="string">&#x27;Fare&#x27;</span>].fillna(np.mean(test[<span class="string">&#x27;Fare&#x27;</span>]))</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>].value_counts()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>S    644
+C    168
+Q     77
+Name: Embarked, dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>] = train_df[<span class="string">&#x27;Embarked&#x27;</span>].fillna(<span class="string">&#x27;S&#x27;</span>)</span><br><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>].isnull().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">column = <span class="string">&#x27;Initial&#x27;</span></span><br><span class="line">plot_bar(train_df, column)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/0718/output_37_0.png" alt="png"></p>
+<h2 id="Feature-제거"><a href="#Feature-제거" class="headerlink" title="Feature 제거"></a>Feature 제거</h2><ul>
+<li>불필요한 컬럼을 제거한다<ul>
+<li>Name 피처 제거</li>
+<li>Ticket 피처 제거(무작위 문자열)</li>
+<li>Cabin 결측치 너무 많음</li>
+<li>Passenger ID 제거</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cols = [<span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>, <span class="string">&#x27;Cabin&#x27;</span>, <span class="string">&#x27;PassengerId&#x27;</span>]</span><br><span class="line">train_df = train_df.drop(cols, axis = <span class="number">1</span>)</span><br><span class="line">test = test.drop(cols, axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">train_df.shape, test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((891, 9), (418, 8))
+</code></pre>
+<h2 id="인코딩-변환"><a href="#인코딩-변환" class="headerlink" title="인코딩 변환"></a>인코딩 변환</h2><ul>
+<li>ordinal encoding, label encoding, one - hot encoding</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_df = pd.get_dummies(train_df)</span><br><span class="line">test = pd.get_dummies(test)</span><br><span class="line"></span><br><span class="line">train_df.shape, test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((891, 16), (418, 15))
+</code></pre>
+<h2 id="데이터-셋-분리"><a href="#데이터-셋-분리" class="headerlink" title="데이터 셋 분리"></a>데이터 셋 분리</h2><ul>
+<li>분류 학습 진행 시, 불균형 데이터셋을 분리할때 종종 쓰는 코드</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deceased = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">0</span>].sample(frac=<span class="number">0.5</span>, random_state=<span class="number">42</span>).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">survived = train_df[train_df[<span class="string">&#x27;Survived&#x27;</span>] == <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">deceased_train, deceased_test = train_test_split(deceased, test_size = <span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line">survived_train, survived_test = train_test_split(survived, test_size = <span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">deceased_train, deceased_validate = train_test_split(deceased_train, test_size = <span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line">survived_train, survived_validate = train_test_split(survived_train, test_size = <span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">deceased_train.shape, deceased_validate.shape, survived_train.shape, survived_validate.shape </span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((164, 16), (55, 16), (204, 16), (69, 16))
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">X_train = pd.concat((deceased_train, survived_train))</span><br><span class="line">X_test = pd.concat((deceased_test, survived_test))</span><br><span class="line">X_validate = pd.concat((deceased_validate, survived_validate))</span><br><span class="line"></span><br><span class="line">y_train = np.array(X_train[<span class="string">&quot;Survived&quot;</span>])</span><br><span class="line">y_test = np.array(X_test[<span class="string">&quot;Survived&quot;</span>])</span><br><span class="line">y_validate = np.array(X_validate[<span class="string">&quot;Survived&quot;</span>])</span><br><span class="line"></span><br><span class="line">X_train = X_train.drop(<span class="string">&quot;Survived&quot;</span>, axis = <span class="number">1</span>)</span><br><span class="line">X_test = X_test.drop(<span class="string">&quot;Survived&quot;</span>, axis = <span class="number">1</span>)</span><br><span class="line">X_validate = X_validate.drop(<span class="string">&quot;Survived&quot;</span>, axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">X_train.shape, X_validate.shape, X_test.shape, y_train.shape, y_validate.shape, y_test.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>((368, 15), (124, 15), (124, 15), (368,), (124,), (124,))
+</code></pre>
+<h2 id="mlflow-학습-및-평가"><a href="#mlflow-학습-및-평가" class="headerlink" title="mlflow 학습 및 평가"></a>mlflow 학습 및 평가</h2><ul>
+<li>모형 만들고, 예측하고, 제출하면 끝</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">ml_model, X_train, y_train</span>):</span><br><span class="line">    ml_model = ml_model.fit(X_train, y_train)</span><br><span class="line">    train_acc = ml_model.score(X_train, y_train)</span><br><span class="line">    mlflow.log_metric(<span class="string">&quot;train_acc&quot;</span>, train_acc)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Train Accuracy: (train_acc:.3%)&quot;</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evaluate</span>(<span class="params">ml_model, X_test, y_test</span>):</span><br><span class="line">    eval_acc = ml_model.score(X_test, y_test)</span><br><span class="line">    preds = ml_model.predict(X_test)</span><br><span class="line">    auc_score = roc_auc_score(y_test, preds)</span><br><span class="line">    mlflow.log_metric(<span class="string">&quot;eval_acc&quot;</span>, eval_acc)</span><br><span class="line">    mlflow.log_metric(<span class="string">&quot;auc_score&quot;</span>, auc_score)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Auc Score : <span class="subst">&#123;auc_score:<span class="number">.3</span>%&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Eval Score : <span class="subst">&#123;eval_acc:<span class="number">.3</span>%&#125;</span>&quot;</span>)</span><br><span class="line">    roc_plot = plot_roc_curve(ml_model, X_test, y_test, name=<span class="string">&quot;Scikit-Learn ROC Curve&quot;</span>)</span><br><span class="line">    plt.savefig(<span class="string">&quot;sklearn_roc_plot.png&quot;</span>)</span><br><span class="line">    plt.show()</span><br><span class="line">    plt.clf()</span><br><span class="line">    conf_matrix = confusion_matrix(y_test, preds)</span><br><span class="line">    ax = sns.heatmap(conf_matrix, annot=<span class="literal">True</span>, fmt=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    ax.invert_xaxis()</span><br><span class="line">    ax.invert_yaxis()</span><br><span class="line">    plt.ylabel(<span class="string">&quot;Actual&quot;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&quot;Predicted&quot;</span>)</span><br><span class="line">    plt.title(<span class="string">&quot;Confusion Matrix&quot;</span>)</span><br><span class="line">    plt.savefig(<span class="string">&quot;sklearn_conf_matrix.png&quot;</span>)</span><br><span class="line">    mlflow.log_artifact(<span class="string">&quot;sklearn_roc_plot.png&quot;</span>)</span><br><span class="line">    mlflow.log_artifact(<span class="string">&quot;sklearn_conf_matrix.png&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>테스트</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ml_model = LogisticRegression(random_state=<span class="literal">None</span>, max_iter=<span class="number">400</span>, solver=<span class="string">&#x27;newton-cg&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 실험 이름 설정</span></span><br><span class="line">mlflow.set_experiment(<span class="string">&quot;human_sklearn_experiment&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 해당 이름으로 실행 배치</span></span><br><span class="line"><span class="keyword">with</span> mlflow.start_run():</span><br><span class="line">    train(ml_model, X_train, y_train)</span><br><span class="line">    evaluate(ml_model, X_test, y_test)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 하나의 MLFlow 실행 컨텍스트에서 모든 코드를 묶을 수 있음. </span></span><br><span class="line">    <span class="comment"># 참조 : https://mlflow.org/docs/latest/models.html#model-customization</span></span><br><span class="line">    mlflow.sklearn.log_model(ml_model, <span class="string">&#x27;log_reg_model&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 본질적으로 모델과 지표가 로깅되는 현재 실행을 가져오고 출력함. </span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Model run: &quot;</span>, mlflow.active_run().info.run_uuid)</span><br><span class="line">mlflow.end_run()</span><br></pre></td></tr></table></figure>
+
+<pre><code>Train Accuracy: (train_acc:.3%)
+Auc Score : 78.748%
+Eval Score : 79.839%
+
+
+C:\Users\User\Desktop\mlops_sample\venv\lib\site-packages\sklearn\utils\deprecation.py:87: FutureWarning: Function plot_roc_curve is deprecated; Function :func:`plot_roc_curve` is deprecated in 1.0 and will be removed in 1.2. Use one of the class methods: :meth:`sklearn.metric.RocCurveDisplay.from_predictions` or :meth:`sklearn.metric.RocCurveDisplay.from_estimator`.
+  warnings.warn(msg, category=FutureWarning)
+</code></pre>
+<p><img src="/images/0718/output_48_2.png" alt="png"></p>
+<pre><code>Model run:  2728bd4cd7924dd7ba7f51ded4436897
+
+
+C:\Users\User\Desktop\mlops_sample\venv\lib\site-packages\_distutils_hack\__init__.py:33: UserWarning: Setuptools is replacing distutils.
+  warnings.warn(&quot;Setuptools is replacing distutils.&quot;)
+</code></pre>
+<p><img src="/images/0718/output_48_5.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ml_run_id = <span class="string">&#x27;runs:/2728bd4cd7924dd7ba7f51ded4436897/log_reg_model&#x27;</span></span><br><span class="line">loaded_model = mlflow.sklearn.load_model(ml_run_id)</span><br><span class="line"></span><br><span class="line">final_preds = loaded_model.predict(test)</span><br><span class="line">submission[<span class="string">&#x27;Survived&#x27;</span>]=final_preds</span><br><span class="line">submission.to_csv(DATA_PATH + <span class="string">&quot;submission.csv&quot;</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/18/0718/" data-id="cl5qe8yn40000ustvezswgosz" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0715_exe파일로 변환하기</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/18/0718/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/">0715_exe파일로 변환하기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/15/%EA%B3%84%EC%82%B0%EA%B8%B0_%EB%A7%8C%EB%93%A4%EA%B8%B0/">0715_계산기 만들기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/08/sonham-s-sample%20(1)/">0707_KAGGLE입문</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/08/final-lecture-0708/">0708_KAGGLE입문</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
