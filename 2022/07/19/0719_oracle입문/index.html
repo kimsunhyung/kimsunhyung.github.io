@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0719_oracle입문 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="SELECT table_name FROM user_tables; – sql vs pl&#x2F;sql– sql (분석가, 개발자)—- 프로그래밍 성격이 얕음– pl&#x2F;sql (분석가, 개발자, dba) – 입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저 – 테이블 생성 &#x2F;*CREATE TABLE 테이블명(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0719_oracle입문">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="SELECT table_name FROM user_tables; – sql vs pl&#x2F;sql– sql (분석가, 개발자)—- 프로그래밍 성격이 얕음– pl&#x2F;sql (분석가, 개발자, dba) – 입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저 – 테이블 생성 &#x2F;*CREATE TABLE 테이블명(">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-19T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-19T08:04:24.336Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0719_oracle입문" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/" class="article-date">
+  <time class="dt-published" datetime="2022-07-19T00:00:00.000Z" itemprop="datePublished">2022-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0719_oracle입문
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>SELECT table_name FROM user_tables;</p>
+<p>– sql vs pl&#x2F;sql<br>– sql (분석가, 개발자)<br>—- 프로그래밍 성격이 얕음<br>– pl&#x2F;sql (분석가, 개발자, dba)</p>
+<p>– 입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저</p>
+<p>– 테이블 생성</p>
+<p>&#x2F;*<br>CREATE TABLE 테이블명(<br>    컬럼 1 컬럼 1_데이터 타입 결측치 허용 유무,</p>
+<p>)<br>*&#x2F;<br>– 테이블생성 예시</p>
+<p>CREATE TABLE ex2_1(<br>    COLUMN1     CHAR(10),<br>    COLUMN2     VARCHAR2(10),<br>    COLUMN3     VARCHAR2(10),<br>    COLUMN4     NUMBER<br>);</p>
+<p>– 데이터 추가 (웹 개발 시 아이디 추가할때 필요한 코드)</p>
+<p>INSERT INTO ex2_1 (column1, column2) VALUES (‘abc’, ‘abc’);</p>
+<p>– 데이터 조회</p>
+<p>SELECT column1, LENGTH(column1) as len1<br>FROM ex2_1;</p>
+<p>–p.53<br>– 영어에서 한문자 1byte<br>– 한글에서는 한문자 2byte(삼십글자가 들어올경우 30*2&#x3D;60으로 해서 데이터 생성해야함)</p>
+<p>CREATE TABLE ex2_2(<br>    COLUMN1     VARCHAR2(3), – 디폴트 값이 byte 적용<br>    COLUMN2     VARCHAR2(3 byte),<br>    COLUMN3     VARCHAR2(3 char)<br>);</p>
+<p>– 기존의 객체가 이름을 사용하고 있다는 오류가 뜨면 새로고침을 실행해야함.</p>
+<p>INSERT INTO ex2_2 VALUES(‘abc’, ‘abc’, ‘abc’);</p>
+<p>SELECT column1<br>        , LENGTH(column1) as len1<br>        , column2<br>        , LENGTH(column2) as len2<br>        , column3<br>        , LENGTH(column3) as len3<br>    FROM ex2_2;</p>
+<p>– 한글 추가</p>
+<p>INSERT INTO ex2_2 VALUES(‘홍길동’, ‘홍길동’, ‘홍길동’);–입력 불가</p>
+<p>– p.54</p>
+<p>INSERT INTO ex2_2 (column3) values(‘홍길동’);</p>
+<p>SELECT column3<br>        , LENGTH(column3) AS len3<br>        , LENGTHB(column3) AS bytelen<br>FROM ex2_2;</p>
+<p>– 숫자 데이터 타입</p>
+<p>CREATE TABLE ex2_3(<br>    COL_INT INTEGER,<br>    COL_DEC DECIMAL,<br>    COL_NUM NUMBER<br>);</p>
+<p>SELECT column_id<br>    , column_name<br>    , data_type<br>    , data_length<br>FROM user_tab_cols<br>WHERE table_name &#x3D; ‘EX2_3’<br>ORDER BY column_id;</p>
+<p>– select 컬럼명<br>– from 테이블명<br>– where 조건식(위치정보)<br>– order by 정렬<br>– * 모든 컬럼을 가지고 온다</p>
+<p>– 날짜 데이터 타입</p>
+<p>CREATE TABLE ex2_5(<br>    COL_DATE        DATE,<br>    COL_TIMESTAMP   TIMESTAMP<br>);</p>
+<p>INSERT INTO ex2_5 VALUES(SYSDATE, SYSTIMESTAMP);<br>SELECT * FROM ex2_5;</p>
+<p>– null : 값이 없음<br>– 해당 컬럼은 null<br>– 결측치 허용 x : not null<br>–p.60</p>
+<p>CREATE TABLE ex2_6(<br>        COL_NULL        VARCHAR2(10),–결측치 허용<br>        COL_NOT_NULL    VARCHAR2(10) NOT NULL – 결측치 허용 X<br>);</p>
+<p>INSERT INTO ex2_6 VALUES (‘AA’,’’); –  에러 발생<br>INSERT INTO ex2_6 VALUES(‘’,’BB’);– 정상적으로 삽입됨<br>SELECT *FROM ex2_6</p>
+<p>INSERT INTO ex2_6 VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_6</p>
+<p>– 테이블 생성, 추가, 삭제, 수정 코드<br>– 파이썬, 자바에서 다 사용될 코드들</p>
+<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_6’;</p>
+<p>– UNIQUE<br>– 중복 값 허용 </p>
+<p>CREATE TABLE ex2_7(<br>    COL_UNIQUE_NULL     VARCHAR2(10)UNIQUE<br>    , COL_UNIQUE_NNULL  VARCHAR2(10) UNIQUE NOT NULL<br>    , COL_UNIQUE        VARCHAR2(10)<br>    , CONSTRAINTS unique_nml UNIQUE (COL_UNIQUE)– CONSTRAINT 제약을 걸다<br>);</p>
+<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_7’;</p>
+<p>– DROP TABLE 테이블 명 ;  테이블 삭제하는법</p>
+<p>INSERT INTO ex2_7 VALUES(‘AA’,’AA’,’AA’);<br>INSERT INTO ex2_7 VALUES(‘’,’BB’,’CC’); </p>
+<p>– 기본키 중요<br>– Primary Key<br>– unique(중복허용 안됨), not null(결측치허용 안됨)<br>– 테이블 당 1개의 기본키만 설정 가능</p>
+<p>CREATE TABLE ex2_8(<br>    COL1 VARCHAR2(10) PRIMARY KEY<br>    , COL2 VARCHAR2(10)<br>);</p>
+<p>– INSERT INTO ex2_8 VALUES(‘’,’AA’); - 삽입 불가<br>INSERT INTO ex2_8 VALUES(‘AA’,’AA’);</p>
+<p>– 외래키 : 테이블 간의 참조 데이터 무결성을 위한 제약 조건<br>– 참조 무결성 보장 : 잘못된 정보가 입력되는 것을 방지</p>
+<p>– CHECK<br>– 컬럼에 입력되는 데이터를 체크해 특정 조건에 맞는 데이터만 입력</p>
+<p>CREATE TABLE ex2_9(<br>    num1        NUMBER<br>    , CONSTRAINTS check1 CHECK (num1 BETWEEN 1 AND 9)<br>    , gender        VARCHAR2(10)<br>    , CONSTRAINTS check2 CHECK (gender IN(‘MALE’,’FEMALE’))<br>);</p>
+<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_9’;</p>
+<p>INSERT INTO ex2_9 VALUES(10,’MAN’); – MALE 이들어가지 않아서 오류가 남<br>INSERT INTO ex2_9 VALUES(5, ‘FEMALE’)</p>
+<p>– DEFAULT : 고정 값 무조건 들어가라, 날짜, 시간</p>
+<p>alter session set nls_date_format&#x3D;’YYYY&#x2F;MM&#x2F;DD HH24:MI:SS’;</p>
+<p>CREATE TABLE ex2_10(<br>    COL1 VARCHAR2(10) NOT NULL<br>    , COL2 VARCHAR2(10) NULL<br>    , CREATE_date DATE DEFAULT SYSDATE<br>);</p>
+<p>INSERT INTO ex2_10 (col1,col2) VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_10;</p>
+<p>– 테이블 변경<br>– alter table</p>
+<p>ALTER TABLE ex2_10 RENAME COLUMN Col1 TO Col11;<br>SELECT *FROM ex2_10;</p>
+<p>DESC ex2_10;<br>– 컬럼 변경</p>
+<p>ALTER TABLE ex2_10 MODIFY COL2 VARCHAR2(30);</p>
+<p>DESC ex2_10;</p>
+<p>– 신규 컬럼 추가</p>
+<p>ALTER TABLE ex2_10 ADD COL3 NUMBER;<br>DESC ex2_10</p>
+<p>– 컬럼 삭제</p>
+<p>ALTER TABLE ex2_10 DROP COLUMN COL3;<br>DESC ex2_10;</p>
+<p>– 제약 조건 추가</p>
+<p>ALTER TABLE ex2_10 ADD CONSTRAINTS pk_ex2_10 PRIMARY KEY (COL11);<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
+<p>– 제약 조건 삭제</p>
+<p>ALTER TABLE ex2_10 DROP CONSTRAINTS pk_ex2_10;<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
+<p>– 테이블 복사</p>
+<p>CREATE TABLE ex2_9_1 AS<br>SELECT *<br>    FROM ex2_9;</p>
+<p>– 뷰 생성</p>
+<p>CREATE OR REPLACE VIEW emp_dept_vl AS<br>SELECT a.employee_id<br>        , a.emp_name<br>        , a.department_id<br>        , b.department_name<br>FROM employees a<br>    , departments b<br>WHERE a.department_id &#x3D; b.department_id;</p>
+<p>– 뷰 제거</p>
+<p>DROP VIEW emp_dept_vl;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/" data-id="cl5rw439b00006wtvh9q6a5rm" data-title="0719_oracle입문" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/18/0718/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0718_mlops 배우기</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/">0719_oracle입문</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/18/0718/">0718_mlops 배우기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/15/0715_exe%ED%8C%8C%EC%9D%BC%EB%A1%9C_%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0/">0715_exe파일로 변환하기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/15/%EA%B3%84%EC%82%B0%EA%B8%B0_%EB%A7%8C%EB%93%A4%EA%B8%B0/">0715_계산기 만들기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/08/sonham-s-sample%20(1)/">0707_KAGGLE입문</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

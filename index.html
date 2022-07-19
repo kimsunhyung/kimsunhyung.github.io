@@ -71,6 +71,114 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-0719_oracle입문" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/" class="article-date">
+  <time class="dt-published" datetime="2022-07-19T00:00:00.000Z" itemprop="datePublished">2022-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/">0719_oracle입문</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>SELECT table_name FROM user_tables;</p>
+<p>– sql vs pl&#x2F;sql<br>– sql (분석가, 개발자)<br>—- 프로그래밍 성격이 얕음<br>– pl&#x2F;sql (분석가, 개발자, dba)</p>
+<p>– 입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저</p>
+<p>– 테이블 생성</p>
+<p>&#x2F;*<br>CREATE TABLE 테이블명(<br>    컬럼 1 컬럼 1_데이터 타입 결측치 허용 유무,</p>
+<p>)<br>*&#x2F;<br>– 테이블생성 예시</p>
+<p>CREATE TABLE ex2_1(<br>    COLUMN1     CHAR(10),<br>    COLUMN2     VARCHAR2(10),<br>    COLUMN3     VARCHAR2(10),<br>    COLUMN4     NUMBER<br>);</p>
+<p>– 데이터 추가 (웹 개발 시 아이디 추가할때 필요한 코드)</p>
+<p>INSERT INTO ex2_1 (column1, column2) VALUES (‘abc’, ‘abc’);</p>
+<p>– 데이터 조회</p>
+<p>SELECT column1, LENGTH(column1) as len1<br>FROM ex2_1;</p>
+<p>–p.53<br>– 영어에서 한문자 1byte<br>– 한글에서는 한문자 2byte(삼십글자가 들어올경우 30*2&#x3D;60으로 해서 데이터 생성해야함)</p>
+<p>CREATE TABLE ex2_2(<br>    COLUMN1     VARCHAR2(3), – 디폴트 값이 byte 적용<br>    COLUMN2     VARCHAR2(3 byte),<br>    COLUMN3     VARCHAR2(3 char)<br>);</p>
+<p>– 기존의 객체가 이름을 사용하고 있다는 오류가 뜨면 새로고침을 실행해야함.</p>
+<p>INSERT INTO ex2_2 VALUES(‘abc’, ‘abc’, ‘abc’);</p>
+<p>SELECT column1<br>        , LENGTH(column1) as len1<br>        , column2<br>        , LENGTH(column2) as len2<br>        , column3<br>        , LENGTH(column3) as len3<br>    FROM ex2_2;</p>
+<p>– 한글 추가</p>
+<p>INSERT INTO ex2_2 VALUES(‘홍길동’, ‘홍길동’, ‘홍길동’);–입력 불가</p>
+<p>– p.54</p>
+<p>INSERT INTO ex2_2 (column3) values(‘홍길동’);</p>
+<p>SELECT column3<br>        , LENGTH(column3) AS len3<br>        , LENGTHB(column3) AS bytelen<br>FROM ex2_2;</p>
+<p>– 숫자 데이터 타입</p>
+<p>CREATE TABLE ex2_3(<br>    COL_INT INTEGER,<br>    COL_DEC DECIMAL,<br>    COL_NUM NUMBER<br>);</p>
+<p>SELECT column_id<br>    , column_name<br>    , data_type<br>    , data_length<br>FROM user_tab_cols<br>WHERE table_name &#x3D; ‘EX2_3’<br>ORDER BY column_id;</p>
+<p>– select 컬럼명<br>– from 테이블명<br>– where 조건식(위치정보)<br>– order by 정렬<br>– * 모든 컬럼을 가지고 온다</p>
+<p>– 날짜 데이터 타입</p>
+<p>CREATE TABLE ex2_5(<br>    COL_DATE        DATE,<br>    COL_TIMESTAMP   TIMESTAMP<br>);</p>
+<p>INSERT INTO ex2_5 VALUES(SYSDATE, SYSTIMESTAMP);<br>SELECT * FROM ex2_5;</p>
+<p>– null : 값이 없음<br>– 해당 컬럼은 null<br>– 결측치 허용 x : not null<br>–p.60</p>
+<p>CREATE TABLE ex2_6(<br>        COL_NULL        VARCHAR2(10),–결측치 허용<br>        COL_NOT_NULL    VARCHAR2(10) NOT NULL – 결측치 허용 X<br>);</p>
+<p>INSERT INTO ex2_6 VALUES (‘AA’,’’); –  에러 발생<br>INSERT INTO ex2_6 VALUES(‘’,’BB’);– 정상적으로 삽입됨<br>SELECT *FROM ex2_6</p>
+<p>INSERT INTO ex2_6 VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_6</p>
+<p>– 테이블 생성, 추가, 삭제, 수정 코드<br>– 파이썬, 자바에서 다 사용될 코드들</p>
+<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_6’;</p>
+<p>– UNIQUE<br>– 중복 값 허용 </p>
+<p>CREATE TABLE ex2_7(<br>    COL_UNIQUE_NULL     VARCHAR2(10)UNIQUE<br>    , COL_UNIQUE_NNULL  VARCHAR2(10) UNIQUE NOT NULL<br>    , COL_UNIQUE        VARCHAR2(10)<br>    , CONSTRAINTS unique_nml UNIQUE (COL_UNIQUE)– CONSTRAINT 제약을 걸다<br>);</p>
+<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_7’;</p>
+<p>– DROP TABLE 테이블 명 ;  테이블 삭제하는법</p>
+<p>INSERT INTO ex2_7 VALUES(‘AA’,’AA’,’AA’);<br>INSERT INTO ex2_7 VALUES(‘’,’BB’,’CC’); </p>
+<p>– 기본키 중요<br>– Primary Key<br>– unique(중복허용 안됨), not null(결측치허용 안됨)<br>– 테이블 당 1개의 기본키만 설정 가능</p>
+<p>CREATE TABLE ex2_8(<br>    COL1 VARCHAR2(10) PRIMARY KEY<br>    , COL2 VARCHAR2(10)<br>);</p>
+<p>– INSERT INTO ex2_8 VALUES(‘’,’AA’); - 삽입 불가<br>INSERT INTO ex2_8 VALUES(‘AA’,’AA’);</p>
+<p>– 외래키 : 테이블 간의 참조 데이터 무결성을 위한 제약 조건<br>– 참조 무결성 보장 : 잘못된 정보가 입력되는 것을 방지</p>
+<p>– CHECK<br>– 컬럼에 입력되는 데이터를 체크해 특정 조건에 맞는 데이터만 입력</p>
+<p>CREATE TABLE ex2_9(<br>    num1        NUMBER<br>    , CONSTRAINTS check1 CHECK (num1 BETWEEN 1 AND 9)<br>    , gender        VARCHAR2(10)<br>    , CONSTRAINTS check2 CHECK (gender IN(‘MALE’,’FEMALE’))<br>);</p>
+<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_9’;</p>
+<p>INSERT INTO ex2_9 VALUES(10,’MAN’); – MALE 이들어가지 않아서 오류가 남<br>INSERT INTO ex2_9 VALUES(5, ‘FEMALE’)</p>
+<p>– DEFAULT : 고정 값 무조건 들어가라, 날짜, 시간</p>
+<p>alter session set nls_date_format&#x3D;’YYYY&#x2F;MM&#x2F;DD HH24:MI:SS’;</p>
+<p>CREATE TABLE ex2_10(<br>    COL1 VARCHAR2(10) NOT NULL<br>    , COL2 VARCHAR2(10) NULL<br>    , CREATE_date DATE DEFAULT SYSDATE<br>);</p>
+<p>INSERT INTO ex2_10 (col1,col2) VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_10;</p>
+<p>– 테이블 변경<br>– alter table</p>
+<p>ALTER TABLE ex2_10 RENAME COLUMN Col1 TO Col11;<br>SELECT *FROM ex2_10;</p>
+<p>DESC ex2_10;<br>– 컬럼 변경</p>
+<p>ALTER TABLE ex2_10 MODIFY COL2 VARCHAR2(30);</p>
+<p>DESC ex2_10;</p>
+<p>– 신규 컬럼 추가</p>
+<p>ALTER TABLE ex2_10 ADD COL3 NUMBER;<br>DESC ex2_10</p>
+<p>– 컬럼 삭제</p>
+<p>ALTER TABLE ex2_10 DROP COLUMN COL3;<br>DESC ex2_10;</p>
+<p>– 제약 조건 추가</p>
+<p>ALTER TABLE ex2_10 ADD CONSTRAINTS pk_ex2_10 PRIMARY KEY (COL11);<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
+<p>– 제약 조건 삭제</p>
+<p>ALTER TABLE ex2_10 DROP CONSTRAINTS pk_ex2_10;<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
+<p>– 테이블 복사</p>
+<p>CREATE TABLE ex2_9_1 AS<br>SELECT *<br>    FROM ex2_9;</p>
+<p>– 뷰 생성</p>
+<p>CREATE OR REPLACE VIEW emp_dept_vl AS<br>SELECT a.employee_id<br>        , a.emp_name<br>        , a.department_id<br>        , b.department_name<br>FROM employees a<br>    , departments b<br>WHERE a.department_id &#x3D; b.department_id;</p>
+<p>– 뷰 제거</p>
+<p>DROP VIEW emp_dept_vl;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/" data-id="cl5rw439b00006wtvh9q6a5rm" data-title="0719_oracle입문" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-0718" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/07/18/0718/" class="article-date">
@@ -13165,536 +13273,6 @@ Unseen Data For Predictions: (1200, 24)
 
 
   
-    <article id="post-0704" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/07/04/0704/" class="article-date">
-  <time class="dt-published" datetime="2022-07-04T00:00:00.000Z" itemprop="datePublished">2022-07-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/07/04/0704/">0704</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="확률적-경사-하강법-단독적으로-사용되지-않음"><a href="#확률적-경사-하강법-단독적으로-사용되지-않음" class="headerlink" title="확률적 경사 하강법 (단독적으로 사용되지 않음)"></a>확률적 경사 하강법 (단독적으로 사용되지 않음)</h2><ul>
-<li>점진적 학습 (step, 보폭)</li>
-<li>학습률</li>
-<li>xgboost,lightgbm, 딥러닝(이미지 분류, 자연어 처리, 옵티마이저)</li>
-</ul>
-<h3 id="샘플"><a href="#샘플" class="headerlink" title="샘플"></a>샘플</h3><ul>
-<li>신경망 이미지 데이터, 자연어</li>
-<li>자율주행</li>
-<li>한꺼번에 다 모델을 학습 어려움<ul>
-<li>샘플링, 배치, 에포크, 오차(&#x3D;손실&#x3D;loss)가 가장 작은 지점을 찾아야 함</li>
-</ul>
-</li>
-<li>결론적으로 확률적 경사 하강법</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 손실함수</span></span><br><span class="line"><span class="comment">### 로지스틱 손실 함수</span></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">fish = pd.read_csv(<span class="string">&quot;http://bit.ly/fish_csv_data&quot;</span>)</span><br><span class="line">fish.info()</span><br></pre></td></tr></table></figure>
-
-<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 159 entries, 0 to 158
-Data columns (total 6 columns):
- #   Column    Non-Null Count  Dtype  
----  ------    --------------  -----  
- 0   Species   159 non-null    object 
- 1   Weight    159 non-null    float64
- 2   Length    159 non-null    float64
- 3   Diagonal  159 non-null    float64
- 4   Height    159 non-null    float64
- 5   Width     159 non-null    float64
-dtypes: float64(5), object(1)
-memory usage: 7.6+ KB
-</code></pre>
-<ul>
-<li>입력 데이터와 타깃데이터 분리</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fish_input = fish[[<span class="string">&#x27;Weight&#x27;</span>, <span class="string">&#x27;Length&#x27;</span>, <span class="string">&#x27;Diagonal&#x27;</span>, <span class="string">&#x27;Height&#x27;</span>, <span class="string">&#x27;Width&#x27;</span>]].to_numpy()</span><br><span class="line">fish_target = fish[<span class="string">&#x27;Species&#x27;</span>].to_numpy()</span><br><span class="line"></span><br><span class="line">fish_input.shape, fish_target.shape</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>((159, 5), (159,))
-</code></pre>
-<h3 id="훈련세트와-테스트-데이터-분리"><a href="#훈련세트와-테스트-데이터-분리" class="headerlink" title="훈련세트와 테스트 데이터 분리"></a>훈련세트와 테스트 데이터 분리</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">train_input, test_input, train_target, test_target = train_test_split(</span><br><span class="line">    </span><br><span class="line">    fish_input, fish_target, random_state = <span class="number">42</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">ss = StandardScaler()</span><br><span class="line">ss.fit(train_input)</span><br><span class="line"></span><br><span class="line">train_scaled = ss.transform(train_input)</span><br><span class="line">test_scaled=ss.transform(test_input)</span><br></pre></td></tr></table></figure>
-
-<h3 id="모델링"><a href="#모델링" class="headerlink" title="모델링"></a>모델링</h3><ul>
-<li>확률적 경사 하강법</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDClassifier</span><br></pre></td></tr></table></figure>
-
-<h3 id="xgboost-lighgbm-코드"><a href="#xgboost-lighgbm-코드" class="headerlink" title="xgboost, lighgbm 코드"></a>xgboost, lighgbm 코드</h3><ul>
-<li>train-loss, train-accuary, test-loss, test-accu</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> SGDClassifier</span><br><span class="line">sc = SGDClassifier(loss = <span class="string">&#x27;log&#x27;</span>, max_iter = <span class="number">10</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">sc.fit(train_scaled, train_target)</span><br><span class="line"><span class="built_in">print</span>(sc.score(train_scaled, train_target))</span><br><span class="line"><span class="built_in">print</span>(sc.score(test_scaled,test_target))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.773109243697479
-0.775
-
-
-/usr/local/lib/python3.7/dist-packages/sklearn/linear_model/_stochastic_gradient.py:700: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max_iter to improve the fit.
-  ConvergenceWarning,
-</code></pre>
-<ul>
-<li>partal_fit()메서그 사용하면 추가학습</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sc.partial_fit(train_scaled, train_target)</span><br><span class="line"><span class="built_in">print</span>(sc.score(train_scaled, train_target))</span><br><span class="line"><span class="built_in">print</span>(sc.score(test_scaled, test_target))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.8151260504201681
-0.85
-</code></pre>
-<h3 id="에포크와-과대-x2F-과소-적합"><a href="#에포크와-과대-x2F-과소-적합" class="headerlink" title="에포크와 과대&#x2F; 과소 적합"></a>에포크와 과대&#x2F; 과소 적합</h3><ul>
-<li>에포크 숫자가 적으면, 덜학습</li>
-<li>early_stopping<ul>
-<li>에포크 숫자를 1000, 손실 10, 9, 8, 3</li>
-<li>3에 도달한 시점이 150</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">sc = SGDClassifier(loss =<span class="string">&#x27;log&#x27;</span>, random_state= <span class="number">42</span>)</span><br><span class="line">train_score = []</span><br><span class="line">test_score = []</span><br><span class="line"></span><br><span class="line">classes = np.unique(train_target)</span><br><span class="line"><span class="comment"># 300번 에포크 훈련 반복</span></span><br><span class="line"><span class="comment"># 훈련할때마다, train_score, test_score 추가</span></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">300</span>):</span><br><span class="line">  sc.partial_fit(train_scaled, train_target,classes=classes)</span><br><span class="line">  train_score.append(sc.score(train_scaled,train_target))</span><br><span class="line">  test_score.append(sc.score(test_scaled,test_target))</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.plot(train_score)</span><br><span class="line">plt.plot(test_score)</span><br><span class="line">plt.legend([<span class="string">&quot;train&quot;</span>,<span class="string">&quot;test&quot;</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/0704/output_17_0.png" alt="png"></p>
-<h2 id="결정트리"><a href="#결정트리" class="headerlink" title="결정트리"></a>결정트리</h2><ul>
-<li>wine 데이터 가져오</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">wine = pd.read_csv(<span class="string">&#x27;http://bit.ly/wine_csv_data&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(wine.head())</span><br><span class="line">wine.info()</span><br><span class="line">wine.describe()</span><br></pre></td></tr></table></figure>
-
-<pre><code>   alcohol  sugar    pH  class
-0      9.4    1.9  3.51    0.0
-1      9.8    2.6  3.20    0.0
-2      9.8    2.3  3.26    0.0
-3      9.8    1.9  3.16    0.0
-4      9.4    1.9  3.51    0.0
-&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 6497 entries, 0 to 6496
-Data columns (total 4 columns):
- #   Column   Non-Null Count  Dtype  
----  ------   --------------  -----  
- 0   alcohol  6497 non-null   float64
- 1   sugar    6497 non-null   float64
- 2   pH       6497 non-null   float64
- 3   class    6497 non-null   float64
-dtypes: float64(4)
-memory usage: 203.2 KB
-</code></pre>
-  <div id="df-48528a69-cb29-4de8-87e8-3cfa8e7538c1">
-    <div class="colab-df-container">
-      <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-<pre><code>.dataframe tbody tr th &#123;
-    vertical-align: top;
-&#125;
-
-.dataframe thead th &#123;
-    text-align: right;
-&#125;
-</code></pre>
-<p></style></p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>alcohol</th>
-      <th>sugar</th>
-      <th>pH</th>
-      <th>class</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>6497.000000</td>
-      <td>6497.000000</td>
-      <td>6497.000000</td>
-      <td>6497.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>10.491801</td>
-      <td>5.443235</td>
-      <td>3.218501</td>
-      <td>0.753886</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>1.192712</td>
-      <td>4.757804</td>
-      <td>0.160787</td>
-      <td>0.430779</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>8.000000</td>
-      <td>0.600000</td>
-      <td>2.720000</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>9.500000</td>
-      <td>1.800000</td>
-      <td>3.110000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>10.300000</td>
-      <td>3.000000</td>
-      <td>3.210000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>11.300000</td>
-      <td>8.100000</td>
-      <td>3.320000</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>14.900000</td>
-      <td>65.800000</td>
-      <td>4.010000</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-48528a69-cb29-4de8-87e8-3cfa8e7538c1')"
-              title="Convert this dataframe to an interactive table."
-              style="display:none;">
-
-<p>  &lt;svg xmlns&#x3D;”<a target="_blank" rel="noopener" href="http://www.w3.org/2000/svg&quot;">http://www.w3.org/2000/svg&quot;</a> height&#x3D;”24px”viewBox&#x3D;”0 0 24 24”<br>       width&#x3D;”24px”&gt;<br>    <path d="M0 0h24v24H0V0z" fill="none"/><br>    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/><br>  </svg><br>      </button></p>
-  <style>
-    .colab-df-container {
-      display:flex;
-      flex-wrap:wrap;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-<pre><code>  &lt;script&gt;
-    const buttonEl =
-      document.querySelector(&#39;#df-48528a69-cb29-4de8-87e8-3cfa8e7538c1 button.colab-df-convert&#39;);
-    buttonEl.style.display =
-      google.colab.kernel.accessAllowed ? &#39;block&#39; : &#39;none&#39;;
-
-    async function convertToInteractive(key) &#123;
-      const element = document.querySelector(&#39;#df-48528a69-cb29-4de8-87e8-3cfa8e7538c1&#39;);
-      const dataTable =
-        await google.colab.kernel.invokeFunction(&#39;convertToInteractive&#39;,
-                                                 [key], &#123;&#125;);
-      if (!dataTable) return;
-
-      const docLinkHtml = &#39;Like what you see? Visit the &#39; +
-        &#39;&lt;a target=&quot;_blank&quot; href=https://colab.research.google.com/notebooks/data_table.ipynb&gt;data table notebook&lt;/a&gt;&#39;
-        + &#39; to learn more about interactive tables.&#39;;
-      element.innerHTML = &#39;&#39;;
-      dataTable[&#39;output_type&#39;] = &#39;display_data&#39;;
-      await google.colab.output.renderOutput(dataTable, element);
-      const docLink = document.createElement(&#39;div&#39;);
-      docLink.innerHTML = docLinkHtml;
-      element.appendChild(docLink);
-    &#125;
-  &lt;/script&gt;
-&lt;/div&gt;
-</code></pre>
-  </div>
-
-
-
-
-<ul>
-<li>데이터 가공</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = wine[[<span class="string">&#x27;alcohol&#x27;</span>, <span class="string">&#x27;sugar&#x27;</span>,<span class="string">&#x27;pH&#x27;</span>]].to_numpy()</span><br><span class="line">target = wine[<span class="string">&#x27;class&#x27;</span>].to_numpy()</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target = wine[<span class="string">&#x27;class&#x27;</span>].to_numpy()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>훈련데이터 분리</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">train_input, test_input, train_target, test_target = train_test_split(</span><br><span class="line">    data, target, test_size = <span class="number">0.2</span>, random_state=<span class="number">42</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">train_input.shape, test_input.shape, train_target.shape, test_target.shape</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>((5197, 3), (1300, 3), (5197,), (1300,))
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">ss = StandardScaler()</span><br><span class="line">ss.fit(train_input)</span><br><span class="line">train_scaled = ss.transform(train_input)</span><br><span class="line">test_scaled = ss.transform(test_input)</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line">lr= LogisticRegression()</span><br><span class="line">lr.fit(train_scaled, train_target)</span><br><span class="line"><span class="built_in">print</span>(lr.score(train_scaled, train_target))</span><br><span class="line"><span class="built_in">print</span>(lr.score(test_scaled, test_target))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.7808350971714451
-0.7776923076923077
-</code></pre>
-<ul>
-<li>모델 만들기</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pandas.core.common <span class="keyword">import</span> random_state</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> plot_tree</span><br><span class="line"></span><br><span class="line">dt = DecisionTreeClassifier(criterion = <span class="string">&#x27;entropy&#x27;</span>, max_depth = <span class="number">8</span>, random_state=<span class="number">42</span>)</span><br><span class="line">dt.fit(train_scaled, train_target)</span><br><span class="line"><span class="built_in">print</span>(dt.score(train_scaled, train_target))</span><br><span class="line"><span class="built_in">print</span>(dt.score(test_scaled, test_target))</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">7</span>))</span><br><span class="line">plot_tree(dt)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.89532422551472
-0.8569230769230769
-</code></pre>
-<p><img src="/images/0704/output_28_1.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> plot_tree</span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">7</span>))</span><br><span class="line">plot_tree(dt)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/0704/output_29_0.png" alt="png"></p>
-<h3 id="노드란-무엇인가"><a href="#노드란-무엇인가" class="headerlink" title="노드란 무엇인가?"></a>노드란 무엇인가?</h3><ul>
-<li>0 이면 레드와인</li>
-<li>1 이면 화이트와인 : 4898</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_target</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>array([1., 0., 0., ..., 1., 1., 0.])
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">10</span>,<span class="number">7</span>))</span><br><span class="line">plot_tree(dt, max_depth=<span class="number">1</span>,</span><br><span class="line">          filled=<span class="literal">True</span>,</span><br><span class="line">          feature_names=[<span class="string">&#x27;alcohol&#x27;</span>, <span class="string">&#x27;sugar&#x27;</span>,<span class="string">&#x27;pH&#x27;</span>])</span><br><span class="line">plt.show()</span><br><span class="line"><span class="comment"># 루트노드 - 뿌리노드, 노드, 리트노드</span></span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/0704/output_32_0.png" alt="png"></p>
-<ul>
-<li>불순도<ul>
-<li>비율</li>
-<li>레드와인 5:5 화이트와인</li>
-<li>한 범주 안에서 서로 다른 데이터가 얼마나 섞여 있는지 나타냄<ul>
-<li>흰색과 검은색이 각각 50개 섞여 있다<ul>
-<li>불순도 최대 - 0.5</li>
-</ul>
-</li>
-<li>흰색과 검은색이 완전 100% 분리<ul>
-<li>흰색 노드 불순도 최소 - 0</li>
-<li>검은색 노드 불순도 최소 - 0</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>엔드로피<ul>
-<li>불확실한 정도를 의미 0-1사이</li>
-<li>흰색과 검은색이 각각 50개 섞여 있다<ul>
-<li>엔트로피 최대 -1</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>흰색과 검은색이 완전 100% 분리됨<ul>
-<li>흰색 노드 엔트로피 최소 -0</li>
-<li>검은색 노드 엔트로피 최소 - 0</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="특성-중요도"><a href="#특성-중요도" class="headerlink" title="특성 중요도"></a>특성 중요도</h3><ul>
-<li>어떤 특성이 결정 트리 모델에 영향을 주었는가?</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(dt.feature_importances_)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<pre><code>[0.15533444 0.6675247  0.17714086]
-</code></pre>
-<h2 id="현업에서-적용"><a href="#현업에서-적용" class="headerlink" title="현업에서 적용"></a>현업에서 적용</h2><ul>
-<li>현업에서 decisiontreeclassifier(70년대)</li>
-<li>랜덤포레스트, xgboost 하이퍼파라미터 매우 많음</li>
-<li></li>
-</ul>
-<h2 id="검증-세트"><a href="#검증-세트" class="headerlink" title="검증 세트"></a>검증 세트</h2><ul>
-<li>훈련세트와 테스트세트</li>
-<li>훈련 : 교과서 공부하는 것, 훈련세트<br>모의평가</li>
-<li>검증 : 강남대성 모의고사 문제집</li>
-<li>테스트 : 6월 &#x2F; 9월</li>
-<li>실전 : 수능</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">wine = pd.read_csv(<span class="string">&#x27;http://bit.ly/wine_csv_data&#x27;</span>)</span><br><span class="line"><span class="comment"># print(wine.head())</span></span><br><span class="line"></span><br><span class="line">data = wine[[<span class="string">&#x27;alcohol&#x27;</span>, <span class="string">&#x27;sugar&#x27;</span>,<span class="string">&#x27;pH&#x27;</span>]].to_numpy()</span><br><span class="line">target = wine[<span class="string">&#x27;class&#x27;</span>].to_numpy()</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="comment"># 훈련 80% 테스트 20%</span></span><br><span class="line">train_input, test_input, train_target, test_target = train_test_split(</span><br><span class="line">    data, target, test_size = <span class="number">0.2</span>, random_state=<span class="number">42</span></span><br><span class="line">)</span><br><span class="line">train_input.shape, test_input.shape, train_target.shape, test_target.shape</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>((5197, 3), (1300, 3), (5197,), (1300,))
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 훈련 80% 검증 20%</span></span><br><span class="line">sub_input,val_input, sub_target, val_target = train_test_split(</span><br><span class="line">    train_input, train_target, test_size = <span class="number">0.2</span>, random_state=<span class="number">42</span></span><br><span class="line">)</span><br><span class="line">sub_input.shape,val_input.shape, sub_target.shape, val_target.shape</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>((4157, 3), (1040, 3), (4157,), (1040,))
-</code></pre>
-<ul>
-<li>훈련데이터 :train(x) sub_input, target이 훈련 데이터</li>
-<li>검증데이터 - val_input, val_target</li>
-<li>테스트데이터 - test_input,test_target</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 모형 만들기</span></span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line">dt = DecisionTreeClassifier(random_state=<span class="number">42</span>)</span><br><span class="line">dt.fit(sub_input, sub_target)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;훈련성과 : &quot;</span>, dt.score(sub_input, sub_target))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;검증성과:&quot;</span>, dt.score(val_input, val_target))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;마지막 최종 :&quot;</span>, dt.score(test_input,test_target))</span><br></pre></td></tr></table></figure>
-
-<pre><code>훈련성과 :  0.9971133028626413
-검증성과: 0.864423076923077
-마지막 최종 : 0.8569230769230769
-</code></pre>
-<ul>
-<li>훈련 : 87%</li>
-<li>검증 : 86%</li>
-</ul>
-<hr>
-<ul>
-<li>최종 : 55%</li>
-</ul>
-<h3 id="교차검증"><a href="#교차검증" class="headerlink" title="교차검증"></a>교차검증</h3><ul>
-<li>각 데이터 셋을 반복 분할</li>
-<li>FOR LOOP</li>
-<li>샘플링 편향적일 수 있음</li>
-<li>교차 검증을 한다고 해서, 정확도가 무조건 올라가는 건 아님<ul>
-<li>모형을 안정적으로 만들어 줘야함<ul>
-<li>과대적합 방지</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br><span class="line"></span><br><span class="line">df = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>])</span><br><span class="line"><span class="comment"># 데이터 K 폴드로 나눈다.</span></span><br><span class="line">folds = KFold(n_splits = <span class="number">5</span>, shuffle = <span class="literal">True</span>)</span><br><span class="line"><span class="keyword">for</span> train_idx, valid_idx <span class="keyword">in</span> folds.split(df):</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">f&#x27;훈련 데이터 : <span class="subst">&#123;df[train_idx]&#125;</span>, 검증데이터: <span class="subst">&#123;df[valid_idx]&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<pre><code>훈련 데이터 : [ 1  2  3  4  5  7  8 10], 검증데이터: [6 9]
-훈련 데이터 : [ 1  3  5  6  7  8  9 10], 검증데이터: [2 4]
-훈련 데이터 : [ 2  3  4  6  7  8  9 10], 검증데이터: [1 5]
-훈련 데이터 : [ 1  2  3  4  5  6  9 10], 검증데이터: [7 8]
-훈련 데이터 : [1 2 4 5 6 7 8 9], 검증데이터: [ 3 10]
-</code></pre>
-<ul>
-<li>교차 검증 함수</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_validate</span><br><span class="line">scores = cross_validate(dt, train_input, train_target)</span><br><span class="line"><span class="built_in">print</span>(scores)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;평균 : &quot;</span>, np.mean(scores[<span class="string">&#x27;test_score&#x27;</span>]))</span><br></pre></td></tr></table></figure>
-
-<pre><code>&#123;&#39;fit_time&#39;: array([0.03095126, 0.0305624 , 0.03208995, 0.03173757, 0.01049256]), &#39;score_time&#39;: array([0.00121951, 0.01135445, 0.0013237 , 0.00117183, 0.00115395]), &#39;test_score&#39;: array([0.86923077, 0.84615385, 0.87680462, 0.84889317, 0.83541867])&#125;
-평균 :  0.855300214703487
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> StratifiedKFold</span><br><span class="line">scores = cross_validate(dt, train_input, train_target, cv = StratifiedKFold())</span><br><span class="line"><span class="built_in">print</span>(np.mean(scores[<span class="string">&#x27;test_score&#x27;</span>]))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.855300214703487
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">splitter = StratifiedKFold(n_splits=<span class="number">10</span>,shuffle=<span class="literal">True</span>,random_state=<span class="number">42</span>)</span><br><span class="line">scores = cross_validate(dt, train_input, train_target,cv = splitter)</span><br><span class="line"><span class="built_in">print</span>(np.mean(scores[<span class="string">&#x27;test_score&#x27;</span>]))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.8574181117533719
-</code></pre>
-<h2 id="하이퍼-파라미터-튜닝"><a href="#하이퍼-파라미터-튜닝" class="headerlink" title="하이퍼 파라미터 튜닝"></a>하이퍼 파라미터 튜닝</h2><ul>
-<li>그리드 서치<ul>
-<li>사람이 수동적으로 입력</li>
-<li>max_depth : [1,3,7]</li>
-</ul>
-</li>
-<li>랜덤 서치<ul>
-<li>사람이 범위만 지정</li>
-<li>max_depth: 1-10&#x2F; by random</li>
-</ul>
-</li>
-<li>베이지안 옵티마이제이션</li>
-<li>사람의 개입 없이 하이퍼파라미터 튜닝을 자동으로 수행하는 기술을 AutoML이라 함<ul>
-<li>pycaret</li>
-</ul>
-</li>
-<li>각 모델마다 적게는 1-2개에서, 많게는 5-6 개의 매개변수를 제공한다.<ul>
-<li>xgboost 100개..?</li>
-</ul>
-</li>
-<li>하이퍼파라미터와 동시에 교차 검증을 수행</li>
-</ul>
-<p>-교차검증 5번<br>교차검증 1번 돌때, max depth 3번 적용</p>
-<ul>
-<li>max dept &#x3D; 1,3,7<br> -총 결과값 15번 3 x 5 나옴</li>
-<li>criterion &#x3D; gini, entropy</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</span><br><span class="line">params= &#123;</span><br><span class="line">    <span class="string">&#x27;criterion&#x27;</span> : [<span class="string">&#x27;gini&#x27;</span>,<span class="string">&#x27;entropy&#x27;</span>],</span><br><span class="line">    <span class="string">&#x27;max_depth&#x27;</span>: [<span class="number">1</span>,<span class="number">3</span>,<span class="number">7</span>],</span><br><span class="line">    <span class="string">&#x27;min_impurity_decrease&#x27;</span>:[<span class="number">0.0001</span>,<span class="number">0.0002</span>,<span class="number">0.0003</span>,<span class="number">0.0004</span>,<span class="number">0.0005</span>]</span><br><span class="line">&#125;</span><br><span class="line">gs = GridSearchCV(DecisionTreeClassifier(random_state=<span class="number">42</span>), params, n_jobs=-<span class="number">1</span>)</span><br><span class="line">gs.fit(train_input,train_target)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>GridSearchCV(estimator=DecisionTreeClassifier(random_state=42), n_jobs=-1,
-             param_grid=&#123;&#39;criterion&#39;: [&#39;gini&#39;, &#39;entropy&#39;],
-                         &#39;max_depth&#39;: [1, 3, 7],
-                         &#39;min_impurity_decrease&#39;: [0.0001, 0.0002, 0.0003,
-                                                   0.0004, 0.0005]&#125;)
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;best:&quot;</span> , gs.best_estimator_)</span><br><span class="line">df=gs.best_estimator_</span><br></pre></td></tr></table></figure>
-
-<pre><code>best: DecisionTreeClassifier(max_depth=7, min_impurity_decrease=0.0005,
-                       random_state=42)
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kimsunhyung.github.io/2022/07/04/0704/" data-id="cl56glafj00002stv098kgp67" data-title="0704" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -13731,6 +13309,10 @@ memory usage: 203.2 KB
       <ul>
         
           <li>
+            <a href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/">0719_oracle입문</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/18/0718/">0718_mlops 배우기</a>
           </li>
         
@@ -13744,10 +13326,6 @@ memory usage: 203.2 KB
         
           <li>
             <a href="/2022/07/08/sonham-s-sample%20(1)/">0707_KAGGLE입문</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/08/final-lecture-0708/">0708_KAGGLE입문</a>
           </li>
         
       </ul>
