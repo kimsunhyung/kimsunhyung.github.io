@@ -6,15 +6,15 @@
   
   <title>0719_oracle입문 | 손햄의 개발 이야기</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="SELECT table_name FROM user_tables; – sql vs pl&#x2F;sql– sql (분석가, 개발자)—- 프로그래밍 성격이 얕음– pl&#x2F;sql (분석가, 개발자, dba) – 입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저 – 테이블 생성 &#x2F;*CREATE TABLE 테이블명(">
+  <meta name="description" content="SELECT table_name FROM user_tables; sql vs pl&#x2F;sqlsql (분석가, 개발자)프로그래밍 성격이 얕음pl&#x2F;sql (분석가, 개발자, dba)입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저테이블 생성&#x2F;*CREATE TABLE 테이블명(    컬럼 1 컬럼 1_데이터 타입">
 <meta property="og:type" content="article">
 <meta property="og:title" content="0719_oracle입문">
 <meta property="og:url" content="https://kimsunhyung.github.io/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/index.html">
 <meta property="og:site_name" content="손햄의 개발 이야기">
-<meta property="og:description" content="SELECT table_name FROM user_tables; – sql vs pl&#x2F;sql– sql (분석가, 개발자)—- 프로그래밍 성격이 얕음– pl&#x2F;sql (분석가, 개발자, dba) – 입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저 – 테이블 생성 &#x2F;*CREATE TABLE 테이블명(">
+<meta property="og:description" content="SELECT table_name FROM user_tables; sql vs pl&#x2F;sqlsql (분석가, 개발자)프로그래밍 성격이 얕음pl&#x2F;sql (분석가, 개발자, dba)입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저테이블 생성&#x2F;*CREATE TABLE 테이블명(    컬럼 1 컬럼 1_데이터 타입">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-19T08:04:24.336Z">
+<meta property="article:modified_time" content="2022-07-20T07:38:51.086Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -96,75 +96,49 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>SELECT table_name FROM user_tables;</p>
-<p>– sql vs pl&#x2F;sql<br>– sql (분석가, 개발자)<br>—- 프로그래밍 성격이 얕음<br>– pl&#x2F;sql (분석가, 개발자, dba)</p>
-<p>– 입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저</p>
-<p>– 테이블 생성</p>
-<p>&#x2F;*<br>CREATE TABLE 테이블명(<br>    컬럼 1 컬럼 1_데이터 타입 결측치 허용 유무,</p>
-<p>)<br>*&#x2F;<br>– 테이블생성 예시</p>
-<p>CREATE TABLE ex2_1(<br>    COLUMN1     CHAR(10),<br>    COLUMN2     VARCHAR2(10),<br>    COLUMN3     VARCHAR2(10),<br>    COLUMN4     NUMBER<br>);</p>
-<p>– 데이터 추가 (웹 개발 시 아이디 추가할때 필요한 코드)</p>
-<p>INSERT INTO ex2_1 (column1, column2) VALUES (‘abc’, ‘abc’);</p>
-<p>– 데이터 조회</p>
-<p>SELECT column1, LENGTH(column1) as len1<br>FROM ex2_1;</p>
-<p>–p.53<br>– 영어에서 한문자 1byte<br>– 한글에서는 한문자 2byte(삼십글자가 들어올경우 30*2&#x3D;60으로 해서 데이터 생성해야함)</p>
-<p>CREATE TABLE ex2_2(<br>    COLUMN1     VARCHAR2(3), – 디폴트 값이 byte 적용<br>    COLUMN2     VARCHAR2(3 byte),<br>    COLUMN3     VARCHAR2(3 char)<br>);</p>
-<p>– 기존의 객체가 이름을 사용하고 있다는 오류가 뜨면 새로고침을 실행해야함.</p>
-<p>INSERT INTO ex2_2 VALUES(‘abc’, ‘abc’, ‘abc’);</p>
+<h2 id="sql-vs-pl-x2F-sql"><a href="#sql-vs-pl-x2F-sql" class="headerlink" title="sql vs pl&#x2F;sql"></a>sql vs pl&#x2F;sql</h2><h2 id="sql-분석가-개발자"><a href="#sql-분석가-개발자" class="headerlink" title="sql (분석가, 개발자)"></a>sql (분석가, 개발자)</h2><h4 id="프로그래밍-성격이-얕음"><a href="#프로그래밍-성격이-얕음" class="headerlink" title="프로그래밍 성격이 얕음"></a>프로그래밍 성격이 얕음</h4><h2 id="pl-x2F-sql-분석가-개발자-dba"><a href="#pl-x2F-sql-분석가-개발자-dba" class="headerlink" title="pl&#x2F;sql (분석가, 개발자, dba)"></a>pl&#x2F;sql (분석가, 개발자, dba)</h2><h2 id="입문-sql-테이블-뷰-gt-pl-x2F-sql-함수-프로시저"><a href="#입문-sql-테이블-뷰-gt-pl-x2F-sql-함수-프로시저" class="headerlink" title="입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저"></a>입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저</h2><h2 id="테이블-생성"><a href="#테이블-생성" class="headerlink" title="테이블 생성"></a>테이블 생성</h2><p>&#x2F;*<br>CREATE TABLE 테이블명(<br>    컬럼 1 컬럼 1_데이터 타입 결측치 허용 유무,</p>
+<p>)<br>*&#x2F;</p>
+<h2 id="테이블생성-예시"><a href="#테이블생성-예시" class="headerlink" title="테이블생성 예시"></a>테이블생성 예시</h2><p>CREATE TABLE ex2_1(<br>    COLUMN1     CHAR(10),<br>    COLUMN2     VARCHAR2(10),<br>    COLUMN3     VARCHAR2(10),<br>    COLUMN4     NUMBER<br>);</p>
+<h2 id="데이터-추가-웹-개발-시-아이디-추가할때-필요한-코드"><a href="#데이터-추가-웹-개발-시-아이디-추가할때-필요한-코드" class="headerlink" title="데이터 추가 (웹 개발 시 아이디 추가할때 필요한 코드)"></a>데이터 추가 (웹 개발 시 아이디 추가할때 필요한 코드)</h2><p>INSERT INTO ex2_1 (column1, column2) VALUES (‘abc’, ‘abc’);</p>
+<h2 id="데이터-조회"><a href="#데이터-조회" class="headerlink" title="데이터 조회"></a>데이터 조회</h2><p>SELECT column1, LENGTH(column1) as len1<br>FROM ex2_1;</p>
+<p>##p.53</p>
+<h2 id="영어에서-한문자-1byte"><a href="#영어에서-한문자-1byte" class="headerlink" title="영어에서 한문자 1byte"></a>영어에서 한문자 1byte</h2><h2 id="한글에서는-한문자-2byte-삼십글자가-들어올경우-30-2-x3D-60으로-해서-데이터-생성해야함"><a href="#한글에서는-한문자-2byte-삼십글자가-들어올경우-30-2-x3D-60으로-해서-데이터-생성해야함" class="headerlink" title="한글에서는 한문자 2byte(삼십글자가 들어올경우 30*2&#x3D;60으로 해서 데이터 생성해야함)"></a>한글에서는 한문자 2byte(삼십글자가 들어올경우 30*2&#x3D;60으로 해서 데이터 생성해야함)</h2><p>CREATE TABLE ex2_2(<br>    COLUMN1     VARCHAR2(3), ## 디폴트 값이 byte 적용<br>    COLUMN2     VARCHAR2(3 byte),<br>    COLUMN3     VARCHAR2(3 char)<br>);</p>
+<h2 id="기존의-객체가-이름을-사용하고-있다는-오류가-뜨면-새로고침을-실행해야함"><a href="#기존의-객체가-이름을-사용하고-있다는-오류가-뜨면-새로고침을-실행해야함" class="headerlink" title="기존의 객체가 이름을 사용하고 있다는 오류가 뜨면 새로고침을 실행해야함."></a>기존의 객체가 이름을 사용하고 있다는 오류가 뜨면 새로고침을 실행해야함.</h2><p>INSERT INTO ex2_2 VALUES(‘abc’, ‘abc’, ‘abc’);</p>
 <p>SELECT column1<br>        , LENGTH(column1) as len1<br>        , column2<br>        , LENGTH(column2) as len2<br>        , column3<br>        , LENGTH(column3) as len3<br>    FROM ex2_2;</p>
-<p>– 한글 추가</p>
-<p>INSERT INTO ex2_2 VALUES(‘홍길동’, ‘홍길동’, ‘홍길동’);–입력 불가</p>
-<p>– p.54</p>
-<p>INSERT INTO ex2_2 (column3) values(‘홍길동’);</p>
+<h2 id="한글-추가"><a href="#한글-추가" class="headerlink" title="한글 추가"></a>한글 추가</h2><p>INSERT INTO ex2_2 VALUES(‘홍길동’, ‘홍길동’, ‘홍길동’);##입력 불가</p>
+<h2 id="p-54"><a href="#p-54" class="headerlink" title="p.54"></a>p.54</h2><p>INSERT INTO ex2_2 (column3) values(‘홍길동’);</p>
 <p>SELECT column3<br>        , LENGTH(column3) AS len3<br>        , LENGTHB(column3) AS bytelen<br>FROM ex2_2;</p>
-<p>– 숫자 데이터 타입</p>
-<p>CREATE TABLE ex2_3(<br>    COL_INT INTEGER,<br>    COL_DEC DECIMAL,<br>    COL_NUM NUMBER<br>);</p>
+<h2 id="숫자-데이터-타입"><a href="#숫자-데이터-타입" class="headerlink" title="숫자 데이터 타입"></a>숫자 데이터 타입</h2><p>CREATE TABLE ex2_3(<br>    COL_INT INTEGER,<br>    COL_DEC DECIMAL,<br>    COL_NUM NUMBER<br>);</p>
 <p>SELECT column_id<br>    , column_name<br>    , data_type<br>    , data_length<br>FROM user_tab_cols<br>WHERE table_name &#x3D; ‘EX2_3’<br>ORDER BY column_id;</p>
-<p>– select 컬럼명<br>– from 테이블명<br>– where 조건식(위치정보)<br>– order by 정렬<br>– * 모든 컬럼을 가지고 온다</p>
-<p>– 날짜 데이터 타입</p>
-<p>CREATE TABLE ex2_5(<br>    COL_DATE        DATE,<br>    COL_TIMESTAMP   TIMESTAMP<br>);</p>
+<h2 id="select-컬럼명"><a href="#select-컬럼명" class="headerlink" title="select 컬럼명"></a>select 컬럼명</h2><h2 id="from-테이블명"><a href="#from-테이블명" class="headerlink" title="from 테이블명"></a>from 테이블명</h2><h2 id="where-조건식-위치정보"><a href="#where-조건식-위치정보" class="headerlink" title="where 조건식(위치정보)"></a>where 조건식(위치정보)</h2><h2 id="order-by-정렬"><a href="#order-by-정렬" class="headerlink" title="order by 정렬"></a>order by 정렬</h2><h2 id="모든-컬럼을-가지고-온다"><a href="#모든-컬럼을-가지고-온다" class="headerlink" title="* 모든 컬럼을 가지고 온다"></a>* 모든 컬럼을 가지고 온다</h2><h2 id="날짜-데이터-타입"><a href="#날짜-데이터-타입" class="headerlink" title="날짜 데이터 타입"></a>날짜 데이터 타입</h2><p>CREATE TABLE ex2_5(<br>    COL_DATE        DATE,<br>    COL_TIMESTAMP   TIMESTAMP<br>);</p>
 <p>INSERT INTO ex2_5 VALUES(SYSDATE, SYSTIMESTAMP);<br>SELECT * FROM ex2_5;</p>
-<p>– null : 값이 없음<br>– 해당 컬럼은 null<br>– 결측치 허용 x : not null<br>–p.60</p>
-<p>CREATE TABLE ex2_6(<br>        COL_NULL        VARCHAR2(10),–결측치 허용<br>        COL_NOT_NULL    VARCHAR2(10) NOT NULL – 결측치 허용 X<br>);</p>
-<p>INSERT INTO ex2_6 VALUES (‘AA’,’’); –  에러 발생<br>INSERT INTO ex2_6 VALUES(‘’,’BB’);– 정상적으로 삽입됨<br>SELECT *FROM ex2_6</p>
+<h2 id="null-값이-없음"><a href="#null-값이-없음" class="headerlink" title="null : 값이 없음"></a>null : 값이 없음</h2><h2 id="해당-컬럼은-null"><a href="#해당-컬럼은-null" class="headerlink" title="해당 컬럼은 null"></a>해당 컬럼은 null</h2><h2 id="결측치-허용-x-not-null"><a href="#결측치-허용-x-not-null" class="headerlink" title="결측치 허용 x : not null"></a>결측치 허용 x : not null</h2><p>##p.60</p>
+<p>CREATE TABLE ex2_6(<br>        COL_NULL        VARCHAR2(10),##결측치 허용<br>        COL_NOT_NULL    VARCHAR2(10) NOT NULL ## 결측치 허용 X<br>);</p>
+<p>INSERT INTO ex2_6 VALUES (‘AA’,’’); ##  에러 발생<br>INSERT INTO ex2_6 VALUES(‘’,’BB’);## 정상적으로 삽입됨<br>SELECT *FROM ex2_6</p>
 <p>INSERT INTO ex2_6 VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_6</p>
-<p>– 테이블 생성, 추가, 삭제, 수정 코드<br>– 파이썬, 자바에서 다 사용될 코드들</p>
-<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_6’;</p>
-<p>– UNIQUE<br>– 중복 값 허용 </p>
-<p>CREATE TABLE ex2_7(<br>    COL_UNIQUE_NULL     VARCHAR2(10)UNIQUE<br>    , COL_UNIQUE_NNULL  VARCHAR2(10) UNIQUE NOT NULL<br>    , COL_UNIQUE        VARCHAR2(10)<br>    , CONSTRAINTS unique_nml UNIQUE (COL_UNIQUE)– CONSTRAINT 제약을 걸다<br>);</p>
+<h2 id="테이블-생성-추가-삭제-수정-코드"><a href="#테이블-생성-추가-삭제-수정-코드" class="headerlink" title="테이블 생성, 추가, 삭제, 수정 코드"></a>테이블 생성, 추가, 삭제, 수정 코드</h2><h2 id="파이썬-자바에서-다-사용될-코드들"><a href="#파이썬-자바에서-다-사용될-코드들" class="headerlink" title="파이썬, 자바에서 다 사용될 코드들"></a>파이썬, 자바에서 다 사용될 코드들</h2><p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_6’;</p>
+<h2 id="UNIQUE"><a href="#UNIQUE" class="headerlink" title="UNIQUE"></a>UNIQUE</h2><h2 id="중복-값-허용"><a href="#중복-값-허용" class="headerlink" title="중복 값 허용"></a>중복 값 허용</h2><p>CREATE TABLE ex2_7(<br>    COL_UNIQUE_NULL     VARCHAR2(10)UNIQUE<br>    , COL_UNIQUE_NNULL  VARCHAR2(10) UNIQUE NOT NULL<br>    , COL_UNIQUE        VARCHAR2(10)<br>    , CONSTRAINTS unique_nml UNIQUE (COL_UNIQUE)## CONSTRAINT 제약을 걸다<br>);</p>
 <p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_7’;</p>
-<p>– DROP TABLE 테이블 명 ;  테이블 삭제하는법</p>
-<p>INSERT INTO ex2_7 VALUES(‘AA’,’AA’,’AA’);<br>INSERT INTO ex2_7 VALUES(‘’,’BB’,’CC’); </p>
-<p>– 기본키 중요<br>– Primary Key<br>– unique(중복허용 안됨), not null(결측치허용 안됨)<br>– 테이블 당 1개의 기본키만 설정 가능</p>
-<p>CREATE TABLE ex2_8(<br>    COL1 VARCHAR2(10) PRIMARY KEY<br>    , COL2 VARCHAR2(10)<br>);</p>
-<p>– INSERT INTO ex2_8 VALUES(‘’,’AA’); - 삽입 불가<br>INSERT INTO ex2_8 VALUES(‘AA’,’AA’);</p>
-<p>– 외래키 : 테이블 간의 참조 데이터 무결성을 위한 제약 조건<br>– 참조 무결성 보장 : 잘못된 정보가 입력되는 것을 방지</p>
-<p>– CHECK<br>– 컬럼에 입력되는 데이터를 체크해 특정 조건에 맞는 데이터만 입력</p>
-<p>CREATE TABLE ex2_9(<br>    num1        NUMBER<br>    , CONSTRAINTS check1 CHECK (num1 BETWEEN 1 AND 9)<br>    , gender        VARCHAR2(10)<br>    , CONSTRAINTS check2 CHECK (gender IN(‘MALE’,’FEMALE’))<br>);</p>
+<h2 id="DROP-TABLE-테이블-명-테이블-삭제하는법"><a href="#DROP-TABLE-테이블-명-테이블-삭제하는법" class="headerlink" title="DROP TABLE 테이블 명 ;  테이블 삭제하는법"></a>DROP TABLE 테이블 명 ;  테이블 삭제하는법</h2><p>INSERT INTO ex2_7 VALUES(‘AA’,’AA’,’AA’);<br>INSERT INTO ex2_7 VALUES(‘’,’BB’,’CC’); </p>
+<h2 id="기본키-중요"><a href="#기본키-중요" class="headerlink" title="기본키 중요"></a>기본키 중요</h2><h2 id="Primary-Key"><a href="#Primary-Key" class="headerlink" title="Primary Key"></a>Primary Key</h2><h2 id="unique-중복허용-안됨-not-null-결측치허용-안됨"><a href="#unique-중복허용-안됨-not-null-결측치허용-안됨" class="headerlink" title="unique(중복허용 안됨), not null(결측치허용 안됨)"></a>unique(중복허용 안됨), not null(결측치허용 안됨)</h2><h2 id="테이블-당-1개의-기본키만-설정-가능"><a href="#테이블-당-1개의-기본키만-설정-가능" class="headerlink" title="테이블 당 1개의 기본키만 설정 가능"></a>테이블 당 1개의 기본키만 설정 가능</h2><p>CREATE TABLE ex2_8(<br>    COL1 VARCHAR2(10) PRIMARY KEY<br>    , COL2 VARCHAR2(10)<br>);</p>
+<h2 id="INSERT-INTO-ex2-8-VALUES-‘’-’AA’-삽입-불가"><a href="#INSERT-INTO-ex2-8-VALUES-‘’-’AA’-삽입-불가" class="headerlink" title="INSERT INTO ex2_8 VALUES(‘’,’AA’); - 삽입 불가"></a>INSERT INTO ex2_8 VALUES(‘’,’AA’); - 삽입 불가</h2><p>INSERT INTO ex2_8 VALUES(‘AA’,’AA’);</p>
+<h2 id="외래키-테이블-간의-참조-데이터-무결성을-위한-제약-조건"><a href="#외래키-테이블-간의-참조-데이터-무결성을-위한-제약-조건" class="headerlink" title="외래키 : 테이블 간의 참조 데이터 무결성을 위한 제약 조건"></a>외래키 : 테이블 간의 참조 데이터 무결성을 위한 제약 조건</h2><h2 id="참조-무결성-보장-잘못된-정보가-입력되는-것을-방지"><a href="#참조-무결성-보장-잘못된-정보가-입력되는-것을-방지" class="headerlink" title="참조 무결성 보장 : 잘못된 정보가 입력되는 것을 방지"></a>참조 무결성 보장 : 잘못된 정보가 입력되는 것을 방지</h2><h2 id="CHECK"><a href="#CHECK" class="headerlink" title="CHECK"></a>CHECK</h2><h2 id="컬럼에-입력되는-데이터를-체크해-특정-조건에-맞는-데이터만-입력"><a href="#컬럼에-입력되는-데이터를-체크해-특정-조건에-맞는-데이터만-입력" class="headerlink" title="컬럼에 입력되는 데이터를 체크해 특정 조건에 맞는 데이터만 입력"></a>컬럼에 입력되는 데이터를 체크해 특정 조건에 맞는 데이터만 입력</h2><p>CREATE TABLE ex2_9(<br>    num1        NUMBER<br>    , CONSTRAINTS check1 CHECK (num1 BETWEEN 1 AND 9)<br>    , gender        VARCHAR2(10)<br>    , CONSTRAINTS check2 CHECK (gender IN(‘MALE’,’FEMALE’))<br>);</p>
 <p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_9’;</p>
-<p>INSERT INTO ex2_9 VALUES(10,’MAN’); – MALE 이들어가지 않아서 오류가 남<br>INSERT INTO ex2_9 VALUES(5, ‘FEMALE’)</p>
-<p>– DEFAULT : 고정 값 무조건 들어가라, 날짜, 시간</p>
-<p>alter session set nls_date_format&#x3D;’YYYY&#x2F;MM&#x2F;DD HH24:MI:SS’;</p>
+<p>INSERT INTO ex2_9 VALUES(10,’MAN’); ## MALE 이들어가지 않아서 오류가 남<br>INSERT INTO ex2_9 VALUES(5, ‘FEMALE’)</p>
+<h2 id="DEFAULT-고정-값-무조건-들어가라-날짜-시간"><a href="#DEFAULT-고정-값-무조건-들어가라-날짜-시간" class="headerlink" title="DEFAULT : 고정 값 무조건 들어가라, 날짜, 시간"></a>DEFAULT : 고정 값 무조건 들어가라, 날짜, 시간</h2><p>alter session set nls_date_format&#x3D;’YYYY&#x2F;MM&#x2F;DD HH24:MI:SS’;</p>
 <p>CREATE TABLE ex2_10(<br>    COL1 VARCHAR2(10) NOT NULL<br>    , COL2 VARCHAR2(10) NULL<br>    , CREATE_date DATE DEFAULT SYSDATE<br>);</p>
 <p>INSERT INTO ex2_10 (col1,col2) VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_10;</p>
-<p>– 테이블 변경<br>– alter table</p>
-<p>ALTER TABLE ex2_10 RENAME COLUMN Col1 TO Col11;<br>SELECT *FROM ex2_10;</p>
-<p>DESC ex2_10;<br>– 컬럼 변경</p>
-<p>ALTER TABLE ex2_10 MODIFY COL2 VARCHAR2(30);</p>
+<h2 id="테이블-변경"><a href="#테이블-변경" class="headerlink" title="테이블 변경"></a>테이블 변경</h2><h2 id="alter-table"><a href="#alter-table" class="headerlink" title="alter table"></a>alter table</h2><p>ALTER TABLE ex2_10 RENAME COLUMN Col1 TO Col11;<br>SELECT *FROM ex2_10;</p>
 <p>DESC ex2_10;</p>
-<p>– 신규 컬럼 추가</p>
-<p>ALTER TABLE ex2_10 ADD COL3 NUMBER;<br>DESC ex2_10</p>
-<p>– 컬럼 삭제</p>
-<p>ALTER TABLE ex2_10 DROP COLUMN COL3;<br>DESC ex2_10;</p>
-<p>– 제약 조건 추가</p>
-<p>ALTER TABLE ex2_10 ADD CONSTRAINTS pk_ex2_10 PRIMARY KEY (COL11);<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
-<p>– 제약 조건 삭제</p>
-<p>ALTER TABLE ex2_10 DROP CONSTRAINTS pk_ex2_10;<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
-<p>– 테이블 복사</p>
-<p>CREATE TABLE ex2_9_1 AS<br>SELECT *<br>    FROM ex2_9;</p>
-<p>– 뷰 생성</p>
-<p>CREATE OR REPLACE VIEW emp_dept_vl AS<br>SELECT a.employee_id<br>        , a.emp_name<br>        , a.department_id<br>        , b.department_name<br>FROM employees a<br>    , departments b<br>WHERE a.department_id &#x3D; b.department_id;</p>
-<p>– 뷰 제거</p>
-<p>DROP VIEW emp_dept_vl;</p>
+<h2 id="컬럼-변경"><a href="#컬럼-변경" class="headerlink" title="컬럼 변경"></a>컬럼 변경</h2><p>ALTER TABLE ex2_10 MODIFY COL2 VARCHAR2(30);</p>
+<p>DESC ex2_10;</p>
+<h2 id="신규-컬럼-추가"><a href="#신규-컬럼-추가" class="headerlink" title="신규 컬럼 추가"></a>신규 컬럼 추가</h2><p>ALTER TABLE ex2_10 ADD COL3 NUMBER;<br>DESC ex2_10</p>
+<h2 id="컬럼-삭제"><a href="#컬럼-삭제" class="headerlink" title="컬럼 삭제"></a>컬럼 삭제</h2><p>ALTER TABLE ex2_10 DROP COLUMN COL3;<br>DESC ex2_10;</p>
+<h2 id="제약-조건-추가"><a href="#제약-조건-추가" class="headerlink" title="제약 조건 추가"></a>제약 조건 추가</h2><p>ALTER TABLE ex2_10 ADD CONSTRAINTS pk_ex2_10 PRIMARY KEY (COL11);<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
+<h2 id="제약-조건-삭제"><a href="#제약-조건-삭제" class="headerlink" title="제약 조건 삭제"></a>제약 조건 삭제</h2><p>ALTER TABLE ex2_10 DROP CONSTRAINTS pk_ex2_10;<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
+<h2 id="테이블-복사"><a href="#테이블-복사" class="headerlink" title="테이블 복사"></a>테이블 복사</h2><p>CREATE TABLE ex2_9_1 AS<br>SELECT *<br>    FROM ex2_9;</p>
+<h2 id="뷰-생성"><a href="#뷰-생성" class="headerlink" title="뷰 생성"></a>뷰 생성</h2><p>CREATE OR REPLACE VIEW emp_dept_vl AS<br>SELECT a.employee_id<br>        , a.emp_name<br>        , a.department_id<br>        , b.department_name<br>FROM employees a<br>    , departments b<br>WHERE a.department_id &#x3D; b.department_id;</p>
+<h2 id="뷰-제거"><a href="#뷰-제거" class="headerlink" title="뷰 제거"></a>뷰 제거</h2><p>DROP VIEW emp_dept_vl;</p>
 
       
     </div>
@@ -178,6 +152,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2022/07/20/0720_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          0720_oracle_sql 기초문법
+        
+      </div>
+    </a>
   
   
     <a href="/2022/07/18/0718/" id="article-nav-older" class="article-nav-link-wrap">
@@ -220,6 +203,10 @@
       <ul>
         
           <li>
+            <a href="/2022/07/20/0720_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%95/">0720_oracle_sql 기초문법</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/">0719_oracle입문</a>
           </li>
         
@@ -233,10 +220,6 @@
         
           <li>
             <a href="/2022/07/15/%EA%B3%84%EC%82%B0%EA%B8%B0_%EB%A7%8C%EB%93%A4%EA%B8%B0/">0715_계산기 만들기</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/08/sonham-s-sample%20(1)/">0707_KAGGLE입문</a>
           </li>
         
       </ul>
