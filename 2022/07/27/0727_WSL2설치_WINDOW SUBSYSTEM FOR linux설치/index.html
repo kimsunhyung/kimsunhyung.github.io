@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0727 WSL2 설치 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="WSL2 설치 (WINDOW SUBSYSTEM FOR linux  설치)Created: 2022년 7월 27일 오전 9:21Last Edited Time: 2022년 7월 27일 오후 4:39   power shell 명령창을 키고  dism.exe &#x2F;online &#x2F;enable-feature &#x2F;featurename:Microsoft-Windows-Subsy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0727 WSL2 설치">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="WSL2 설치 (WINDOW SUBSYSTEM FOR linux  설치)Created: 2022년 7월 27일 오전 9:21Last Edited Time: 2022년 7월 27일 오후 4:39   power shell 명령창을 키고  dism.exe &#x2F;online &#x2F;enable-feature &#x2F;featurename:Microsoft-Windows-Subsy">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727/Untitled.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727/Untitled1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727/Untitled2.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727/Untitled3.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727/Untitled4.png">
+<meta property="article:published_time" content="2022-07-27T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-27T08:09:21.662Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0727/Untitled.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0727_WSL2설치_WINDOW SUBSYSTEM FOR linux설치" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/" class="article-date">
+  <time class="dt-published" datetime="2022-07-27T00:00:00.000Z" itemprop="datePublished">2022-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0727 WSL2 설치
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="WSL2-설치-WINDOW-SUBSYSTEM-FOR-linux-설치"><a href="#WSL2-설치-WINDOW-SUBSYSTEM-FOR-linux-설치" class="headerlink" title="WSL2 설치 (WINDOW SUBSYSTEM FOR linux  설치)"></a>WSL2 설치 (WINDOW SUBSYSTEM FOR linux  설치)</h1><p>Created: 2022년 7월 27일 오전 9:21<br>Last Edited Time: 2022년 7월 27일 오후 4:39</p>
+<p><img src="/images/0727/Untitled.png" alt="png"></p>
+<ul>
+<li>power shell 명령창을 키고</li>
+</ul>
+<p><code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code></p>
+<p><code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code></p>
+<p><code>[https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)</code></p>
+<ul>
+<li>위에 두개의 명령어 작성 후 밑에 사이트로 들어가서 다운로드</li>
+</ul>
+<p><img src="/images/0727/Untitled1.png" alt="png"></p>
+<ul>
+<li>마이크로소프트 스토어에서 ubuntu 20.04.4 다운로드</li>
+<li>개발은 lts에서 진행하는 것이 더 수월</li>
+</ul>
+<p><img src="/images/0727/Untitled2.png" alt="png"></p>
+<ul>
+<li>이런 창이 뜰 경우 가상 환경이 잘 세팅이 되어 있지 않다는 뜻</li>
+<li>powershell 명령 창을 띄워서 가상 환경 설정 명령어 작성이 필요</li>
+</ul>
+<p><code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All</code></p>
+<ul>
+<li>작성해도  오류가 뜨면</li>
+<li>검색창에 윈도우 기능 켜기를 킴 (첫번째로 진행해야 함)</li>
+<li>아이디 작성 후 비밀번호 작성 시 비밀번호가 뜨지 않으니 주의해야 함.</li>
+</ul>
+<p><img src="/images/0727/Untitled3.png" alt="png"></p>
+<ul>
+<li>window 하이퍼바이저 플랫폼을 체크해야함 재부팅 후</li>
+</ul>
+<p><img src="/images/0727/Untitled4.png" alt="png"></p>
+<ul>
+<li>powershell에서</li>
+</ul>
+<p><code>wsl --set-default-version 2</code> 명령어를 작성</p>
+<ul>
+<li><p>wsl -l -v 해서 version 2가 나오지 않고 1이 반복해서 나올 경우 ubuntu 제거 후 재 설치</p>
+</li>
+<li><p>요약</p>
+</li>
+</ul>
+<p>1단계 : 윈도우즈 기능&#x2F;켜기 - 하이퍼 바이저 플랫폼 클릭, 가상머신 플랫폼, Hyper-V 클릭, 컴퓨터마다 조금씩 다름.2단계 : PowerShell 관리자 권한 실행 후 아래 명령어 입력</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>다음 명령어 입력</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+
+<p>3단계 : 재부팅4단계 : 다운로드 및 실행하여 업데이트</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi</span><br></pre></td></tr></table></figure>
+
+<p>5단계 : Microsoft Store 접속 및 Ubuntu 검색6단계 : Ubuntu 실행 및 ID&#x2F;PW 생성7단계 : wsl –set-default-version 2 (편집됨)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/" data-id="cl63bid9900006otvcrwu9gms" data-title="0727 WSL2 설치" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/26/0726_crawling%EA%B8%B0%EC%B4%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0726_crawling기초</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/">0727 WSL2 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/26/0726_crawling%EA%B8%B0%EC%B4%88/">0726_crawling기초</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/26/0726_crawling%EA%B8%B0%EC%B4%882/">0726_crawling기초2</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/22/0722_oracle_%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%953/">0722_oracle_sql 기초문법3</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/21/0721_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%952/">0721_oracle_sql 기초문법2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
