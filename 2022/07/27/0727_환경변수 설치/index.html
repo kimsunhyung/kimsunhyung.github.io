@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0727 환경변수 설치 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="LINUX 환경 변수 설치Created: 2022년 7월 27일 오전 11:44Last Edited Time: 2022년 7월 27일 오후 4:32 vi 편집기 중요 환경변수 설치하기  pwd 입력하여 위치 확인 후 복사 vi ~&#x2F;.bashrc 입력하면 편집기가 켜짐 i를 입력하면 insert 가 생김   저장하기 작성 후 ESC누른 후  :wq!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0727 환경변수 설치">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="LINUX 환경 변수 설치Created: 2022년 7월 27일 오전 11:44Last Edited Time: 2022년 7월 27일 오후 4:32 vi 편집기 중요 환경변수 설치하기  pwd 입력하여 위치 확인 후 복사 vi ~&#x2F;.bashrc 입력하면 편집기가 켜짐 i를 입력하면 insert 가 생김   저장하기 작성 후 ESC누른 후  :wq!">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98/Untitled.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98/Untitled1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98/Untitled2.png">
+<meta property="article:published_time" content="2022-07-27T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-27T08:16:48.414Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98/Untitled.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0727_환경변수 설치" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/" class="article-date">
+  <time class="dt-published" datetime="2022-07-27T00:00:00.000Z" itemprop="datePublished">2022-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0727 환경변수 설치
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="LINUX-환경-변수-설치"><a href="#LINUX-환경-변수-설치" class="headerlink" title="LINUX 환경 변수 설치"></a>LINUX 환경 변수 설치</h1><p>Created: 2022년 7월 27일 오전 11:44<br>Last Edited Time: 2022년 7월 27일 오후 4:32</p>
+<h1 id="vi-편집기-중요"><a href="#vi-편집기-중요" class="headerlink" title="vi 편집기 중요"></a>vi 편집기 중요</h1><ul>
+<li>환경변수 설치하기</li>
+</ul>
+<p>pwd 입력하여 위치 확인 후 복사</p>
+<p>vi ~&#x2F;.bashrc 입력하면 편집기가 켜짐</p>
+<p>i를 입력하면 insert 가 생김</p>
+<p><img src="/images/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98/Untitled.png" alt="png"></p>
+<ul>
+<li>저장하기</li>
+<li>작성 후 ESC누른 후</li>
+</ul>
+<p>:wq! 를 입력</p>
+<ul>
+<li>시스템에 반영을 하기 위해</li>
+</ul>
+<p>source ~&#x2F;.bashrc 를 입력</p>
+<ul>
+<li>반영 후 가상 환경에서 나가지기 때문에 다시 가상 환경을 설정한 후</li>
+</ul>
+<p><img src="/images/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98/Untitled1.png" alt="png"></p>
+<ul>
+<li>위와 같은 코드를 입력하면 환경설정 완료</li>
+</ul>
+<p><img src="/images/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98/Untitled2.png" alt="png"></p>
+<p>잘못 작성했을 시 저장하지 않고 나감</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/" data-id="cl63bzpg50000wotv7kgy4ixr" data-title="0727 환경변수 설치" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          0727 WSL2 설치
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/27/0727_airflow%EC%84%A4%EC%B9%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0727 airflow설치</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/">0727 WSL2 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/">0727 환경변수 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_airflow%EC%84%A4%EC%B9%98/">0727 airflow설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_vscode_wsl%EC%97%B0%EB%8F%99/">0727 vs code, wsl연동</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/26/0726_crawling%EA%B8%B0%EC%B4%88/">0726_crawling기초</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
