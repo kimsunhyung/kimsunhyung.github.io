@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0728_airflow pipeline 구축 및 spark 설치 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="0728 airflow 파이프라인 구축 및 스파크 설치  경로 이동 방법 cat 자신이 작성한 코드를 보여줌     1000개의가짜데이터 형성 라이브러리를 불러올 때 파일 명과 동일하게 생성하면 라이브러리가 제대로 불러오지 못함.  airflow  파이프라인 구축 airflow.cfg 로 들어가서 load_example을 True에서 False로 변경">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0728_airflow pipeline 구축 및 spark 설치">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/07/28/0728airflow_pipeline_spark_install/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="0728 airflow 파이프라인 구축 및 스파크 설치  경로 이동 방법 cat 자신이 작성한 코드를 보여줌     1000개의가짜데이터 형성 라이브러리를 불러올 때 파일 명과 동일하게 생성하면 라이브러리가 제대로 불러오지 못함.  airflow  파이프라인 구축 airflow.cfg 로 들어가서 load_example을 True에서 False로 변경">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/2.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/3.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/4.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/5.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/6.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/7.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/8.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/9.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/10.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/11.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/12.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/13.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/14.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/15.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/16.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/17.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/18.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/19.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/20.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/21.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/22.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/23.png">
+<meta property="article:published_time" content="2022-07-28T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-29T07:19:29.800Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0728airflow_pipeline_spark_install/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0728airflow_pipeline_spark_install" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/28/0728airflow_pipeline_spark_install/" class="article-date">
+  <time class="dt-published" datetime="2022-07-28T00:00:00.000Z" itemprop="datePublished">2022-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0728_airflow pipeline 구축 및 spark 설치
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="0728-airflow-파이프라인-구축-및-스파크-설치"><a href="#0728-airflow-파이프라인-구축-및-스파크-설치" class="headerlink" title="0728 airflow 파이프라인 구축 및 스파크 설치"></a>0728 airflow 파이프라인 구축 및 스파크 설치</h1><p><img src="/images/0728airflow_pipeline_spark_install/1.png" alt="png"></p>
+<ul>
+<li>경로 이동 방법</li>
+<li>cat 자신이 작성한 코드를 보여줌</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/2.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/3.png" alt="png"></p>
+<ul>
+<li>1000개의가짜데이터 형성</li>
+<li>라이브러리를 불러올 때 파일 명과 동일하게 생성하면 라이브러리가 제대로 불러오지 못함.</li>
+</ul>
+<h1 id="airflow-파이프라인-구축"><a href="#airflow-파이프라인-구축" class="headerlink" title="airflow  파이프라인 구축"></a>airflow  파이프라인 구축</h1><ul>
+<li>airflow.cfg 로 들어가서 load_example을 True에서 False로 변경</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/4.png" alt="png"></p>
+<ul>
+<li>라이브러리를 불러온다.</li>
+</ul>
+<hr>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"><span class="keyword">from</span> airflow <span class="keyword">import</span> <span class="variable constant_">DAG</span></span><br><span class="line"><span class="keyword">from</span> airflow.<span class="property">operators</span>.<span class="property">bash</span> <span class="keyword">import</span> <span class="title class_">BashOperator</span></span><br><span class="line"><span class="keyword">from</span> airflow.<span class="property">operators</span>.<span class="property">python</span> <span class="keyword">import</span> <span class="title class_">PythonOperator</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>csv 파일을 읽어서 name을 추출하는 함수를 작성</li>
+<li>csv파일에서 데이터를 읽어 들이는 방법과 데이터를 json파일로 기록하는 방법을 조합</li>
+</ul>
+<hr>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">csvToJson</span>():</span><br><span class="line">df=pd.<span class="title function_">read_csv</span>(<span class="string">&#x27;dags/data.csv&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i,r <span class="keyword">in</span> df.<span class="title function_">iterrows</span>():</span><br><span class="line"><span class="title function_">print</span>(r[<span class="string">&#x27;name&#x27;</span>])</span><br><span class="line">df.<span class="title function_">to_json</span>(<span class="string">&#x27;fromAirflow.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>사전 객체로 dag 호출 후 객체 생성</li>
+<li>default_args 매개변수 앞에서는 설정한 사전 객체 지정 후</li>
+<li>실행 사이 간격을 지정한다</li>
+<li>timedelta, crontab으로 사용가능</li>
+</ul>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">default_args = &#123;</span><br><span class="line">    <span class="string">&#x27;owner&#x27;</span>: <span class="string">&#x27;evan&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;start_date&#x27;</span>: dt.datetime(<span class="number">2022</span>, <span class="number">7</span>, <span class="number">27</span>),</span><br><span class="line">    <span class="string">&#x27;retries&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;retry_delay&#x27;</span>: dt.timedelta(minutes=<span class="number">1</span>),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>airflow webserver -p 포트번호</li>
+<li>airflow scheduler</li>
+</ul>
+<hr>
+<hr>
+<h1 id="스파크-설치"><a href="#스파크-설치" class="headerlink" title="스파크 설치"></a>스파크 설치</h1><ul>
+<li>스파크를 사용하는 이유</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/5.png" alt="png"></p>
+<p>- </p>
+<ul>
+<li>ubuntu 열기 후</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/6.png" alt="png"></p>
+<ul>
+<li>경로 설정 후 파일 생성 후</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openjdk-<span class="number">8</span>-jdk</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코드 입력 후</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget [<span class="attr">https</span>:<span class="comment">//archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz](https://archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코드 입력</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 압축풀기</span><br><span class="line">sudo tar -xvzf spark-<span class="number">3.2</span><span class="number">.0</span>-bin-hadoop3<span class="number">.2</span>.<span class="property">tgz</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>압축을 풀고 난 후 파일 생성</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/7.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/8.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/9.png" alt="png"></p>
+<ul>
+<li>파일을 지우는 명령어</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/10.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/11.png" alt="png"></p>
+<ul>
+<li>복사코드</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/12.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/13.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/14.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/15.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/16.png" alt="png"></p>
+<p>한 후 localhost:8080을 웹에 작성하면 </p>
+<p><img src="/images/0728airflow_pipeline_spark_install/17.png" alt="png"></p>
+<p>이 화면이 나옴.</p>
+<p>환경변수 &#x3D; 해당 파일이 있는지 없는지 확인하는 경로</p>
+<p><img src="/images/0728airflow_pipeline_spark_install/18.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/19.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/20.png" alt="png"></p>
+<p>배포 후</p>
+<p>HOME으로 이동한 후</p>
+<p><img src="/images/0728airflow_pipeline_spark_install/21.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 환경변수 설정</span></span><br><span class="line">export AIRFLOW_HOME=/home/human/airflow</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/java-<span class="number">8</span>-openjdk-amd64</span><br><span class="line">export SPARK_HOME=/home/human/spark3</span><br><span class="line">export PATH=$JAVA_HOME/<span class="built_in">bin</span>:$PATH</span><br><span class="line">export PATH=$SPARK_HOME/<span class="built_in">bin</span>:$PATH</span><br><span class="line">export PYSPARK_PYTHON=/usr/<span class="built_in">bin</span>/python3</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>환경 변수 설정 후 배포 한 후</li>
+<li>ubuntu 를 종료 하고 다시 실행하여</li>
+<li>pyspark 코드를 입력 하면 활성화됨</li>
+</ul>
+<hr>
+<p><img src="/images/0728airflow_pipeline_spark_install/22.png" alt="png"></p>
+<p>가상환경 설정 후 3개의 파인스파크 파이스파크를 설치한 후 파이 스파크 활성화</p>
+<p><img src="/images/0728airflow_pipeline_spark_install/23.png" alt="png"></p>
+<p>환경변수 추가</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/28/0728airflow_pipeline_spark_install/" data-id="cl6650por0000v8tv3urqdpki" data-title="0728_airflow pipeline 구축 및 spark 설치" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0727 WSL2 설치</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/28/0728airflow_pipeline_spark_install/">0728_airflow pipeline 구축 및 spark 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/">0727 WSL2 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/">0727 환경변수 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_airflow%EC%84%A4%EC%B9%98/">0727 airflow설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_vscode_wsl%EC%97%B0%EB%8F%99/">0727 vs code, wsl연동</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -71,6 +71,155 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-0728airflow_pipeline_spark_install" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/28/0728airflow_pipeline_spark_install/" class="article-date">
+  <time class="dt-published" datetime="2022-07-28T00:00:00.000Z" itemprop="datePublished">2022-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/07/28/0728airflow_pipeline_spark_install/">0728_airflow pipeline 구축 및 spark 설치</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="0728-airflow-파이프라인-구축-및-스파크-설치"><a href="#0728-airflow-파이프라인-구축-및-스파크-설치" class="headerlink" title="0728 airflow 파이프라인 구축 및 스파크 설치"></a>0728 airflow 파이프라인 구축 및 스파크 설치</h1><p><img src="/images/0728airflow_pipeline_spark_install/1.png" alt="png"></p>
+<ul>
+<li>경로 이동 방법</li>
+<li>cat 자신이 작성한 코드를 보여줌</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/2.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/3.png" alt="png"></p>
+<ul>
+<li>1000개의가짜데이터 형성</li>
+<li>라이브러리를 불러올 때 파일 명과 동일하게 생성하면 라이브러리가 제대로 불러오지 못함.</li>
+</ul>
+<h1 id="airflow-파이프라인-구축"><a href="#airflow-파이프라인-구축" class="headerlink" title="airflow  파이프라인 구축"></a>airflow  파이프라인 구축</h1><ul>
+<li>airflow.cfg 로 들어가서 load_example을 True에서 False로 변경</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/4.png" alt="png"></p>
+<ul>
+<li>라이브러리를 불러온다.</li>
+</ul>
+<hr>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime <span class="keyword">as</span> dt</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"><span class="keyword">from</span> airflow <span class="keyword">import</span> <span class="variable constant_">DAG</span></span><br><span class="line"><span class="keyword">from</span> airflow.<span class="property">operators</span>.<span class="property">bash</span> <span class="keyword">import</span> <span class="title class_">BashOperator</span></span><br><span class="line"><span class="keyword">from</span> airflow.<span class="property">operators</span>.<span class="property">python</span> <span class="keyword">import</span> <span class="title class_">PythonOperator</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>csv 파일을 읽어서 name을 추출하는 함수를 작성</li>
+<li>csv파일에서 데이터를 읽어 들이는 방법과 데이터를 json파일로 기록하는 방법을 조합</li>
+</ul>
+<hr>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">csvToJson</span>():</span><br><span class="line">df=pd.<span class="title function_">read_csv</span>(<span class="string">&#x27;dags/data.csv&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> i,r <span class="keyword">in</span> df.<span class="title function_">iterrows</span>():</span><br><span class="line"><span class="title function_">print</span>(r[<span class="string">&#x27;name&#x27;</span>])</span><br><span class="line">df.<span class="title function_">to_json</span>(<span class="string">&#x27;fromAirflow.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>사전 객체로 dag 호출 후 객체 생성</li>
+<li>default_args 매개변수 앞에서는 설정한 사전 객체 지정 후</li>
+<li>실행 사이 간격을 지정한다</li>
+<li>timedelta, crontab으로 사용가능</li>
+</ul>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">default_args = &#123;</span><br><span class="line">    <span class="string">&#x27;owner&#x27;</span>: <span class="string">&#x27;evan&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;start_date&#x27;</span>: dt.datetime(<span class="number">2022</span>, <span class="number">7</span>, <span class="number">27</span>),</span><br><span class="line">    <span class="string">&#x27;retries&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;retry_delay&#x27;</span>: dt.timedelta(minutes=<span class="number">1</span>),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>airflow webserver -p 포트번호</li>
+<li>airflow scheduler</li>
+</ul>
+<hr>
+<hr>
+<h1 id="스파크-설치"><a href="#스파크-설치" class="headerlink" title="스파크 설치"></a>스파크 설치</h1><ul>
+<li>스파크를 사용하는 이유</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/5.png" alt="png"></p>
+<p>- </p>
+<ul>
+<li>ubuntu 열기 후</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/6.png" alt="png"></p>
+<ul>
+<li>경로 설정 후 파일 생성 후</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openjdk-<span class="number">8</span>-jdk</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코드 입력 후</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget [<span class="attr">https</span>:<span class="comment">//archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz](https://archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코드 입력</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 압축풀기</span><br><span class="line">sudo tar -xvzf spark-<span class="number">3.2</span><span class="number">.0</span>-bin-hadoop3<span class="number">.2</span>.<span class="property">tgz</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>압축을 풀고 난 후 파일 생성</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/7.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/8.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/9.png" alt="png"></p>
+<ul>
+<li>파일을 지우는 명령어</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/10.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/11.png" alt="png"></p>
+<ul>
+<li>복사코드</li>
+</ul>
+<p><img src="/images/0728airflow_pipeline_spark_install/12.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/13.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/14.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/15.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/16.png" alt="png"></p>
+<p>한 후 localhost:8080을 웹에 작성하면 </p>
+<p><img src="/images/0728airflow_pipeline_spark_install/17.png" alt="png"></p>
+<p>이 화면이 나옴.</p>
+<p>환경변수 &#x3D; 해당 파일이 있는지 없는지 확인하는 경로</p>
+<p><img src="/images/0728airflow_pipeline_spark_install/18.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/19.png" alt="png"></p>
+<p><img src="/images/0728airflow_pipeline_spark_install/20.png" alt="png"></p>
+<p>배포 후</p>
+<p>HOME으로 이동한 후</p>
+<p><img src="/images/0728airflow_pipeline_spark_install/21.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 환경변수 설정</span></span><br><span class="line">export AIRFLOW_HOME=/home/human/airflow</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/java-<span class="number">8</span>-openjdk-amd64</span><br><span class="line">export SPARK_HOME=/home/human/spark3</span><br><span class="line">export PATH=$JAVA_HOME/<span class="built_in">bin</span>:$PATH</span><br><span class="line">export PATH=$SPARK_HOME/<span class="built_in">bin</span>:$PATH</span><br><span class="line">export PYSPARK_PYTHON=/usr/<span class="built_in">bin</span>/python3</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>환경 변수 설정 후 배포 한 후</li>
+<li>ubuntu 를 종료 하고 다시 실행하여</li>
+<li>pyspark 코드를 입력 하면 활성화됨</li>
+</ul>
+<hr>
+<p><img src="/images/0728airflow_pipeline_spark_install/22.png" alt="png"></p>
+<p>가상환경 설정 후 3개의 파인스파크 파이스파크를 설치한 후 파이 스파크 활성화</p>
+<p><img src="/images/0728airflow_pipeline_spark_install/23.png" alt="png"></p>
+<p>환경변수 추가</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/28/0728airflow_pipeline_spark_install/" data-id="cl6650por0000v8tv3urqdpki" data-title="0728_airflow pipeline 구축 및 spark 설치" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-0727_WSL2설치_WINDOW SUBSYSTEM FOR linux설치" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/" class="article-date">
@@ -812,88 +961,6 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
 
 
   
-    <article id="post-0719_oracle입문" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/" class="article-date">
-  <time class="dt-published" datetime="2022-07-19T00:00:00.000Z" itemprop="datePublished">2022-07-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/">0719_oracle입문</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>SELECT table_name FROM user_tables;</p>
-<h2 id="sql-vs-pl-x2F-sql"><a href="#sql-vs-pl-x2F-sql" class="headerlink" title="sql vs pl&#x2F;sql"></a>sql vs pl&#x2F;sql</h2><h2 id="sql-분석가-개발자"><a href="#sql-분석가-개발자" class="headerlink" title="sql (분석가, 개발자)"></a>sql (분석가, 개발자)</h2><h4 id="프로그래밍-성격이-얕음"><a href="#프로그래밍-성격이-얕음" class="headerlink" title="프로그래밍 성격이 얕음"></a>프로그래밍 성격이 얕음</h4><h2 id="pl-x2F-sql-분석가-개발자-dba"><a href="#pl-x2F-sql-분석가-개발자-dba" class="headerlink" title="pl&#x2F;sql (분석가, 개발자, dba)"></a>pl&#x2F;sql (분석가, 개발자, dba)</h2><h2 id="입문-sql-테이블-뷰-gt-pl-x2F-sql-함수-프로시저"><a href="#입문-sql-테이블-뷰-gt-pl-x2F-sql-함수-프로시저" class="headerlink" title="입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저"></a>입문 : sql 테이블, 뷰 -&gt; pl&#x2F;sql 함수, 프로시저</h2><h2 id="테이블-생성"><a href="#테이블-생성" class="headerlink" title="테이블 생성"></a>테이블 생성</h2><p>&#x2F;*<br>CREATE TABLE 테이블명(<br>    컬럼 1 컬럼 1_데이터 타입 결측치 허용 유무,</p>
-<p>)<br>*&#x2F;</p>
-<h2 id="테이블생성-예시"><a href="#테이블생성-예시" class="headerlink" title="테이블생성 예시"></a>테이블생성 예시</h2><p>CREATE TABLE ex2_1(<br>    COLUMN1     CHAR(10),<br>    COLUMN2     VARCHAR2(10),<br>    COLUMN3     VARCHAR2(10),<br>    COLUMN4     NUMBER<br>);</p>
-<h2 id="데이터-추가-웹-개발-시-아이디-추가할때-필요한-코드"><a href="#데이터-추가-웹-개발-시-아이디-추가할때-필요한-코드" class="headerlink" title="데이터 추가 (웹 개발 시 아이디 추가할때 필요한 코드)"></a>데이터 추가 (웹 개발 시 아이디 추가할때 필요한 코드)</h2><p>INSERT INTO ex2_1 (column1, column2) VALUES (‘abc’, ‘abc’);</p>
-<h2 id="데이터-조회"><a href="#데이터-조회" class="headerlink" title="데이터 조회"></a>데이터 조회</h2><p>SELECT column1, LENGTH(column1) as len1<br>FROM ex2_1;</p>
-<p>##p.53</p>
-<h2 id="영어에서-한문자-1byte"><a href="#영어에서-한문자-1byte" class="headerlink" title="영어에서 한문자 1byte"></a>영어에서 한문자 1byte</h2><h2 id="한글에서는-한문자-2byte-삼십글자가-들어올경우-30-2-x3D-60으로-해서-데이터-생성해야함"><a href="#한글에서는-한문자-2byte-삼십글자가-들어올경우-30-2-x3D-60으로-해서-데이터-생성해야함" class="headerlink" title="한글에서는 한문자 2byte(삼십글자가 들어올경우 30*2&#x3D;60으로 해서 데이터 생성해야함)"></a>한글에서는 한문자 2byte(삼십글자가 들어올경우 30*2&#x3D;60으로 해서 데이터 생성해야함)</h2><p>CREATE TABLE ex2_2(<br>    COLUMN1     VARCHAR2(3), ## 디폴트 값이 byte 적용<br>    COLUMN2     VARCHAR2(3 byte),<br>    COLUMN3     VARCHAR2(3 char)<br>);</p>
-<h2 id="기존의-객체가-이름을-사용하고-있다는-오류가-뜨면-새로고침을-실행해야함"><a href="#기존의-객체가-이름을-사용하고-있다는-오류가-뜨면-새로고침을-실행해야함" class="headerlink" title="기존의 객체가 이름을 사용하고 있다는 오류가 뜨면 새로고침을 실행해야함."></a>기존의 객체가 이름을 사용하고 있다는 오류가 뜨면 새로고침을 실행해야함.</h2><p>INSERT INTO ex2_2 VALUES(‘abc’, ‘abc’, ‘abc’);</p>
-<p>SELECT column1<br>        , LENGTH(column1) as len1<br>        , column2<br>        , LENGTH(column2) as len2<br>        , column3<br>        , LENGTH(column3) as len3<br>    FROM ex2_2;</p>
-<h2 id="한글-추가"><a href="#한글-추가" class="headerlink" title="한글 추가"></a>한글 추가</h2><p>INSERT INTO ex2_2 VALUES(‘홍길동’, ‘홍길동’, ‘홍길동’);##입력 불가</p>
-<h2 id="p-54"><a href="#p-54" class="headerlink" title="p.54"></a>p.54</h2><p>INSERT INTO ex2_2 (column3) values(‘홍길동’);</p>
-<p>SELECT column3<br>        , LENGTH(column3) AS len3<br>        , LENGTHB(column3) AS bytelen<br>FROM ex2_2;</p>
-<h2 id="숫자-데이터-타입"><a href="#숫자-데이터-타입" class="headerlink" title="숫자 데이터 타입"></a>숫자 데이터 타입</h2><p>CREATE TABLE ex2_3(<br>    COL_INT INTEGER,<br>    COL_DEC DECIMAL,<br>    COL_NUM NUMBER<br>);</p>
-<p>SELECT column_id<br>    , column_name<br>    , data_type<br>    , data_length<br>FROM user_tab_cols<br>WHERE table_name &#x3D; ‘EX2_3’<br>ORDER BY column_id;</p>
-<h2 id="select-컬럼명"><a href="#select-컬럼명" class="headerlink" title="select 컬럼명"></a>select 컬럼명</h2><h2 id="from-테이블명"><a href="#from-테이블명" class="headerlink" title="from 테이블명"></a>from 테이블명</h2><h2 id="where-조건식-위치정보"><a href="#where-조건식-위치정보" class="headerlink" title="where 조건식(위치정보)"></a>where 조건식(위치정보)</h2><h2 id="order-by-정렬"><a href="#order-by-정렬" class="headerlink" title="order by 정렬"></a>order by 정렬</h2><h2 id="모든-컬럼을-가지고-온다"><a href="#모든-컬럼을-가지고-온다" class="headerlink" title="* 모든 컬럼을 가지고 온다"></a>* 모든 컬럼을 가지고 온다</h2><h2 id="날짜-데이터-타입"><a href="#날짜-데이터-타입" class="headerlink" title="날짜 데이터 타입"></a>날짜 데이터 타입</h2><p>CREATE TABLE ex2_5(<br>    COL_DATE        DATE,<br>    COL_TIMESTAMP   TIMESTAMP<br>);</p>
-<p>INSERT INTO ex2_5 VALUES(SYSDATE, SYSTIMESTAMP);<br>SELECT * FROM ex2_5;</p>
-<h2 id="null-값이-없음"><a href="#null-값이-없음" class="headerlink" title="null : 값이 없음"></a>null : 값이 없음</h2><h2 id="해당-컬럼은-null"><a href="#해당-컬럼은-null" class="headerlink" title="해당 컬럼은 null"></a>해당 컬럼은 null</h2><h2 id="결측치-허용-x-not-null"><a href="#결측치-허용-x-not-null" class="headerlink" title="결측치 허용 x : not null"></a>결측치 허용 x : not null</h2><p>##p.60</p>
-<p>CREATE TABLE ex2_6(<br>        COL_NULL        VARCHAR2(10),##결측치 허용<br>        COL_NOT_NULL    VARCHAR2(10) NOT NULL ## 결측치 허용 X<br>);</p>
-<p>INSERT INTO ex2_6 VALUES (‘AA’,’’); ##  에러 발생<br>INSERT INTO ex2_6 VALUES(‘’,’BB’);## 정상적으로 삽입됨<br>SELECT *FROM ex2_6</p>
-<p>INSERT INTO ex2_6 VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_6</p>
-<h2 id="테이블-생성-추가-삭제-수정-코드"><a href="#테이블-생성-추가-삭제-수정-코드" class="headerlink" title="테이블 생성, 추가, 삭제, 수정 코드"></a>테이블 생성, 추가, 삭제, 수정 코드</h2><h2 id="파이썬-자바에서-다-사용될-코드들"><a href="#파이썬-자바에서-다-사용될-코드들" class="headerlink" title="파이썬, 자바에서 다 사용될 코드들"></a>파이썬, 자바에서 다 사용될 코드들</h2><p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_6’;</p>
-<h2 id="UNIQUE"><a href="#UNIQUE" class="headerlink" title="UNIQUE"></a>UNIQUE</h2><h2 id="중복-값-허용"><a href="#중복-값-허용" class="headerlink" title="중복 값 허용"></a>중복 값 허용</h2><p>CREATE TABLE ex2_7(<br>    COL_UNIQUE_NULL     VARCHAR2(10)UNIQUE<br>    , COL_UNIQUE_NNULL  VARCHAR2(10) UNIQUE NOT NULL<br>    , COL_UNIQUE        VARCHAR2(10)<br>    , CONSTRAINTS unique_nml UNIQUE (COL_UNIQUE)## CONSTRAINT 제약을 걸다<br>);</p>
-<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_7’;</p>
-<h2 id="DROP-TABLE-테이블-명-테이블-삭제하는법"><a href="#DROP-TABLE-테이블-명-테이블-삭제하는법" class="headerlink" title="DROP TABLE 테이블 명 ;  테이블 삭제하는법"></a>DROP TABLE 테이블 명 ;  테이블 삭제하는법</h2><p>INSERT INTO ex2_7 VALUES(‘AA’,’AA’,’AA’);<br>INSERT INTO ex2_7 VALUES(‘’,’BB’,’CC’); </p>
-<h2 id="기본키-중요"><a href="#기본키-중요" class="headerlink" title="기본키 중요"></a>기본키 중요</h2><h2 id="Primary-Key"><a href="#Primary-Key" class="headerlink" title="Primary Key"></a>Primary Key</h2><h2 id="unique-중복허용-안됨-not-null-결측치허용-안됨"><a href="#unique-중복허용-안됨-not-null-결측치허용-안됨" class="headerlink" title="unique(중복허용 안됨), not null(결측치허용 안됨)"></a>unique(중복허용 안됨), not null(결측치허용 안됨)</h2><h2 id="테이블-당-1개의-기본키만-설정-가능"><a href="#테이블-당-1개의-기본키만-설정-가능" class="headerlink" title="테이블 당 1개의 기본키만 설정 가능"></a>테이블 당 1개의 기본키만 설정 가능</h2><p>CREATE TABLE ex2_8(<br>    COL1 VARCHAR2(10) PRIMARY KEY<br>    , COL2 VARCHAR2(10)<br>);</p>
-<h2 id="INSERT-INTO-ex2-8-VALUES-‘’-’AA’-삽입-불가"><a href="#INSERT-INTO-ex2-8-VALUES-‘’-’AA’-삽입-불가" class="headerlink" title="INSERT INTO ex2_8 VALUES(‘’,’AA’); - 삽입 불가"></a>INSERT INTO ex2_8 VALUES(‘’,’AA’); - 삽입 불가</h2><p>INSERT INTO ex2_8 VALUES(‘AA’,’AA’);</p>
-<h2 id="외래키-테이블-간의-참조-데이터-무결성을-위한-제약-조건"><a href="#외래키-테이블-간의-참조-데이터-무결성을-위한-제약-조건" class="headerlink" title="외래키 : 테이블 간의 참조 데이터 무결성을 위한 제약 조건"></a>외래키 : 테이블 간의 참조 데이터 무결성을 위한 제약 조건</h2><h2 id="참조-무결성-보장-잘못된-정보가-입력되는-것을-방지"><a href="#참조-무결성-보장-잘못된-정보가-입력되는-것을-방지" class="headerlink" title="참조 무결성 보장 : 잘못된 정보가 입력되는 것을 방지"></a>참조 무결성 보장 : 잘못된 정보가 입력되는 것을 방지</h2><h2 id="CHECK"><a href="#CHECK" class="headerlink" title="CHECK"></a>CHECK</h2><h2 id="컬럼에-입력되는-데이터를-체크해-특정-조건에-맞는-데이터만-입력"><a href="#컬럼에-입력되는-데이터를-체크해-특정-조건에-맞는-데이터만-입력" class="headerlink" title="컬럼에 입력되는 데이터를 체크해 특정 조건에 맞는 데이터만 입력"></a>컬럼에 입력되는 데이터를 체크해 특정 조건에 맞는 데이터만 입력</h2><p>CREATE TABLE ex2_9(<br>    num1        NUMBER<br>    , CONSTRAINTS check1 CHECK (num1 BETWEEN 1 AND 9)<br>    , gender        VARCHAR2(10)<br>    , CONSTRAINTS check2 CHECK (gender IN(‘MALE’,’FEMALE’))<br>);</p>
-<p>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_9’;</p>
-<p>INSERT INTO ex2_9 VALUES(10,’MAN’); ## MALE 이들어가지 않아서 오류가 남<br>INSERT INTO ex2_9 VALUES(5, ‘FEMALE’)</p>
-<h2 id="DEFAULT-고정-값-무조건-들어가라-날짜-시간"><a href="#DEFAULT-고정-값-무조건-들어가라-날짜-시간" class="headerlink" title="DEFAULT : 고정 값 무조건 들어가라, 날짜, 시간"></a>DEFAULT : 고정 값 무조건 들어가라, 날짜, 시간</h2><p>alter session set nls_date_format&#x3D;’YYYY&#x2F;MM&#x2F;DD HH24:MI:SS’;</p>
-<p>CREATE TABLE ex2_10(<br>    COL1 VARCHAR2(10) NOT NULL<br>    , COL2 VARCHAR2(10) NULL<br>    , CREATE_date DATE DEFAULT SYSDATE<br>);</p>
-<p>INSERT INTO ex2_10 (col1,col2) VALUES(‘AA’,’BB’);<br>SELECT*FROM ex2_10;</p>
-<h2 id="테이블-변경"><a href="#테이블-변경" class="headerlink" title="테이블 변경"></a>테이블 변경</h2><h2 id="alter-table"><a href="#alter-table" class="headerlink" title="alter table"></a>alter table</h2><p>ALTER TABLE ex2_10 RENAME COLUMN Col1 TO Col11;<br>SELECT *FROM ex2_10;</p>
-<p>DESC ex2_10;</p>
-<h2 id="컬럼-변경"><a href="#컬럼-변경" class="headerlink" title="컬럼 변경"></a>컬럼 변경</h2><p>ALTER TABLE ex2_10 MODIFY COL2 VARCHAR2(30);</p>
-<p>DESC ex2_10;</p>
-<h2 id="신규-컬럼-추가"><a href="#신규-컬럼-추가" class="headerlink" title="신규 컬럼 추가"></a>신규 컬럼 추가</h2><p>ALTER TABLE ex2_10 ADD COL3 NUMBER;<br>DESC ex2_10</p>
-<h2 id="컬럼-삭제"><a href="#컬럼-삭제" class="headerlink" title="컬럼 삭제"></a>컬럼 삭제</h2><p>ALTER TABLE ex2_10 DROP COLUMN COL3;<br>DESC ex2_10;</p>
-<h2 id="제약-조건-추가"><a href="#제약-조건-추가" class="headerlink" title="제약 조건 추가"></a>제약 조건 추가</h2><p>ALTER TABLE ex2_10 ADD CONSTRAINTS pk_ex2_10 PRIMARY KEY (COL11);<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
-<h2 id="제약-조건-삭제"><a href="#제약-조건-삭제" class="headerlink" title="제약 조건 삭제"></a>제약 조건 삭제</h2><p>ALTER TABLE ex2_10 DROP CONSTRAINTS pk_ex2_10;<br>SELECT constraint_name<br>        , constraint_type<br>        , table_name<br>        , search_condition<br>FROM user_constraints<br>WHERE table_name &#x3D; ‘EX2_10’;</p>
-<h2 id="테이블-복사"><a href="#테이블-복사" class="headerlink" title="테이블 복사"></a>테이블 복사</h2><p>CREATE TABLE ex2_9_1 AS<br>SELECT *<br>    FROM ex2_9;</p>
-<h2 id="뷰-생성"><a href="#뷰-생성" class="headerlink" title="뷰 생성"></a>뷰 생성</h2><p>CREATE OR REPLACE VIEW emp_dept_vl AS<br>SELECT a.employee_id<br>        , a.emp_name<br>        , a.department_id<br>        , b.department_name<br>FROM employees a<br>    , departments b<br>WHERE a.department_id &#x3D; b.department_id;</p>
-<h2 id="뷰-제거"><a href="#뷰-제거" class="headerlink" title="뷰 제거"></a>뷰 제거</h2><p>DROP VIEW emp_dept_vl;</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kimsunhyung.github.io/2022/07/19/0719_oracle%EC%9E%85%EB%AC%B8/" data-id="cl5rw439b00006wtvh9q6a5rm" data-title="0719_oracle입문" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -930,6 +997,10 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
       <ul>
         
           <li>
+            <a href="/2022/07/28/0728airflow_pipeline_spark_install/">0728_airflow pipeline 구축 및 spark 설치</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/">0727 WSL2 설치</a>
           </li>
         
@@ -943,10 +1014,6 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
         
           <li>
             <a href="/2022/07/27/0727_vscode_wsl%EC%97%B0%EB%8F%99/">0727 vs code, wsl연동</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/26/0726_crawling%EA%B8%B0%EC%B4%88/">0726_crawling기초</a>
           </li>
         
       </ul>
