@@ -71,6 +71,134 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-0729 pyspark_postgreSQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/29/0729%20pyspark_postgreSQL/" class="article-date">
+  <time class="dt-published" datetime="2022-07-29T00:00:00.000Z" itemprop="datePublished">2022-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/07/29/0729%20pyspark_postgreSQL/">0729_pyspark_postgreSQL</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="0729-pyspark-amp-postgreSQL"><a href="#0729-pyspark-amp-postgreSQL" class="headerlink" title="0729 pyspark &amp; postgreSQL"></a>0729 pyspark &amp; postgreSQL</h1><p>Created: 2022년 7월 29일 오전 9:10<br>Last Edited Time: 2022년 7월 29일 오후 3:03</p>
+<p><img src="/images/0729pyspark_postgreSQL/1.png" alt="png"></p>
+<ul>
+<li>경로 이동 하여 데이터 복제하기!</li>
+<li>pyspark는 버전을 항상 맞춰주어야 함.</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/2.png" alt="png"></p>
+<ul>
+<li>새로운 버전을 깔기위해</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/3.png" alt="png"></p>
+<ul>
+<li>알맞은 버전을 설치</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/4.png" alt="png"></p>
+<ul>
+<li>설치 후 주피터 노트북 설정</li>
+<li>주피터 노트북이 런이 돌아 가지 않을 시</li>
+<li>kernel에서 shutdown을 하고 비주얼 코드로 돌아와서 주피터를 켰던 터미널에서도 ctrl c를 두번 클릭하여 셧 다운을 하고 새롭게 다시 시작</li>
+</ul>
+<hr>
+<h1 id="postgreSQL-설치"><a href="#postgreSQL-설치" class="headerlink" title="postgreSQL 설치"></a>postgreSQL 설치</h1><ul>
+<li>db 세팅 시 필요함.</li>
+<li>ubuntu 실행 후 home에서 설치 실행</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/5.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/6.png" alt="png"></p>
+<hr>
+<ul>
+<li>설치가 원활히 이루어지지 않을 시 -</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/7.png" alt="png"></p>
+<ul>
+<li>이 방법으로 설치 가능</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/8.png" alt="png"></p>
+<ul>
+<li>설치 후 버전 확인은 필수</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/9.png" alt="png"></p>
+<ul>
+<li>설치 후 데몬을 실행 하고, 패스워드를 설정한 후 |q를 활용하여 빠져 나온다.</li>
+<li>pgADmin 4 패키지가 있는 저장소를 apt에 추가한 후 설치</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/10.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/11.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/12.png" alt="png"></p>
+<ul>
+<li><p>이메일 비밀번호를 설정한다</p>
+<p>  <img src="/images/0729pyspark_postgreSQL/13.png" alt="png"></p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.pgadmin.org/download/pgadmin-4-apt/">https://www.pgadmin.org/download/pgadmin-4-apt/</a> 코드 관련 </p>
+<hr>
+<p><img src="/images/0729pyspark_postgreSQL/14.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/15.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/16.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/17.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/18.png" alt="png"></p>
+<p>• vi 편집기로 아래를 수정합니다. (주석 처리가 되어 있을 겁니다.) (종료시 :wq!)</p>
+<p><img src="/images/0729pyspark_postgreSQL/19.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/20.png" alt="png"></p>
+<ul>
+<li>웹사이트가 활성화됨</li>
+<li><a target="_blank" rel="noopener" href="http://localhost/pgadmin4/">http://localhost/pgadmin4/</a>로 접속하여 설치 시 설정했던 이메일, 비밀번호 설정</li>
+<li>이메일 비밀번호를 치고 사이트에 들어가서</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/21.png" alt="png"></p>
+<ul>
+<li>add new server를 클릭</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/22.png" alt="png"></p>
+<ul>
+<li>이름, 유저네임, 비밀번호 작성 후 genaral에서 이름을 작성한 후 서버를 구축</li>
+<li>ubuntu 종료 시 sudo service postgresql stop명령어를 실행한 후 종료해야 함</li>
+</ul>
+<hr>
+<ul>
+<li>관련 코드</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service postgresql stop</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y upgrade</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install postgresql postgresql-contrib</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service postgresql stop</span><br><span class="line">sudo -b unshare --pid --fork --mount-proc /lib/systemd/systemd --system-unit=basic.target</span><br><span class="line">sudo -E nsenter --all -t $(pgrep -xo systemd) runuser -P -l $USER -c &quot;exec $SHELL&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/postgresql/<span class="number">12</span>/main/postgresql.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/pgadmin4/<span class="built_in">bin</span>/setup-web.sh</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/29/0729%20pyspark_postgreSQL/" data-id="cl665ab3200005ctv04iaff8v" data-title="0729_pyspark_postgreSQL" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-0728airflow_pipeline_spark_install" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/07/28/0728airflow_pipeline_spark_install/" class="article-date">
@@ -859,108 +987,6 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
 
 
   
-    <article id="post-0720_oracler_sql기초문법" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/07/20/0720_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%95/" class="article-date">
-  <time class="dt-published" datetime="2022-07-20T00:00:00.000Z" itemprop="datePublished">2022-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/07/20/0720_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%95/">0720_oracle_sql 기초문법</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="SELECT-문"><a href="#SELECT-문" class="headerlink" title="SELECT 문"></a>SELECT 문</h2><h2 id="P-92"><a href="#P-92" class="headerlink" title="P.92"></a>P.92</h2><h2 id="급여가-5000이-넘는-사원번호와-사원명-조회"><a href="#급여가-5000이-넘는-사원번호와-사원명-조회" class="headerlink" title="급여가 5000이 넘는 사원번호와 사원명 조회"></a>급여가 5000이 넘는 사원번호와 사원명 조회</h2><p>SELECT * FROM employees;<br>SELECT<br>    employee_id<br>    , emp_name<br>    , salary<br>FROM employees<br>WHERE salary &lt; 3000<br>ORDER BY employee_id;</p>
-<h2 id="급여가-5000-이상-job-id-it-prog-사원조회"><a href="#급여가-5000-이상-job-id-it-prog-사원조회" class="headerlink" title="급여가 5000 이상, job_id, it_prog 사원조회"></a>급여가 5000 이상, job_id, it_prog 사원조회</h2><p>SELECT employee_id<br>    , emp_name<br>    , salary<br>FROM employees<br>WHERE salary &gt;5000<br>    AND job_id &#x3D; ‘IT_PROG’<br>ORDER BY employee_id;</p>
-<h2 id="테이블에-별칭-줄-수-있음"><a href="#테이블에-별칭-줄-수-있음" class="headerlink" title="테이블에 별칭 줄 수 있음"></a>테이블에 별칭 줄 수 있음</h2><p>SELECT</p>
-<h2 id="a테이블에서-옴"><a href="#a테이블에서-옴" class="headerlink" title="a테이블에서 옴"></a>a테이블에서 옴</h2><pre><code>a.employee_id
-, a.emp_name
-, a.department_id
-, b.department_name
-</code></pre>
-<h2 id="b테이블에서-옴"><a href="#b테이블에서-옴" class="headerlink" title="b테이블에서 옴"></a>b테이블에서 옴</h2><p>FROM<br>    employees a,<br>    departments b<br>WHERE a.department_id &#x3D;  b.department_id;</p>
-<h2 id="insert-문-amp-updated-문"><a href="#insert-문-amp-updated-문" class="headerlink" title="insert 문 &amp; updated 문"></a>insert 문 &amp; updated 문</h2><h2 id="4교시-개별진행"><a href="#4교시-개별진행" class="headerlink" title="4교시 개별진행"></a>4교시 개별진행</h2><h2 id="p101"><a href="#p101" class="headerlink" title="p101"></a>p101</h2><h2 id="merge-데이터를-합치거나-추가"><a href="#merge-데이터를-합치거나-추가" class="headerlink" title="merge, 데이터를 합치거나 추가"></a>merge, 데이터를 합치거나 추가</h2><h2 id="조건을-비교해서-테이블에-해당-조건에-맞는-데이터가-없으면-추가"><a href="#조건을-비교해서-테이블에-해당-조건에-맞는-데이터가-없으면-추가" class="headerlink" title="조건을 비교해서 테이블에 해당 조건에 맞는 데이터가 없으면 추가"></a>조건을 비교해서 테이블에 해당 조건에 맞는 데이터가 없으면 추가</h2><h2 id="있으면-UPDATE문을-추가"><a href="#있으면-UPDATE문을-추가" class="headerlink" title="있으면 UPDATE문을 추가"></a>있으면 UPDATE문을 추가</h2><p>CREATE TABLE ex3_3(<br>    employee_id NUMBER<br>    , bonus_amt NUMBER DEFAULT 0<br>);</p>
-<p>INSERT INTO ex3_3(employee_id)<br>SELECT<br>    e.employee_id<br>FROM employees e, sales s<br>WHERE e.employee_id &#x3D; s.employee_id<br>    AND s.SALES_MONTH BETWEEN ‘200010’ AND ‘200012’<br>GROUP BY e.employee_id;</p>
-<p>SELECT*FROM ex3_3 ORDER BY employee_id;</p>
-<h2 id="103p"><a href="#103p" class="headerlink" title="103p"></a>103p</h2><p>SELECT employee_id<br>    , manager_id<br>    , salary<br>    , salary * 0.01<br>FroM employees<br>WHERE employee_id IN(SELECT employee_id FROM ex3_3);</p>
-<p>SELECT employee_id<br>    , manager_id<br>    , salary<br>    , salary * 0.001<br>FroM employees<br>WHERE employee_id NOT IN(SELECT employee_id FROM ex3_3)<br>    AND manager_id &#x3D; 146;</p>
-<h2 id="MERGE-를-통해-작성"><a href="#MERGE-를-통해-작성" class="headerlink" title="MERGE 를 통해 작성"></a>MERGE 를 통해 작성</h2><h2 id="관리자-사번-146인-것-중-ex3-3-테이블에-없는"><a href="#관리자-사번-146인-것-중-ex3-3-테이블에-없는" class="headerlink" title="관리자 사번 146인 것 중, ex3_3 테이블에 없는"></a>관리자 사번 146인 것 중, ex3_3 테이블에 없는</h2><h2 id="사원의-사번-관리자-사번-급여-급여-0-001-조회"><a href="#사원의-사번-관리자-사번-급여-급여-0-001-조회" class="headerlink" title="사원의 사번, 관리자 사번, 급여, 급여*0.001 .조회"></a>사원의 사번, 관리자 사번, 급여, 급여*0.001 .조회</h2><h2 id="ex3-3-테이블의-160번-사원의-보너스-금액-7-5로-신규-입력"><a href="#ex3-3-테이블의-160번-사원의-보너스-금액-7-5로-신규-입력" class="headerlink" title="ex3_3 테이블의 160번 사원의 보너스 금액 7.5로 신규 입력"></a>ex3_3 테이블의 160번 사원의 보너스 금액 7.5로 신규 입력</h2><p>SELECT*FROM ex3_3;</p>
-<h2 id="서브퀴리-개념-메인-퀄리-안에-추가된-쿼리"><a href="#서브퀴리-개념-메인-퀄리-안에-추가된-쿼리" class="headerlink" title="서브퀴리 개념 : 메인 퀄리 안에 추가된 쿼리"></a>서브퀴리 개념 : 메인 퀄리 안에 추가된 쿼리</h2><h2 id="UPDATE-amp-INSERT-구문"><a href="#UPDATE-amp-INSERT-구문" class="headerlink" title="UPDATE &amp; INSERT 구문"></a>UPDATE &amp; INSERT 구문</h2><h2 id="두개의-데이터를-병합"><a href="#두개의-데이터를-병합" class="headerlink" title="두개의 데이터를 병합"></a>두개의 데이터를 병합</h2><p>MERGE INTO ex3_3 d<br>    USING (SELECT employee_id, salary, manager_id<br>                  FROM employees<br>                  WHERE manager_id &#x3D; 146) b<br>    ON (d.employee_id &#x3D; b.employee_id)<br>WHEN MATCHED THEN<br>    UPDATE SET d.bonus_amt &#x3D; d.bonus_amt + b.salary * 0.01<br>    ## DELETE WHERE(b.employee_id &#x3D; 161) 데이터를 제거해줌<br>WHEN NOT MATCHED THEN<br>    INSERT (d.employee_id, d.bonus_amt) VALUES (b.employee_id, b.salary * .001)<br>    WHERE (b.salary &lt; 8000);</p>
-<p>SELECT * FROM ex3_3 ORDER BY employee_id;</p>
-<h2 id="p-106"><a href="#p-106" class="headerlink" title="p.106"></a>p.106</h2><h2 id="테이블-삭제"><a href="#테이블-삭제" class="headerlink" title="테이블 삭제"></a>테이블 삭제</h2><p>DELETE ex3_3;<br>SELECT*FROM ex3_3 ORDER BY employee_id;</p>
-<h2 id="p-107"><a href="#p-107" class="headerlink" title="p.107"></a>p.107</h2><h2 id="commit-amp-rollback-개발자들에게-가장-중요하다"><a href="#commit-amp-rollback-개발자들에게-가장-중요하다" class="headerlink" title="commit &amp; rollback : 개발자들에게 가장 중요하다!"></a>commit &amp; rollback : 개발자들에게 가장 중요하다!</h2><h2 id="commit-변경한-데이터를-데이터베이스에-마지막으로-반영"><a href="#commit-변경한-데이터를-데이터베이스에-마지막으로-반영" class="headerlink" title="commit : 변경한 데이터를 데이터베이스에 마지막으로 반영"></a>commit : 변경한 데이터를 데이터베이스에 마지막으로 반영</h2><h2 id="rollback-변경한-데이터를-변경하기-이전-상태로-돌림"><a href="#rollback-변경한-데이터를-변경하기-이전-상태로-돌림" class="headerlink" title="rollback : 변경한 데이터를 변경하기 이전 상태로 돌림"></a>rollback : 변경한 데이터를 변경하기 이전 상태로 돌림</h2><p>CREATE TABLE ex3_4(<br>    employee_id NUMBER<br>);</p>
-<p>INSERT INTO ex3_4 VALUES(100);</p>
-<p>commit;</p>
-<h2 id="P-109"><a href="#P-109" class="headerlink" title="P.109"></a>P.109</h2><p>TRUNCATE TABLE ex3_4</p>
-<h2 id="p-110"><a href="#p-110" class="headerlink" title="p.110"></a>p.110</h2><p>SELECT<br>    ROWNUM, employee_id<br>FROM employees<br>WHERE ROWNUM &lt;5;</p>
-<h2 id="ROWID-주소값"><a href="#ROWID-주소값" class="headerlink" title="ROWID, 주소값"></a>ROWID, 주소값</h2><h2 id="DBA-DB모델링-쿼리속도-측정-특성"><a href="#DBA-DB모델링-쿼리속도-측정-특성" class="headerlink" title="DBA, DB모델링 (쿼리속도 측정, 특성)"></a>DBA, DB모델링 (쿼리속도 측정, 특성)</h2><p>SELECT<br>    ROWNUM<br>    , employee_id<br>    , ROWID<br>FROM employees<br>WHERE ROWNUM&lt;5;</p>
-<h2 id="연산자"><a href="#연산자" class="headerlink" title="연산자"></a>연산자</h2><h2 id="operator-연산-수행"><a href="#operator-연산-수행" class="headerlink" title="operator 연산 수행"></a>operator 연산 수행</h2><h2 id="수식-연산자-amp-문자-연산자"><a href="#수식-연산자-amp-문자-연산자" class="headerlink" title="수식 연산자 &amp; 문자 연산자"></a>수식 연산자 &amp; 문자 연산자</h2><h2 id="두-문자를-붙이는-연산자"><a href="#두-문자를-붙이는-연산자" class="headerlink" title="|| 두 문자를 붙이는 연산자"></a>|| 두 문자를 붙이는 연산자</h2><p>SELECT<br>    employee_id||’-‘||emp_name AS employee_info<br>FROM employees<br>WHERE ROWNUM &lt; 5;</p>
-<h2 id="표현식"><a href="#표현식" class="headerlink" title="표현식"></a>표현식</h2><h2 id="조건문-IF-조건문-PL-x2F-SQL"><a href="#조건문-IF-조건문-PL-x2F-SQL" class="headerlink" title="조건문, IF 조건문 (PL&#x2F;SQL)"></a>조건문, IF 조건문 (PL&#x2F;SQL)</h2><h2 id="CASE-표현식"><a href="#CASE-표현식" class="headerlink" title="CASE 표현식"></a>CASE 표현식</h2><p>SELECT<br>    employee_id<br>    , salary<br>    , CASE WHEN salary &lt;&#x3D; 5000 THEN ‘C등급’<br>        WHEN salary &gt;5000 AND salary &lt;&#x3D;15000 THEN ‘B등급’<br>        ELSE ‘A등급’<br>     END AS salary_grade<br>FROM employees;</p>
-<h2 id="조건식"><a href="#조건식" class="headerlink" title="조건식"></a>조건식</h2><h2 id="TRUE-FALSE-UNKNOWN-세가지-타입으로-반환"><a href="#TRUE-FALSE-UNKNOWN-세가지-타입으로-반환" class="headerlink" title="TRUE, FALSE, UNKNOWN 세가지 타입으로 반환"></a>TRUE, FALSE, UNKNOWN 세가지 타입으로 반환</h2><h2 id="비교-조건식"><a href="#비교-조건식" class="headerlink" title="비교 조건식"></a>비교 조건식</h2><h2 id="분석-DB-데이터-추출시-서브쿼리-사용"><a href="#분석-DB-데이터-추출시-서브쿼리-사용" class="headerlink" title="분석, DB 데이터 추출시, 서브쿼리 사용\"></a>분석, DB 데이터 추출시, 서브쿼리 사용\</h2><p>SELECT<br>    employee_id<br>    , salary<br>FROM employees<br>WHERE salary &#x3D; ANY(2000,3000,4000)<br>ORDER BY employee_id;</p>
-<h2 id="ANY-gt-OR-연산자-변환"><a href="#ANY-gt-OR-연산자-변환" class="headerlink" title="ANY ##&gt; OR 연산자 변환"></a>ANY ##&gt; OR 연산자 변환</h2><p>SELECT<br>    employee_id<br>    , salary<br>FROM employees<br>WHERE salary &#x3D; 2000 OR salary &#x3D; 3000 OR salary &#x3D; 4000<br>ORDER BY employee_id; ## 너무 길어서 데이터를 가공하기 어려움</p>
-<h2 id="ALL"><a href="#ALL" class="headerlink" title="ALL"></a>ALL</h2><p>SELECT<br>    employee_id<br>    , salary<br>FROM employees<br>WHERE salary &#x3D; All(2000,3000,4000)<br>ORDER BY employee_id;</p>
-<h2 id="SOME"><a href="#SOME" class="headerlink" title="SOME"></a>SOME</h2><p>SELECT<br>    employee_id<br>    , salary<br>FROM employees<br>WHERE salary &#x3D; SOME(2000,3000,4000)<br>ORDER BY employee_id;</p>
-<h2 id="NOT-조건식"><a href="#NOT-조건식" class="headerlink" title="NOT 조건식"></a>NOT 조건식</h2><p>SELECT<br>    employee_id<br>    , salary<br>FROM employees<br>WHERE NOT(salary &gt;&#x3D;2500)<br>ORDER BY employee_id;</p>
-<h2 id="NULL-조건식"><a href="#NULL-조건식" class="headerlink" title="NULL 조건식"></a>NULL 조건식</h2><h2 id="IN-조건식"><a href="#IN-조건식" class="headerlink" title="IN 조건식"></a>IN 조건식</h2><h2 id="조건절에-명시한-값이-포함된-건을-반환하는데-앞에서-배웠던-ANT"><a href="#조건절에-명시한-값이-포함된-건을-반환하는데-앞에서-배웠던-ANT" class="headerlink" title="조건절에 명시한 값이 포함된 건을 반환하는데 앞에서 배웠던 ANT"></a>조건절에 명시한 값이 포함된 건을 반환하는데 앞에서 배웠던 ANT</h2><p>SELECT<br> employee_id<br> , salary<br>FROM employees<br>WHERE salary IN(2000,3000,4000)<br>ORDER BY employee_id;</p>
-<p>SELECT<br> employee_id<br> , salary<br>FROM employees<br>WHERE salary NOT IN(2000,3000,4000)<br>ORDER BY employee_id;</p>
-<h2 id="EXIST-조건식"><a href="#EXIST-조건식" class="headerlink" title="EXIST 조건식"></a>EXIST 조건식</h2><h2 id="서브쿼리만-올-수-있음"><a href="#서브쿼리만-올-수-있음" class="headerlink" title="서브쿼리만 올 수 있음"></a>서브쿼리만 올 수 있음</h2><h2 id="네카라쿠배토당야"><a href="#네카라쿠배토당야" class="headerlink" title="네카라쿠배토당야"></a>네카라쿠배토당야</h2><h2 id="개발자들-코딩테스트-진행-알고리즘-x2F-기술면접-x2F-임원면접"><a href="#개발자들-코딩테스트-진행-알고리즘-x2F-기술면접-x2F-임원면접" class="headerlink" title="개발자들 코딩테스트 진행(알고리즘)&#x2F;기술면접&#x2F;임원면접"></a>개발자들 코딩테스트 진행(알고리즘)&#x2F;기술면접&#x2F;임원면접</h2><h2 id="분석가들-sql-x2F-분석과제-x2F"><a href="#분석가들-sql-x2F-분석과제-x2F" class="headerlink" title="분석가들,sql&#x2F; 분석과제&#x2F;"></a>분석가들,sql&#x2F; 분석과제&#x2F;</h2><h2 id="LIKE-조건"><a href="#LIKE-조건" class="headerlink" title="LIKE 조건"></a>LIKE 조건</h2><h2 id="문자열을-패턴으로-검색해서-사용하는-조건식"><a href="#문자열을-패턴으로-검색해서-사용하는-조건식" class="headerlink" title="문자열을 패턴으로 검색해서 사용하는 조건식"></a>문자열을 패턴으로 검색해서 사용하는 조건식</h2><p>SELECT<br>    emp_name<br>FROM employees<br>WHERE emp_name LIKE ‘%<strong>A</strong>%’<br>ORDER BY emp_name;</p>
-<p>SELECT<br>    emp_name<br>FROM employees<br>WHERE emp_name LIKE ‘Al%’<br>ORDER BY emp_name;</p>
-<h2 id="4장-숫자-함수"><a href="#4장-숫자-함수" class="headerlink" title="4장 숫자 함수"></a>4장 숫자 함수</h2><h2 id="P-126"><a href="#P-126" class="headerlink" title="P.126"></a>P.126</h2><p>SELECT ABS(10), ABS(-10), ABS(-10.123)<br>FROM DUAL;</p>
-<h2 id="정수-반환"><a href="#정수-반환" class="headerlink" title="정수 반환"></a>정수 반환</h2><h2 id="올림"><a href="#올림" class="headerlink" title="올림"></a>올림</h2><p>SELECT CEIL(10.123),CEIL(10.541), CEIL (11.001)<br>FROM DUAL</p>
-<h2 id="내림"><a href="#내림" class="headerlink" title="내림"></a>내림</h2><p>SELECT FLOOR(10.123),FLOOR(10.541), FLOOR (11.001)<br>FROM DUAL</p>
-<h2 id="반올림"><a href="#반올림" class="headerlink" title="반올림"></a>반올림</h2><p>SELECT ROUND(10.123,2),ROUND(10.541,2), ROUND (11.001,2)<br>FROM DUAL</p>
-<h2 id="TRUNC"><a href="#TRUNC" class="headerlink" title="TRUNC"></a>TRUNC</h2><h2 id="반올림-안함-소수점-질삭-자리수-지정-가능"><a href="#반올림-안함-소수점-질삭-자리수-지정-가능" class="headerlink" title="반올림 안함. 소수점 질삭. 자리수 지정 가능"></a>반올림 안함. 소수점 질삭. 자리수 지정 가능</h2><p>SELECT TRUNC(115.155),TRUNC(115.155,1),TRUNC(115.155,2),TRUNC(115.155,-2)<br>    FROM DUAL;</p>
-<h2 id="POWER"><a href="#POWER" class="headerlink" title="POWER"></a>POWER</h2><h2 id="POWER-함수-SQRT"><a href="#POWER-함수-SQRT" class="headerlink" title="POWER 함수, SQRT"></a>POWER 함수, SQRT</h2><p>SELECT POWER(3,2), POWER(3,3), POWER(3,3.001)<br>FROM DUAL;</p>
-<h2 id="제곱근"><a href="#제곱근" class="headerlink" title="제곱근"></a>제곱근</h2><p>SELECT SQRT(2), SQRT(5), SQRT(9)<br>FROM DUAL;</p>
-<h2 id="과거-SQL-DB-에서-자료를-조회하는-용"><a href="#과거-SQL-DB-에서-자료를-조회하는-용" class="headerlink" title="과거 : SQL,DB 에서 자료를 조회하는 용"></a>과거 : SQL,DB 에서 자료를 조회하는 용</h2><h2 id="현재-SQL-gt-수학-amp-통계-도구처럼-진화"><a href="#현재-SQL-gt-수학-amp-통계-도구처럼-진화" class="headerlink" title="현재 : SQL ##&gt; 수학&amp; 통계 도구처럼 진화"></a>현재 : SQL ##&gt; 수학&amp; 통계 도구처럼 진화</h2><h2 id="오라클-19C"><a href="#오라클-19C" class="headerlink" title="오라클 19C\"></a>오라클 19C\</h2><h2 id="함수를-나눈-나머지-값-반환"><a href="#함수를-나눈-나머지-값-반환" class="headerlink" title="함수를 나눈 나머지 값 반환"></a>함수를 나눈 나머지 값 반환</h2><p>SELECT MOD(19,4),MOD(19.123,4.2)<br>    FROM DUAL;</p>
-<h2 id="문자열-데이터-전처리"><a href="#문자열-데이터-전처리" class="headerlink" title="문자열 데이터 전처리"></a>문자열 데이터 전처리</h2><h2 id="게임사"><a href="#게임사" class="headerlink" title="게임사"></a>게임사</h2><h2 id="채팅-gt-문자-데이터"><a href="#채팅-gt-문자-데이터" class="headerlink" title="채팅 ##&gt; 문자 데이터"></a>채팅 ##&gt; 문자 데이터</h2><h2 id="텍스트-마이팅-빈도-워드클라우드"><a href="#텍스트-마이팅-빈도-워드클라우드" class="headerlink" title="텍스트 마이팅 (빈도, 워드클라우드)"></a>텍스트 마이팅 (빈도, 워드클라우드)</h2><h2 id="100GB-x2F-RAM-32GB-64GB"><a href="#100GB-x2F-RAM-32GB-64GB" class="headerlink" title="100GB &#x2F; RAM 32GB, 64GB"></a>100GB &#x2F; RAM 32GB, 64GB</h2><p>SELECT INITCAP(‘never say goodbye’), INITCAP(‘never6say*good가bye’)<br>FROM DUAL;</p>
-<h2 id="LOWER-함수"><a href="#LOWER-함수" class="headerlink" title="LOWER 함수"></a>LOWER 함수</h2><h2 id="메가변수로-돌아오는-문자를-모두-소문자로-UPPDER-함수는-대문자로-반환"><a href="#메가변수로-돌아오는-문자를-모두-소문자로-UPPDER-함수는-대문자로-반환" class="headerlink" title="메가변수로 돌아오는 문자를 모두 소문자로 UPPDER 함수는 대문자로 반환"></a>메가변수로 돌아오는 문자를 모두 소문자로 UPPDER 함수는 대문자로 반환</h2><p>SELECT LOWER(‘NEVER SAY GOODBYE’), UPPER(‘never say goodbye’)<br>FROM DUAL;</p>
-<h2 id="CONCAT-연산자와-비슷"><a href="#CONCAT-연산자와-비슷" class="headerlink" title="CONCAT || 연산자와 비슷"></a>CONCAT || 연산자와 비슷</h2><p>SELECT CONCAT(‘I Have’, ‘A Dream’),’I Have’||’A Dream’<br>FROM DUAL;</p>
-<h2 id="SUBSTR"><a href="#SUBSTR" class="headerlink" title="SUBSTR"></a>SUBSTR</h2><h2 id="문자열-가르기"><a href="#문자열-가르기" class="headerlink" title="문자열 가르기"></a>문자열 가르기</h2><p>SELECT SUBSTR(‘ABCDEFG’,1,4), SUBSTR(‘ABCDEFG’,-1,4)<br>FROM DUAL;</p>
-<h2 id="글자를-1개당-3bYTE-씩-인식-교재는-2Byte씩-인식"><a href="#글자를-1개당-3bYTE-씩-인식-교재는-2Byte씩-인식" class="headerlink" title="글자를 1개당 3bYTE 씩 인식 (교재는 2Byte씩 인식)"></a>글자를 1개당 3bYTE 씩 인식 (교재는 2Byte씩 인식)</h2><p>SELECT SUBSTRB(‘ABCDEFG’,1,4), SUBSTRB(‘가나다라마바사’,1,4)<br>FROM DUAL;</p>
-<p>##ltrim, rtrim<br>SELECT<br>    LTRIM(‘ABCDEFGABC’,’ABC’)<br>    ,RTRIM(‘ABCDEFGABC’,’ABC’)<br>FROM DUAL;</p>
-<h2 id="LPAD-RPAD"><a href="#LPAD-RPAD" class="headerlink" title="LPAD, RPAD"></a>LPAD, RPAD</h2><h2 id="날짜-함수-P-138"><a href="#날짜-함수-P-138" class="headerlink" title="날짜 함수(P.138)"></a>날짜 함수(P.138)</h2><p>SELECT SYSDATE, SYSTIMESTAMP FROM DUAL;</p>
-<h2 id="ADD-MONTHS"><a href="#ADD-MONTHS" class="headerlink" title="ADD_MONTHS"></a>ADD_MONTHS</h2><h2 id="ADD-MONTHS-함수-매개변수로-들어온-날짜-integer-만큼-월을-더함"><a href="#ADD-MONTHS-함수-매개변수로-들어온-날짜-integer-만큼-월을-더함" class="headerlink" title="ADD_MONTHS 함수, 매개변수로 들어온 날짜, integer 만큼 월을 더함"></a>ADD_MONTHS 함수, 매개변수로 들어온 날짜, integer 만큼 월을 더함</h2><p>SELECT ADD_MONTHS(SYSDATE,1)FROM DUAL;</p>
-<p>SELECT MONTHS_BETWEEN(SYSDATE,ADD_MONTHS(SYSDATE,1))mon1<br>FROM DUAL;</p>
-<h2 id="LAST-DATE-해당월의-마지막-일자"><a href="#LAST-DATE-해당월의-마지막-일자" class="headerlink" title="LAST_DATE : 해당월의 마지막 일자"></a>LAST_DATE : 해당월의 마지막 일자</h2><p>SELECT LAST_DAY(SYSDATE)FROM DUAL;</p>
-<h2 id="ROUND-TRUNC-에-날짜를-넣으면-반올림한-날짜-잘라낸-날짜를-반환"><a href="#ROUND-TRUNC-에-날짜를-넣으면-반올림한-날짜-잘라낸-날짜를-반환" class="headerlink" title="ROUND, TRUNC 에 날짜를 넣으면 반올림한 날짜, 잘라낸 날짜를 반환"></a>ROUND, TRUNC 에 날짜를 넣으면 반올림한 날짜, 잘라낸 날짜를 반환</h2><h2 id="NEXT-DAY"><a href="#NEXT-DAY" class="headerlink" title="NEXT_DAY"></a>NEXT_DAY</h2><p>SELECT NEXT_DAY(SYSDATE,’금요일’)<br>FROM DUAL;</p>
-<h2 id="P-141-변환함수"><a href="#P-141-변환함수" class="headerlink" title="P.141 변환함수"></a>P.141 변환함수</h2><h2 id="TO-CHAR-숫자-혹은-날씨-FORMAT"><a href="#TO-CHAR-숫자-혹은-날씨-FORMAT" class="headerlink" title="TO_CHAR(숫자 혹은 날씨, FORMAT)"></a>TO_CHAR(숫자 혹은 날씨, FORMAT)</h2><p>SELECT TO_CHAR(123456789, ‘999,999,999’)<br>FROM DUAL;</p>
-<p>SELECT TO_CHAR(SYSDATE,’D’)FROM DUAL;</p>
-<h2 id="문자를-숫자로-변환"><a href="#문자를-숫자로-변환" class="headerlink" title="문자를 숫자로 변환"></a>문자를 숫자로 변환</h2><p>SELECT TO_NUMBER(‘123456’)<br>FROM DUAL;</p>
-<h2 id="NULL-관련-함수-중요"><a href="#NULL-관련-함수-중요" class="headerlink" title="NULL 관련 함수 중요!!!!!!!"></a>NULL 관련 함수 중요!!!!!!!</h2><p>SELECT manager_id, employee_id FROM employees;</p>
-<h2 id="NVL-표현식-1이-NULL일때-표현식-2를-반환함"><a href="#NVL-표현식-1이-NULL일때-표현식-2를-반환함" class="headerlink" title="NVL: 표현식 1이 NULL일때, 표현식 2를 반환함."></a>NVL: 표현식 1이 NULL일때, 표현식 2를 반환함.</h2><p>SELECT NVL(manager_id, employee_id)<br>FROM employees<br>WHERE manager_id IS NULL;</p>
-<h2 id="NVL2-표현식-1이-NULL이-아니면-표현식-2-출력"><a href="#NVL2-표현식-1이-NULL이-아니면-표현식-2-출력" class="headerlink" title="NVL2 표현식 1이 NULL이 아니면 표현식 2 출력"></a>NVL2 표현식 1이 NULL이 아니면 표현식 2 출력</h2><h2 id="표현식-2가-NULL이면-표현식-3을-출력"><a href="#표현식-2가-NULL이면-표현식-3을-출력" class="headerlink" title="표현식 2가 NULL이면 표현식 3을 출력"></a>표현식 2가 NULL이면 표현식 3을 출력</h2><p>SELECT employee_id,commission_pct,salary FROM employees;</p>
-<p>SELECT employee_id<br>                , salary<br>                , commission_pct<br>                , NVL2(commission_pct, salary + (salary * commission_pct), salary) AS salary2<br>FROM employees<br>WHERE employee_id IN (118, 179);</p>
-<h2 id="COALESCE-expr1-expr2"><a href="#COALESCE-expr1-expr2" class="headerlink" title="COALESCE(expr1,expr2)"></a>COALESCE(expr1,expr2)</h2><h2 id="매개변수로-들어오는-표현식에서-null이-아닌-첫번째-표현식-반환"><a href="#매개변수로-들어오는-표현식에서-null이-아닌-첫번째-표현식-반환" class="headerlink" title="매개변수로 들어오는 표현식에서 null이 아닌 첫번째 표현식 반환"></a>매개변수로 들어오는 표현식에서 null이 아닌 첫번째 표현식 반환</h2><p>SELECT<br>    employee_id<br>    ,salary<br>    ,commission_pct<br>    ,COALESCE(salary * commission_pct, salary) as salary2<br>FROM employees;</p>
-<h2 id="DECODE"><a href="#DECODE" class="headerlink" title="DECODE"></a>DECODE</h2><h2 id="IF-ELIF-ELIF-ELIF-ELSE"><a href="#IF-ELIF-ELIF-ELIF-ELSE" class="headerlink" title="IF-ELIF-ELIF-ELIF-ELSE"></a>IF-ELIF-ELIF-ELIF-ELSE</h2><p>SELECT * FROM sales;</p>
-<p>SELECT prod_id<br>    ,DECODE(channel_id, 3, ‘Direct’,<br>                        9, ‘Direct’,<br>                        5, ‘Indirect’,<br>                        4, ‘Indirect’,<br>                           ‘Other’) decodes<br>FROM sales<br>WHERE rownum&lt;10;</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kimsunhyung.github.io/2022/07/20/0720_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%95/" data-id="cl5taopo50000l0tve380cujk" data-title="0720_oracle_sql 기초문법" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -997,6 +1023,10 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
       <ul>
         
           <li>
+            <a href="/2022/07/29/0729%20pyspark_postgreSQL/">0729_pyspark_postgreSQL</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/28/0728airflow_pipeline_spark_install/">0728_airflow pipeline 구축 및 spark 설치</a>
           </li>
         
@@ -1010,10 +1040,6 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
         
           <li>
             <a href="/2022/07/27/0727_airflow%EC%84%A4%EC%B9%98/">0727 airflow설치</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/27/0727_vscode_wsl%EC%97%B0%EB%8F%99/">0727 vs code, wsl연동</a>
           </li>
         
       </ul>

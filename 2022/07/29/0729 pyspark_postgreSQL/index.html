@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0729_pyspark_postgreSQL | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="0729 pyspark &amp; postgreSQLCreated: 2022년 7월 29일 오전 9:10Last Edited Time: 2022년 7월 29일 오후 3:03   경로 이동 하여 데이터 복제하기! pyspark는 버전을 항상 맞춰주어야 함.    새로운 버전을 깔기위해    알맞은 버전을 설치    설치 후 주피터 노트북 설정 주피터 노트북이">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0729_pyspark_postgreSQL">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/07/29/0729%20pyspark_postgreSQL/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="0729 pyspark &amp; postgreSQLCreated: 2022년 7월 29일 오전 9:10Last Edited Time: 2022년 7월 29일 오후 3:03   경로 이동 하여 데이터 복제하기! pyspark는 버전을 항상 맞춰주어야 함.    새로운 버전을 깔기위해    알맞은 버전을 설치    설치 후 주피터 노트북 설정 주피터 노트북이">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/2.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/3.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/4.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/5.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/6.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/7.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/8.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/9.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/10.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/11.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/12.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/13.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/14.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/15.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/16.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/17.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/18.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/19.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/20.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/21.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/22.png">
+<meta property="article:published_time" content="2022-07-29T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-29T07:36:49.897Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0729pyspark_postgreSQL/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0729 pyspark_postgreSQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/29/0729%20pyspark_postgreSQL/" class="article-date">
+  <time class="dt-published" datetime="2022-07-29T00:00:00.000Z" itemprop="datePublished">2022-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0729_pyspark_postgreSQL
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="0729-pyspark-amp-postgreSQL"><a href="#0729-pyspark-amp-postgreSQL" class="headerlink" title="0729 pyspark &amp; postgreSQL"></a>0729 pyspark &amp; postgreSQL</h1><p>Created: 2022년 7월 29일 오전 9:10<br>Last Edited Time: 2022년 7월 29일 오후 3:03</p>
+<p><img src="/images/0729pyspark_postgreSQL/1.png" alt="png"></p>
+<ul>
+<li>경로 이동 하여 데이터 복제하기!</li>
+<li>pyspark는 버전을 항상 맞춰주어야 함.</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/2.png" alt="png"></p>
+<ul>
+<li>새로운 버전을 깔기위해</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/3.png" alt="png"></p>
+<ul>
+<li>알맞은 버전을 설치</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/4.png" alt="png"></p>
+<ul>
+<li>설치 후 주피터 노트북 설정</li>
+<li>주피터 노트북이 런이 돌아 가지 않을 시</li>
+<li>kernel에서 shutdown을 하고 비주얼 코드로 돌아와서 주피터를 켰던 터미널에서도 ctrl c를 두번 클릭하여 셧 다운을 하고 새롭게 다시 시작</li>
+</ul>
+<hr>
+<h1 id="postgreSQL-설치"><a href="#postgreSQL-설치" class="headerlink" title="postgreSQL 설치"></a>postgreSQL 설치</h1><ul>
+<li>db 세팅 시 필요함.</li>
+<li>ubuntu 실행 후 home에서 설치 실행</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/5.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/6.png" alt="png"></p>
+<hr>
+<ul>
+<li>설치가 원활히 이루어지지 않을 시 -</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/7.png" alt="png"></p>
+<ul>
+<li>이 방법으로 설치 가능</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/8.png" alt="png"></p>
+<ul>
+<li>설치 후 버전 확인은 필수</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/9.png" alt="png"></p>
+<ul>
+<li>설치 후 데몬을 실행 하고, 패스워드를 설정한 후 |q를 활용하여 빠져 나온다.</li>
+<li>pgADmin 4 패키지가 있는 저장소를 apt에 추가한 후 설치</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/10.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/11.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/12.png" alt="png"></p>
+<ul>
+<li><p>이메일 비밀번호를 설정한다</p>
+<p>  <img src="/images/0729pyspark_postgreSQL/13.png" alt="png"></p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.pgadmin.org/download/pgadmin-4-apt/">https://www.pgadmin.org/download/pgadmin-4-apt/</a> 코드 관련 </p>
+<hr>
+<p><img src="/images/0729pyspark_postgreSQL/14.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/15.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/16.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/17.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/18.png" alt="png"></p>
+<p>• vi 편집기로 아래를 수정합니다. (주석 처리가 되어 있을 겁니다.) (종료시 :wq!)</p>
+<p><img src="/images/0729pyspark_postgreSQL/19.png" alt="png"></p>
+<p><img src="/images/0729pyspark_postgreSQL/20.png" alt="png"></p>
+<ul>
+<li>웹사이트가 활성화됨</li>
+<li><a target="_blank" rel="noopener" href="http://localhost/pgadmin4/">http://localhost/pgadmin4/</a>로 접속하여 설치 시 설정했던 이메일, 비밀번호 설정</li>
+<li>이메일 비밀번호를 치고 사이트에 들어가서</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/21.png" alt="png"></p>
+<ul>
+<li>add new server를 클릭</li>
+</ul>
+<p><img src="/images/0729pyspark_postgreSQL/22.png" alt="png"></p>
+<ul>
+<li>이름, 유저네임, 비밀번호 작성 후 genaral에서 이름을 작성한 후 서버를 구축</li>
+<li>ubuntu 종료 시 sudo service postgresql stop명령어를 실행한 후 종료해야 함</li>
+</ul>
+<hr>
+<ul>
+<li>관련 코드</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service postgresql stop</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y upgrade</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install postgresql postgresql-contrib</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service postgresql stop</span><br><span class="line">sudo -b unshare --pid --fork --mount-proc /lib/systemd/systemd --system-unit=basic.target</span><br><span class="line">sudo -E nsenter --all -t $(pgrep -xo systemd) runuser -P -l $USER -c &quot;exec $SHELL&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/postgresql/<span class="number">12</span>/main/postgresql.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/pgadmin4/<span class="built_in">bin</span>/setup-web.sh</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/29/0729%20pyspark_postgreSQL/" data-id="cl665ab3200005ctv04iaff8v" data-title="0729_pyspark_postgreSQL" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/28/0728airflow_pipeline_spark_install/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0728_airflow pipeline 구축 및 spark 설치</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/29/0729%20pyspark_postgreSQL/">0729_pyspark_postgreSQL</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/28/0728airflow_pipeline_spark_install/">0728_airflow pipeline 구축 및 spark 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/">0727 WSL2 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/">0727 환경변수 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_airflow%EC%84%A4%EC%B9%98/">0727 airflow설치</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
