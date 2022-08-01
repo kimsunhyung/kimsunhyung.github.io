@@ -118,17 +118,17 @@
 <li><p>heroku 앱 이름 생성 후 → 다운로드→github에 올림</p>
 </li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled.png"></p>
 <p>repo 생성 시 git tempelte을  python으로 변경하여  add a readme를 클릭!</p>
 <ul>
 <li>생성 후 http 코드를 복사하여 local 에 git clone 함</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled1.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled1.png"></p>
 <ul>
 <li>vs코드 생성 후 가상 환경을 설정한 후  Flask gunicorn을 설치</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled2.png" alt="png"></p>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled3.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled2.png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled3.png"></p>
 <hr>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Flask gunicorn</span><br></pre></td></tr></table></figure>
 
@@ -137,13 +137,13 @@
 <hr>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt  </span><br><span class="line"><span class="comment">#라이브러리 생성 작성하는 공간을 생성</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled4.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled4.png"></p>
 <p><a target="_blank" rel="noopener" href="http://app.py/">app.py</a> 파일 생성 후 저장하는 것 있지 말 것!!!! 제발!!!</p>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled5.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled5.png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled6.png" alt="png"></p>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled7.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled6.png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled7.png"></p>
 <hr>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FLASK_APP=app</span><br></pre></td></tr></table></figure>
 
@@ -156,7 +156,7 @@
 <li>앱이 활성화 될 수 있게  만들어주는 명령어</li>
 <li>Procfile 생성 후</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled8.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled8.png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">web: gunicorn wsgi:app </span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -165,25 +165,25 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run()</span><br><span class="line"><span class="comment"># 명령어 작성</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled9.png" alt="png"></p>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled10.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled9.png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled10.png"></p>
 <ul>
 <li>runtime 파일 생성 후   python 버전을 작성</li>
 <li>git hub repo 에 add, commit, push 명령어를 활용하여 올림.</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled11.png" alt="png"></p>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled12.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled11.png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled12.png"></p>
 <ul>
 <li>app.py에서 heroku login 명령어 작성 후 실행</li>
 <li>아무 키를 누르고 난 후 로그인 진행</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled13.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled13.png"></p>
 <ul>
 <li>로그인된 것을 확인하고 난 후</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled14.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled14.png"></p>
 <p>heroku create 홈페이지 이름을 작성하여 진행</p>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled15.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled15.png"></p>
 <p>gitpush heroku main을 작성하여 진행한 후 페이지에</p>
 <hr>
 <p>app.py를 수정</p>
@@ -192,11 +192,11 @@
 <ul>
 <li>templates 파일 생성 후 그 안에 index 파일 생성</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled16.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled16.png"></p>
 <ul>
 <li>명령어 작성 후</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled17.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled17.png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">	&lt;title&gt;FlaskBlog&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;aaaaa&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -215,24 +215,24 @@
 <li>temp폴더 완성 후</li>
 <li>static 폴더 생성 후 안에 css폴더를 생성한 후 style.css 파일 넣음</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled18.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled18.png"></p>
 <ul>
 <li>style.css 에 아래 명령어를 작성하고</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled19.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled19.png"></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> <span class="number">#eee</span> solid;</span><br><span class="line">    <span class="attribute">color</span>: brown;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>index.html파일에 meta와 title 사이에 아래 명령어를 작성</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled20.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled20.png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename= &#x27;css/style.css&#x27;) &#125;&#125;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>flask run으로 변경되었는지 확인</li>
 <li>이렇게 뜨면 완성</li>
 </ul>
-<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled21.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled21.png"></p>
 <hr>
 <p>python 웹개발</p>
 <ul>
