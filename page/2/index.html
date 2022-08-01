@@ -71,6 +71,121 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-0721_oracler_sql기초문법2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/07/21/0721_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%952/" class="article-date">
+  <time class="dt-published" datetime="2022-07-21T00:00:00.000Z" itemprop="datePublished">2022-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/07/21/0721_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%952/">0721_oracle_sql 기초문법2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="기본집계함수"><a href="#기본집계함수" class="headerlink" title="기본집계함수"></a>기본집계함수</h2><p>SELECT count(*) FROM employees;</p>
+<p>SELECT count(employee_id) FROM employees;</p>
+<h4 id="NULL은-카운트-하지-않음"><a href="#NULL은-카운트-하지-않음" class="headerlink" title="NULL은 카운트 하지 않음"></a>NULL은 카운트 하지 않음</h4><p>SELECT count(department_id) FROM employees;</p>
+<h4 id="유일한-값만-조회됨"><a href="#유일한-값만-조회됨" class="headerlink" title="유일한 값만 조회됨"></a>유일한 값만 조회됨</h4><p>SELECT count(DISTINCT department_id)<br>FROM employees;</p>
+<h4 id="정렬"><a href="#정렬" class="headerlink" title="정렬"></a>정렬</h4><p>SELECT DISTINCT department_id<br>FROM employees<br>order by 1;</p>
+<h2 id="p-154-기초-통계량"><a href="#p-154-기초-통계량" class="headerlink" title="p.154 기초 통계량"></a>p.154 기초 통계량</h2><p>####합계, 평균, 최소, 최대, 분산, 표준편차</p>
+<h4 id="SQL-gt-통계도구-amp-머신러닝-데이터-과학도구로-변환"><a href="#SQL-gt-통계도구-amp-머신러닝-데이터-과학도구로-변환" class="headerlink" title="SQL ##&gt; 통계도구 &amp; 머신러닝, 데이터 과학도구로 변환"></a>SQL ##&gt; 통계도구 &amp; 머신러닝, 데이터 과학도구로 변환</h4><p>SELECT SUM(salary)<br>FROM employees;</p>
+<p>SELECT SUM(salary), SUM(DISTINCT salary)<br>FROM employees;</p>
+<h4 id="평균값"><a href="#평균값" class="headerlink" title="평균값"></a>평균값</h4><p>SELECT AVG(salary), AVG(DISTINCT salary)<br>FROM employees;</p>
+<h4 id="최대값-최소값"><a href="#최대값-최소값" class="headerlink" title="최대값, 최소값"></a>최대값, 최소값</h4><p>SELECT MIN(salary), MAX(salary)<br>FROM employees;</p>
+<p>SELECT MIN(DISTINCT salary), MAX(DISTINCT salary)<br>FROM employees;</p>
+<h4 id="분산-및-표준편차"><a href="#분산-및-표준편차" class="headerlink" title="분산 및 표준편차"></a>분산 및 표준편차</h4><p>SELECT VARIANCE(salary), STDDEV(salary)<br>FROM employees;</p>
+<h4 id="GROUP-BY-HAVING"><a href="#GROUP-BY-HAVING" class="headerlink" title="GROUP BY, HAVING"></a>GROUP BY, HAVING</h4><h4 id="그전까지는-전체-데이터를-기준으로-집계"><a href="#그전까지는-전체-데이터를-기준으로-집계" class="headerlink" title="그전까지는 전체 데이터를 기준으로 집계"></a>그전까지는 전체 데이터를 기준으로 집계</h4><p>SELECT<br>    department_id<br>    ,SUM(salary)<br>FROM employees<br>GROUP BY department_id<br>ORDER BY department_id;</p>
+<p>SELECT*<br>FROM kor_loan_status;##가계대출 단위 십억<br>SELECT<br>    period<br>    , region<br>    , SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY period, region<br>ORDER BY period, region;</p>
+<p>####2013년  11월 총 잔액만 구하기</p>
+<p>SELECT<br>    period<br>    , region<br>    , SUM(loan_jan_amt)totl_jan<br>FROM KOR_LOAN_STATUS<br>WHERE period &#x3D; ‘201311’<br>GROUP BY region<br>ORDER BY region;</p>
+<h4 id="period-가-group-by-에-명시될만한-컬럼이-되지-않아-오류가-남"><a href="#period-가-group-by-에-명시될만한-컬럼이-되지-않아-오류가-남" class="headerlink" title="period 가 group by 에 명시될만한 컬럼이 되지 않아 오류가 남."></a>period 가 group by 에 명시될만한 컬럼이 되지 않아 오류가 남.</h4><p>SELECT<br>    period<br>    , region<br>    , SUM(loan_jan_amt)totl_jan<br>FROM KOR_LOAN_STATUS<br>WHERE period &#x3D; ‘201311’<br>GROUP BY period, region<br>HAVING SUM(loan_jan_amt)&gt;100000<br>ORDER BY region;</p>
+<h4 id="ROLLUP-CUBE"><a href="#ROLLUP-CUBE" class="headerlink" title="ROLLUP, CUBE"></a>ROLLUP, CUBE</h4><p>SELECT period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY period, gubun<br>ORDER BY period;</p>
+<h4 id="ROLLUP-추가적인-집계-정보를-순차적으로-반환"><a href="#ROLLUP-추가적인-집계-정보를-순차적으로-반환" class="headerlink" title="ROLLUP 추가적인 집계 정보를 순차적으로 반환"></a>ROLLUP 추가적인 집계 정보를 순차적으로 반환</h4><p>SELECT period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY ROLLUP(period, gubun);</p>
+<h4 id="CUBE-조합별로-집계한-정보를-반환"><a href="#CUBE-조합별로-집계한-정보를-반환" class="headerlink" title="CUBE 조합별로 집계한 정보를 반환"></a>CUBE 조합별로 집계한 정보를 반환</h4><p>SELECT period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY CUBE(period, gubun);</p>
+<h4 id="위치가-달라질-때마다-반환되는-값이-다름"><a href="#위치가-달라질-때마다-반환되는-값이-다름" class="headerlink" title="위치가 달라질 때마다 반환되는 값이 다름"></a>위치가 달라질 때마다 반환되는 값이 다름</h4><h4 id="집합연산자"><a href="#집합연산자" class="headerlink" title="집합연산자"></a>집합연산자</h4><p>CREATE TABLE exp_goods_asia (<br>           country VARCHAR2(10),<br>           seq     NUMBER,<br>           goods   VARCHAR2(80));</p>
+<pre><code>INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 1, &#39;원유제외 석유류&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 2, &#39;자동차&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 3, &#39;전자집적회로&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 4, &#39;선박&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 5,  &#39;LCD&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 6,  &#39;자동차부품&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 7,  &#39;휴대전화&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 8,  &#39;환식탄화수소&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 9,  &#39;무선송신기 디스플레이 부속품&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 10,  &#39;철 또는 비합금강&#39;);
+
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 1, &#39;자동차&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 2, &#39;자동차부품&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 3, &#39;전자집적회로&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 4, &#39;선박&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 5, &#39;반도체웨이퍼&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 6, &#39;화물차&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 7, &#39;원유제외 석유류&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 8, &#39;건설기계&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 9, &#39;다이오드, 트랜지스터&#39;);
+INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
+</code></pre>
+<p>commit;</p>
+<p>SELECT * FROM exp_goods_asia;</p>
+<p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>ORDER BY seq</p>
+<p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’<br>ORDER BY seq</p>
+<h4 id="두국가가-겹치는-수출품목은-한번만-조회하도록-함"><a href="#두국가가-겹치는-수출품목은-한번만-조회하도록-함" class="headerlink" title="두국가가 겹치는 수출품목은 한번만 조회하도록 함"></a>두국가가 겹치는 수출품목은 한번만 조회하도록 함</h4><h4 id="UNION-두-데이터-집합이-있으면-각-집합-원소를-모두-포함한-결과-반환하는-합집합-함수"><a href="#UNION-두-데이터-집합이-있으면-각-집합-원소를-모두-포함한-결과-반환하는-합집합-함수" class="headerlink" title="UNION 두 데이터 집합이 있으면 각 집합 원소를 모두 포함한 결과 반환하는 합집합 함수"></a>UNION 두 데이터 집합이 있으면 각 집합 원소를 모두 포함한 결과 반환하는 합집합 함수</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>UNION<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
+<h4 id="UNION-ALL-중복된-데이터도-모두-반환함"><a href="#UNION-ALL-중복된-데이터도-모두-반환함" class="headerlink" title="UNION ALL  중복된 데이터도 모두 반환함"></a>UNION ALL  중복된 데이터도 모두 반환함</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>UNION ALL<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
+<h4 id="INTERSECT-공통된-항목만-반환하는-교집합-함수"><a href="#INTERSECT-공통된-항목만-반환하는-교집합-함수" class="headerlink" title="INTERSECT, 공통된 항목만 반환하는 교집합 함수"></a>INTERSECT, 공통된 항목만 반환하는 교집합 함수</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>INTERSECT<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
+<h4 id="MINUS-공통된-항목을-제외한-항목만-반환하는-차집합"><a href="#MINUS-공통된-항목을-제외한-항목만-반환하는-차집합" class="headerlink" title="MINUS 공통된 항목을 제외한 항목만 반환하는 차집합"></a>MINUS 공통된 항목을 제외한 항목만 반환하는 차집합</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>MINUS<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
+<h4 id="GROUPING-SETS"><a href="#GROUPING-SETS" class="headerlink" title="GROUPING SETS"></a>GROUPING SETS</h4><p>SELECT<br>    period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY GROUPING SETS(period,gubun);</p>
+<p>SELECT<br>    period, gubun, region, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>    AND region IN(‘서울’,’경기’)<br>GROUP BY GROUPING SETS(period,(gubun,region));</p>
+<h4 id="불친절한-pl-x2F-sql-프로그래밍-책-읽어보기"><a href="#불친절한-pl-x2F-sql-프로그래밍-책-읽어보기" class="headerlink" title="불친절한 pl&#x2F;sql 프로그래밍 책 읽어보기"></a>불친절한 pl&#x2F;sql 프로그래밍 책 읽어보기</h4><p>SELECT a.employee_id<br>        , a.emp_name<br>        , a.department_id<br>        , b.department_name<br>FROM employees a, departments b<br>WHERE a.department_id &#x3D; b.department_id;</p>
+<h2 id="세미-조인"><a href="#세미-조인" class="headerlink" title="세미 조인"></a>세미 조인</h2><h4 id="서브-쿼리를-이용해-서브쿼리에-존재하는-데이터만-메인-쿼리에서-추출"><a href="#서브-쿼리를-이용해-서브쿼리에-존재하는-데이터만-메인-쿼리에서-추출" class="headerlink" title="서브 쿼리를 이용해 서브쿼리에 존재하는 데이터만 메인 쿼리에서 추출"></a>서브 쿼리를 이용해 서브쿼리에 존재하는 데이터만 메인 쿼리에서 추출</h4><h4 id="exist"><a href="#exist" class="headerlink" title="exist"></a>exist</h4><p>SELECT<br>    department_id<br>    , department_name<br>FROM departments a<br>WHERE EXISTS(SELECT*<br>    FROM departments a, employees b<br>    WHERE a.department_id &#x3D; b.department_id<br>    AND b.salary&gt;3000);</p>
+<p>SELECT<br>    department_id<br>    , department_name<br>FROM departments a<br>    WHERE a.department_id IN(SELECT b.department_id<br>                            FROM employees b<br>                            WHERE b.salary&gt; 3000)<br>ORDER BY department_name;</p>
+<p>SELECT<br>    a.department_id<br>    , a.department_name<br>FROM departments a, employees b<br>WHERE a.department_id &#x3D; b.department_id<br>    AND b.salary &gt;3000<br>ORDER BY a.department_name;</p>
+<h4 id="안티조인"><a href="#안티조인" class="headerlink" title="안티조인"></a>안티조인</h4><h4 id="세미조인의-반대-개념"><a href="#세미조인의-반대-개념" class="headerlink" title="세미조인의 반대 개념"></a>세미조인의 반대 개념</h4><h4 id="NOT-EXSITS-NOT-IN"><a href="#NOT-EXSITS-NOT-IN" class="headerlink" title="NOT EXSITS, NOT IN"></a>NOT EXSITS, NOT IN</h4><p>SELECT<br>    a. employee_id<br>    , a.emp_name<br>    , a.department_id<br>    , b.department_name<br>FROM employees a<br>    , departments b<br>WHERE a.department_id &#x3D; b.department_id<br>    AND a.department_id NOT IN(SELECT department_id<br>                                FROM departments<br>                                WHERE manager_id IS NULL);</p>
+<h4 id="P-180"><a href="#P-180" class="headerlink" title="P. 180"></a>P. 180</h4><p>SELECT count(*)<br>FROM employees a<br>WHERE NOT EXISTS(SELECT 1<br>                FROM departments C<br>                WHERE a.department_id &#x3D; c.department_id<br>                    AND manager_id IS NULL)</p>
+<h4 id="셀프-조인"><a href="#셀프-조인" class="headerlink" title="셀프 조인"></a>셀프 조인</h4><h4 id="조인을-하려면-두개의-테이블"><a href="#조인을-하려면-두개의-테이블" class="headerlink" title="조인을 하려면 두개의 테이블"></a>조인을 하려면 두개의 테이블</h4><h4 id="하나의-테이블을-두개로-분리"><a href="#하나의-테이블을-두개로-분리" class="headerlink" title="하나의 테이블을 두개로 분리"></a>하나의 테이블을 두개로 분리</h4><h4 id="테이블-자기자신과-연결"><a href="#테이블-자기자신과-연결" class="headerlink" title="테이블 자기자신과 연결"></a>테이블 자기자신과 연결</h4><h4 id="같은-부서-번호를-가진-사원-중-A사원번호가-B사원보다-작은-것-조회"><a href="#같은-부서-번호를-가진-사원-중-A사원번호가-B사원보다-작은-것-조회" class="headerlink" title="같은 부서 번호를 가진 사원 중 A사원번호가 B사원보다 작은 것 조회"></a>같은 부서 번호를 가진 사원 중 A사원번호가 B사원보다 작은 것 조회</h4><p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.employee_id<br>    , b.emp_name<br>    , a.department_id<br>FROM<br>    employees a<br>    , employees b<br>WHERE a.employee_id &lt; b.employee_id<br>    AND a.department_id &#x3D; b.department_id<br>    AND a.department_id &#x3D;20;</p>
+<h4 id="p-181-일반-조인"><a href="#p-181-일반-조인" class="headerlink" title="p.181 일반 조인"></a>p.181 일반 조인</h4><p>SELECT<br>    a.department_id<br>    , a.department_name<br>    , b.job_id<br>    , b.department_id<br>FROM departments a,<br>     job_history b<br>WHERE a.department_id &#x3D; b.department_id;</p>
+<h4 id="외부조인"><a href="#외부조인" class="headerlink" title="외부조인"></a>외부조인</h4><p>SELECT<br>    a.department_id<br>    , a.department_name<br>    , b.job_id<br>    , b.department_id<br>FROM departments a,<br>     job_history b<br>WHERE a.department_id &#x3D; b.department_id(+);</p>
+<p>SELECT<br>    a.employee_id<br>    , a. emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>     , job_history b<br>WHERE a.employee_id &#x3D; b.employee_id(+)<br>    AND a.department_id &#x3D; b.department_id;</p>
+<p>SELECT<br>    a.employee_id<br>    , a. emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>     , job_history b<br>WHERE a.employee_id &#x3D; b.employee_id(+)<br>    AND a.department_id &#x3D; b.department_id(+);</p>
+<h4 id="ansi조인"><a href="#ansi조인" class="headerlink" title="ansi조인"></a>ansi조인</h4><p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.department_id<br>    , b.department_name<br>FROM employees a<br>INNER JOIN departments b<br>    ON(a.department_id &#x3D; b.department_id)<br>WHERE a.hire_date&gt;&#x3D;TO_DATE(‘2003-01-01’,’YYYY-MM-DD’)</p>
+<h4 id="p-186"><a href="#p-186" class="headerlink" title="p.186"></a>p.186</h4><h4 id="외부조인-1"><a href="#외부조인-1" class="headerlink" title="외부조인"></a>외부조인</h4><p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>LEFT OUTER JOIN job_history b<br>    ON(a.employee_id &#x3D; b.employee_id<br>        and a.department_id &#x3D; b.department_id);</p>
+<p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>RIGHT OUTER JOIN job_history b<br>    ON(a.employee_id &#x3D; b.employee_id<br>        and a.department_id &#x3D; b.department_id);</p>
+<h2 id="서브쿼리"><a href="#서브쿼리" class="headerlink" title="서브쿼리"></a>서브쿼리</h2><h4 id="SQL-수업의-하이라이트"><a href="#SQL-수업의-하이라이트" class="headerlink" title="SQL 수업의 하이라이트"></a>SQL 수업의 하이라이트</h4><h4 id="서브쿼리가-사용되는-위치-SELECT-FROM-WHERE"><a href="#서브쿼리가-사용되는-위치-SELECT-FROM-WHERE" class="headerlink" title="서브쿼리가 사용되는 위치 SELECT, FROM, WHERE"></a>서브쿼리가 사용되는 위치 SELECT, FROM, WHERE</h4><p>SELECT AVG(salary)FROM employees;</p>
+<h4 id="배치-자동화"><a href="#배치-자동화" class="headerlink" title="배치 자동화"></a>배치 자동화</h4><p>SELECT count(*)<br>FROM employees<br>WHERE salary &gt;&#x3D; (SELECT AVG(salary)FROM employees);</p>
+<p>SELECT count(*)<br>FROM employees<br>WHERE salary &gt;&#x3D; 서브쿼리에서 출력되는 값이 단일 행;</p>
+<h4 id="IN-복수-결과값을-넣을-수-있음"><a href="#IN-복수-결과값을-넣을-수-있음" class="headerlink" title="IN(복수 결과값을 넣을 수 있음)"></a>IN(복수 결과값을 넣을 수 있음)</h4><p>SELECT count(*)<br>FROM employees<br>WHERE department_id IN(SELECT department_id<br>                       FROM departments<br>                       WHERE parent_id IS NULL)</p>
+<p>SELECT employee_id<br>       , emp_name<br>       , job_id<br>FROM employees<br>WHERE (employee_id,job_id) IN(SELECT EMPLOYEE_ID<br>                                     , job_id<br>                                     FROM job_history);</p>
+<h4 id="서브쿼리-SELECT-뿐아니라-UPDATE-DELETE에도-사용"><a href="#서브쿼리-SELECT-뿐아니라-UPDATE-DELETE에도-사용" class="headerlink" title="서브쿼리 SELECT 뿐아니라 UPDATE, DELETE에도 사용"></a>서브쿼리 SELECT 뿐아니라 UPDATE, DELETE에도 사용</h4><h4 id="전-사원의-급여를-평균-금액으로-갱신"><a href="#전-사원의-급여를-평균-금액으로-갱신" class="headerlink" title="전 사원의 급여를 평균 금액으로 갱신"></a>전 사원의 급여를 평균 금액으로 갱신</h4><p>CREATE TABLE employees0721 AS<br>SELECT*FROM employees;</p>
+<h4 id="p-x2F-194-하단-SELECT에-서브쿼리"><a href="#p-x2F-194-하단-SELECT에-서브쿼리" class="headerlink" title="p&#x2F;194 하단 SELECT에 서브쿼리"></a>p&#x2F;194 하단 SELECT에 서브쿼리</h4><p>SELECT<br>    a.employee_id<br>    ,(SELECT b.emp_name<br>      FROM employees b<br>      WHERE a.employee_id &#x3D;b.employee_id) AS emp_name<br>    , a.department_id<br>    , (SELECT b.department_name<br>      FROM departments b<br>      WHERE a.department_id &#x3D; b.department_id) AS dep_name<br>FROM job_history a;</p>
+<h4 id="메인쿼리"><a href="#메인쿼리" class="headerlink" title="메인쿼리"></a>메인쿼리</h4><p>SELECT<br>FROM<br>WHERE(서브쿼리(서브쿼리2))</p>
+<p>SELECT<br>    a.department_id<br>    ,a.department_name<br>FROM departments a<br>WHERE EXISTS(SELECT 1<br>             FROM employees b<br>             WHERE a.department_id &#x3D; b.department_id<br>             AND b.salary&gt;(SELECT avg(salary)FROM employees)<br>             );</p>
+<h4 id="메인-쿼리-부서테이블에서-부서-ID와-부서명"><a href="#메인-쿼리-부서테이블에서-부서-ID와-부서명" class="headerlink" title="메인 쿼리, 부서테이블에서 부서 ID와 부서명"></a>메인 쿼리, 부서테이블에서 부서 ID와 부서명</h4><h4 id="P-196"><a href="#P-196" class="headerlink" title="P.196"></a>P.196</h4><h4 id="메인쿼리-사원-테이블의-사원들의-부서별-평균-급여를-조회"><a href="#메인쿼리-사원-테이블의-사원들의-부서별-평균-급여를-조회" class="headerlink" title="메인쿼리 : 사원 테이블의 사원들의 부서별 평균 급여를 조회"></a>메인쿼리 : 사원 테이블의 사원들의 부서별 평균 급여를 조회</h4><h4 id="서브쿼리-상위부서가-기획부-부서-번호가-90-에-속함"><a href="#서브쿼리-상위부서가-기획부-부서-번호가-90-에-속함" class="headerlink" title="서브쿼리 : 상위부서가 기획부(부서 번호가 90)에 속함"></a>서브쿼리 : 상위부서가 기획부(부서 번호가 90)에 속함</h4><p>SELECT department_id,AVG(salary)<br>FROM employees<br>WHERE department_id IN(SELECT department_id<br>                       FROM departments<br>                       WHERE parent_id &#x3D; 90)<br>GROUP BY department_id;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/07/21/0721_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%952/" data-id="cl5uqia9y00009gtv34866git" data-title="0721_oracle_sql 기초문법2" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-0720_oracler_sql기초문법" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/07/20/0720_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%95/" class="article-date">
@@ -10913,226 +11028,6 @@ dtype: int64
 
 
   
-    <article id="post-0705" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/07/05/0705/" class="article-date">
-  <time class="dt-published" datetime="2022-07-05T00:00:00.000Z" itemprop="datePublished">2022-07-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/07/05/0705/">0705</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="랜덤-포레스트"><a href="#랜덤-포레스트" class="headerlink" title="랜덤 포레스트"></a>랜덤 포레스트</h2><ul>
-<li>decision tree (나무 1개)<ul>
-<li>여러개 심음</li>
-<li>샘플링</li>
-</ul>
-</li>
-<li>예측해야할 행의 갯수가 백만개</li>
-<li>컴럼의 개수 200개 -&gt; 100개<ul>
-<li>나무 100개 심고 평균내기</li>
-<li>나무 1개당 컬럼을 10개로 하기</li>
-<li>t1 mae : 20, t2 mae: 30, t3 mae :10 …<ul>
-<li>t1-t100 mae : 20</li>
-<li>feature importances</li>
-</ul>
-</li>
-<li>샘플링 : 부트스트랩 샘플 (복원 추출)</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 라이브러리 불러오기 </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd </span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split, cross_validate</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line"><span class="comment"># 데이터 불러오기</span></span><br><span class="line">wine = pd.read_csv(<span class="string">&#x27;https://bit.ly/wine_csv_data&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># input, target 분리 </span></span><br><span class="line">data = wine[[<span class="string">&#x27;alcohol&#x27;</span>, <span class="string">&#x27;sugar&#x27;</span>, <span class="string">&#x27;pH&#x27;</span>]].to_numpy()</span><br><span class="line">target = wine[<span class="string">&#x27;class&#x27;</span>].to_numpy()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 훈련데이터, 테스트 데이터 분리</span></span><br><span class="line">train_input, test_input, train_target, test_target = train_test_split(</span><br><span class="line">    data, target, test_size = <span class="number">0.2</span>, random_state = <span class="number">42</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 모델링</span></span><br><span class="line">rf = RandomForestClassifier(n_jobs=-<span class="number">1</span>, random_state = <span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 모형 평가</span></span><br><span class="line">scores = cross_validate(rf, train_input, train_target, return_train_score = <span class="literal">True</span>, n_jobs =-<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(np.mean(scores[<span class="string">&#x27;train_score&#x27;</span>]), np.mean(scores[<span class="string">&#x27;test_score&#x27;</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 특성 중요</span></span><br><span class="line">rf.fit(train_input, train_target)</span><br><span class="line"><span class="comment"># print(rf.feature_importances_)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># OOB </span></span><br><span class="line">rf = RandomForestClassifier(oob_score = <span class="literal">True</span>, n_jobs = -<span class="number">1</span>, random_state = <span class="number">42</span>)</span><br><span class="line">rf.fit(train_input, train_target)</span><br><span class="line"><span class="comment"># print(rf.oob_score_)</span></span><br></pre></td></tr></table></figure>
-
-<pre><code>0.9973541965122431 0.8905151032797809
-
-
-
-
-
-RandomForestClassifier(n_jobs=-1, oob_score=True, random_state=42)
-</code></pre>
-<h2 id="그레이디언트-부스팅"><a href="#그레이디언트-부스팅" class="headerlink" title="그레이디언트 부스팅"></a>그레이디언트 부스팅</h2><ul>
-<li>경사 하강법의 원리를 이용함.</li>
-<li>T1 ~TN 증가하면서 오차를 보정해주고, 정확성을 높임</li>
-<li>랜덤포레스트와의 차이<ul>
-<li>랜덤포레스트는 각 나무간 상호연관성 없음</li>
-<li>부스팅은 각 나무간 상호 연관성 있음</li>
-</ul>
-</li>
-<li>단점<ul>
-<li>속도가 너무 느림</li>
-</ul>
-</li>
-<li>대안<ul>
-<li>XGBoost, LightGBM</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line">gb = GradientBoostingClassifier(random_state=<span class="number">42</span>)</span><br><span class="line">scores = cross_validate(gb, train_input, train_target, return_train_score = <span class="literal">True</span>, n_jobs= -<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(np.mean(scores[<span class="string">&#x27;train_score&#x27;</span>]),np.mean(scores[<span class="string">&#x27;test_score&#x27;</span>]))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.8881086892152563 0.8720430147331015
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</span><br><span class="line">gb = GradientBoostingClassifier(n_estimators=<span class="number">500</span>, learning_rate =<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line">scores = cross_validate(gb, train_input, train_target, return_train_score = <span class="literal">True</span>, n_jobs= -<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(np.mean(scores[<span class="string">&#x27;train_score&#x27;</span>]),np.mean(scores[<span class="string">&#x27;test_score&#x27;</span>]))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.9464595437171814 0.8780082549788999
-</code></pre>
-<ul>
-<li>특성 중요성</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gb.fit(train_input, train_target)</span></span><br><span class="line"><span class="built_in">print</span>(gb.feature_importances_)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>실무에서의 난이도</p>
-<ul>
-<li>비지도학습이 지도학습보다 어려움</li>
-<li>지도 : ai, 사람이 개입함</li>
-<li>비지도 학습 : 수치적으로 분류</li>
-</ul>
-</li>
-<li><p>주성분 분석</p>
-<ul>
-<li>이론적으로는 어려움</li>
-<li>좌표계 공간개념<ul>
-<li>직교 + 회전</li>
-</ul>
-</li>
-<li>공분산 등 (통계 관련 내용)</li>
-<li>feature engineering 기법</li>
-<li>standardscaler()</li>
-<li>현 ml의 문제점 컬럼의 갯수 매우 많음</li>
-</ul>
-</li>
-<li><p>차원 축소</p>
-<ul>
-<li>특성이 많으면 훈련데이터에 쉽게 과대 적합된다.</li>
-<li>특성을 줄여서 학습 모델의 성능을 향상시킴. </li>
-<li>모델의 학습시간을 감소시켜줌.</li>
-<li>대표적인 방법론 하나가 pca,efa</li>
-</ul>
-</li>
-<li><p>pca, efa의 차이</p>
-<ul>
-<li>efa(탐색적 요인 분석), facter analysis<ul>
-<li>예) 국어,수학, 과학, 영어</li>
-<li>예) 국어 40, 수학 100, 과학 100, 영어 30&#x2F; 귀 학생은 언어영역 수준은 낮은편이나, 수리 영역은 매우 수준이 높습니다.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>범주형 &amp; 데이터셋에 많이 사용<br>-주성분 분석(pca)</p>
-<ul>
-<li>장비 1, 장비 2, 장비 3, 장비 4 … </li>
-<li>pc1, pc2, pc3… pcn</li>
-<li>원래 가지고 있던 정보를 알 수 없음(정보손실)</li>
-<li>범주형 데이터 셋에는 사용 안됨</li>
-<li>무조건 수치형 데이터에서만 사용</li>
-<li>pca 실행 전 반드시 표준화 처리(스케일링)</li>
-</ul>
-</li>
-<li><h2 id="p320"><a href="#p320" class="headerlink" title="p320"></a>p320</h2></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!wget https://bit.ly/fruits_300_data -O fruits_300.npy</span><br></pre></td></tr></table></figure>
-
-<pre><code>--2022-07-05 04:53:22--  https://bit.ly/fruits_300_data
-Resolving bit.ly (bit.ly)... 67.199.248.10, 67.199.248.11
-Connecting to bit.ly (bit.ly)|67.199.248.10|:443... connected.
-HTTP request sent, awaiting response... 301 Moved Permanently
-Location: https://github.com/rickiepark/hg-mldl/raw/master/fruits_300.npy [following]
---2022-07-05 04:53:23--  https://github.com/rickiepark/hg-mldl/raw/master/fruits_300.npy
-Resolving github.com (github.com)... 140.82.114.3
-Connecting to github.com (github.com)|140.82.114.3|:443... connected.
-HTTP request sent, awaiting response... 302 Found
-Location: https://raw.githubusercontent.com/rickiepark/hg-mldl/master/fruits_300.npy [following]
---2022-07-05 04:53:23--  https://raw.githubusercontent.com/rickiepark/hg-mldl/master/fruits_300.npy
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
-Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 3000128 (2.9M) [application/octet-stream]
-Saving to: ‘fruits_300.npy’
-
-fruits_300.npy      100%[===================&gt;]   2.86M  --.-KB/s    in 0.06s   
-
-2022-07-05 04:53:24 (47.0 MB/s) - ‘fruits_300.npy’ saved [3000128/3000128]
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">fruits = np.load(<span class="string">&#x27;/content/fruits_300.npy&#x27;</span>)</span><br><span class="line">fruits_2d = fruits.reshape(-<span class="number">1</span>,<span class="number">100</span>*<span class="number">100</span>)</span><br><span class="line"> <span class="comment"># 300개의 행, 10000개의 열</span></span><br><span class="line">fruits_2d.shape</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>(300, 10000)
-</code></pre>
-<ul>
-<li>pca</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA(n_components=<span class="number">50</span>)</span><br><span class="line">pca.fit(fruits_2d)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>PCA(n_components=50)
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(pca.components_.shape)</span><br></pre></td></tr></table></figure>
-
-<pre><code>(50, 10000)
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_fruits</span>(<span class="params">arr, ratio=<span class="number">1</span></span>):</span><br><span class="line">    n = <span class="built_in">len</span>(arr)    <span class="comment"># n은 샘플 개수입니다</span></span><br><span class="line">    <span class="comment"># 한 줄에 10개씩 이미지를 그립니다. 샘플 개수를 10으로 나누어 전체 행 개수를 계산합니다. </span></span><br><span class="line">    rows = <span class="built_in">int</span>(np.ceil(n/<span class="number">10</span>))</span><br><span class="line">    <span class="comment"># 행이 1개 이면 열 개수는 샘플 개수입니다. 그렇지 않으면 10개입니다.</span></span><br><span class="line">    cols = n <span class="keyword">if</span> rows &lt; <span class="number">2</span> <span class="keyword">else</span> <span class="number">10</span></span><br><span class="line">    fig, axs = plt.subplots(rows, cols, </span><br><span class="line">                            figsize=(cols*ratio, rows*ratio), squeeze=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(rows):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(cols):</span><br><span class="line">            <span class="keyword">if</span> i*<span class="number">10</span> + j &lt; n:    <span class="comment"># n 개까지만 그립니다.</span></span><br><span class="line">                axs[i, j].imshow(arr[i*<span class="number">10</span> + j], cmap=<span class="string">&#x27;gray_r&#x27;</span>)</span><br><span class="line">            axs[i, j].axis(<span class="string">&#x27;off&#x27;</span>)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">draw_fruits(pca.components_.reshape(-<span class="number">1</span>,<span class="number">100</span>,<span class="number">100</span>))</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/0705/output_14_0.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 머신러닝에서 컬럼의 개수를 10000개에서 50개로 줄임(수치 데이터에서만 적용 가능)</span></span><br><span class="line">fruits_pca = pca.transform(fruits_2d)</span><br><span class="line"><span class="built_in">print</span>(fruits_pca.shape)</span><br></pre></td></tr></table></figure>
-
-<pre><code>(300, 50)
-</code></pre>
-<ul>
-<li>훈련데이터, 테스트데이터 분리</li>
-</ul>
-<h2 id="설명된-분산"><a href="#설명된-분산" class="headerlink" title="설명된 분산"></a>설명된 분산</h2><ul>
-<li>주 성분이 원본 데이터의 분산을 얼마나 잘 나타내는지 기록한 값</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 92% </span></span><br><span class="line"><span class="comment"># 원본이미지 압축</span></span><br><span class="line"><span class="built_in">print</span>(np.<span class="built_in">sum</span>(pca.explained_variance_ratio_))</span><br></pre></td></tr></table></figure>
-
-<pre><code>0.9214928675263282
-</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(pca.explained_variance_ratio_)</span><br></pre></td></tr></table></figure>
-
-
-
-
-<pre><code>[&lt;matplotlib.lines.Line2D at 0x7f8dd3c68d90&gt;]
-</code></pre>
-<p><img src="/images/0705/output_18_1.png" alt="png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kimsunhyung.github.io/2022/07/05/0705/" data-id="cl58ugjej0000mctv6rh7cq8r" data-title="0705" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -11156,7 +11051,7 @@ fruits_300.npy      100%[===================&gt;]   2.86M  --.-KB/s    in 0.06s
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
     </div>
   </div>
 
@@ -11167,6 +11062,10 @@ fruits_300.npy      100%[===================&gt;]   2.86M  --.-KB/s    in 0.06s
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/">0801heroku배포</a>
+          </li>
         
           <li>
             <a href="/2022/07/29/0729%20pyspark_postgreSQL/">0729_pyspark_postgreSQL</a>
@@ -11182,10 +11081,6 @@ fruits_300.npy      100%[===================&gt;]   2.86M  --.-KB/s    in 0.06s
         
           <li>
             <a href="/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/">0727 환경변수 설치</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/27/0727_airflow%EC%84%A4%EC%B9%98/">0727 airflow설치</a>
           </li>
         
       </ul>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0801heroku배포 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="0801heroku배포Created: 2022년 8월 1일 오전 9:12Last Edited Time: 2022년 8월 1일 오후 2:05 https:&#x2F;&#x2F;www.heroku.com&#x2F;   회원가입 후 local에 설치 gmail 확인 후 accept를 누르고, 새로운 앱을 설치  https:&#x2F;&#x2F;devcenter.heroku.com&#x2F;articles&#x2F;heroku">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0801heroku배포">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="0801heroku배포Created: 2022년 8월 1일 오전 9:12Last Edited Time: 2022년 8월 1일 오후 2:05 https:&#x2F;&#x2F;www.heroku.com&#x2F;   회원가입 후 local에 설치 gmail 확인 후 accept를 누르고, 새로운 앱을 설치  https:&#x2F;&#x2F;devcenter.heroku.com&#x2F;articles&#x2F;heroku">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled2.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled3.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled4.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled5.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled6.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled7.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled8.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled9.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled10.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled11.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled12.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled13.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled14.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled15.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled16.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled17.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled18.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled19.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled20.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled21.png">
+<meta property="article:published_time" content="2022-08-01T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-01T07:45:44.450Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled.png">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0801heroku배포" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/" class="article-date">
+  <time class="dt-published" datetime="2022-08-01T00:00:00.000Z" itemprop="datePublished">2022-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0801heroku배포
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="0801heroku배포"><a href="#0801heroku배포" class="headerlink" title="0801heroku배포"></a>0801heroku배포</h1><p>Created: 2022년 8월 1일 오전 9:12<br>Last Edited Time: 2022년 8월 1일 오후 2:05</p>
+<p><a target="_blank" rel="noopener" href="https://www.heroku.com/">https://www.heroku.com/</a> </p>
+<ul>
+<li>회원가입 후 local에 설치</li>
+<li>gmail 확인 후 accept를 누르고, 새로운 앱을 설치</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/heroku-cli">https://devcenter.heroku.com/articles/heroku-cli</a></p>
+<ul>
+<li>heroku cli 설치 64비트</li>
+</ul>
+<hr>
+<ul>
+<li><p>설치 후 git rep를 새로 하나 만듬 heroku에서는 ‘_’ 불가능</p>
+</li>
+<li><p>repo 생성 시 이름을 똑같이 생성하면 접속 시 오류가 생길 수 있음</p>
+</li>
+<li><p>git-repo → 다운로드(local)→heroku 에 배포-</p>
+<ul>
+<li>이름이 동일하면 생성 불가</li>
+</ul>
+<hr>
+</li>
+<li><p>heroku 앱 이름 생성 후 → 다운로드→github에 올림</p>
+</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled.png" alt="png"></p>
+<p>repo 생성 시 git tempelte을  python으로 변경하여  add a readme를 클릭!</p>
+<ul>
+<li>생성 후 http 코드를 복사하여 local 에 git clone 함</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled1.png" alt="png"></p>
+<ul>
+<li>vs코드 생성 후 가상 환경을 설정한 후  Flask gunicorn을 설치</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled2.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled3.png" alt="png"></p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Flask gunicorn</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python.exe -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt  </span><br><span class="line"><span class="comment">#라이브러리 생성 작성하는 공간을 생성</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled4.png" alt="png"></p>
+<p><a target="_blank" rel="noopener" href="http://app.py/">app.py</a> 파일 생성 후 저장하는 것 있지 말 것!!!! 제발!!!</p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled5.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled6.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled7.png" alt="png"></p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FLASK_APP=app</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">export FLASK_ENV=development</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flask run</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>앱이 활성화 될 수 있게  만들어주는 명령어</li>
+<li>Procfile 생성 후</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled8.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">web: gunicorn wsgi:app </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>명령어 작성</li>
+<li>Procfile 작성 완료 후 <a target="_blank" rel="noopener" href="http://wsgi.py/">wsgi.py</a> 파일 생성</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run()</span><br><span class="line"><span class="comment"># 명령어 작성</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled9.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled10.png" alt="png"></p>
+<ul>
+<li>runtime 파일 생성 후   python 버전을 작성</li>
+<li>git hub repo 에 add, commit, push 명령어를 활용하여 올림.</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled11.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled12.png" alt="png"></p>
+<ul>
+<li>app.py에서 heroku login 명령어 작성 후 실행</li>
+<li>아무 키를 누르고 난 후 로그인 진행</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled13.png" alt="png"></p>
+<ul>
+<li>로그인된 것을 확인하고 난 후</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled14.png" alt="png"></p>
+<p>heroku create 홈페이지 이름을 작성하여 진행</p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled15.png" alt="png"></p>
+<p>gitpush heroku main을 작성하여 진행한 후 페이지에</p>
+<hr>
+<p>app.py를 수정</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>templates 파일 생성 후 그 안에 index 파일 생성</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled16.png" alt="png"></p>
+<ul>
+<li>명령어 작성 후</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled17.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">	&lt;title&gt;FlaskBlog&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;aaaaa&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>git 명령어 작성하여 진행</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m “updated”</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push heroku main</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>temp폴더 완성 후</li>
+<li>static 폴더 생성 후 안에 css폴더를 생성한 후 style.css 파일 넣음</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled18.png" alt="png"></p>
+<ul>
+<li>style.css 에 아래 명령어를 작성하고</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled19.png" alt="png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> <span class="number">#eee</span> solid;</span><br><span class="line">    <span class="attribute">color</span>: brown;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>index.html파일에 meta와 title 사이에 아래 명령어를 작성</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled20.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename= &#x27;css/style.css&#x27;) &#125;&#125;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>flask run으로 변경되었는지 확인</li>
+<li>이렇게 뜨면 완성</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled21.png" alt="png"></p>
+<hr>
+<p>python 웹개발</p>
+<ul>
+<li>Django<ul>
+<li>세팅할 것이 많음</li>
+</ul>
+</li>
+<li>Flask<ul>
+<li>초기에 개발하기 수월함</li>
+<li>세팅할 것이 많지 않음</li>
+<li>REST API가 있어야만,  카카오톡 챗봇이 연동이 됨</li>
+<li>REST API &#x3D; @app.route 와 같음</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/" data-id="cl6ag62w20000uktv1jj94d3i" data-title="0801heroku배포" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/29/0729%20pyspark_postgreSQL/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0729_pyspark_postgreSQL</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/">0801heroku배포</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/29/0729%20pyspark_postgreSQL/">0729_pyspark_postgreSQL</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/28/0728airflow_pipeline_spark_install/">0728_airflow pipeline 구축 및 spark 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/">0727 WSL2 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/">0727 환경변수 설치</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

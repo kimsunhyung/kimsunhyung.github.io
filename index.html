@@ -71,6 +71,199 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-0801heroku배포" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/" class="article-date">
+  <time class="dt-published" datetime="2022-08-01T00:00:00.000Z" itemprop="datePublished">2022-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/">0801heroku배포</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="0801heroku배포"><a href="#0801heroku배포" class="headerlink" title="0801heroku배포"></a>0801heroku배포</h1><p>Created: 2022년 8월 1일 오전 9:12<br>Last Edited Time: 2022년 8월 1일 오후 2:05</p>
+<p><a target="_blank" rel="noopener" href="https://www.heroku.com/">https://www.heroku.com/</a> </p>
+<ul>
+<li>회원가입 후 local에 설치</li>
+<li>gmail 확인 후 accept를 누르고, 새로운 앱을 설치</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/heroku-cli">https://devcenter.heroku.com/articles/heroku-cli</a></p>
+<ul>
+<li>heroku cli 설치 64비트</li>
+</ul>
+<hr>
+<ul>
+<li><p>설치 후 git rep를 새로 하나 만듬 heroku에서는 ‘_’ 불가능</p>
+</li>
+<li><p>repo 생성 시 이름을 똑같이 생성하면 접속 시 오류가 생길 수 있음</p>
+</li>
+<li><p>git-repo → 다운로드(local)→heroku 에 배포-</p>
+<ul>
+<li>이름이 동일하면 생성 불가</li>
+</ul>
+<hr>
+</li>
+<li><p>heroku 앱 이름 생성 후 → 다운로드→github에 올림</p>
+</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled.png" alt="png"></p>
+<p>repo 생성 시 git tempelte을  python으로 변경하여  add a readme를 클릭!</p>
+<ul>
+<li>생성 후 http 코드를 복사하여 local 에 git clone 함</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled1.png" alt="png"></p>
+<ul>
+<li>vs코드 생성 후 가상 환경을 설정한 후  Flask gunicorn을 설치</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled2.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled3.png" alt="png"></p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Flask gunicorn</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python.exe -m pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt  </span><br><span class="line"><span class="comment">#라이브러리 생성 작성하는 공간을 생성</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled4.png" alt="png"></p>
+<p><a target="_blank" rel="noopener" href="http://app.py/">app.py</a> 파일 생성 후 저장하는 것 있지 말 것!!!! 제발!!!</p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled5.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled6.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled7.png" alt="png"></p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export FLASK_APP=app</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">export FLASK_ENV=development</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flask run</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>앱이 활성화 될 수 있게  만들어주는 명령어</li>
+<li>Procfile 생성 후</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled8.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">web: gunicorn wsgi:app </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>명령어 작성</li>
+<li>Procfile 작성 완료 후 <a target="_blank" rel="noopener" href="http://wsgi.py/">wsgi.py</a> 파일 생성</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run()</span><br><span class="line"><span class="comment"># 명령어 작성</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled9.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled10.png" alt="png"></p>
+<ul>
+<li>runtime 파일 생성 후   python 버전을 작성</li>
+<li>git hub repo 에 add, commit, push 명령어를 활용하여 올림.</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled11.png" alt="png"></p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled12.png" alt="png"></p>
+<ul>
+<li>app.py에서 heroku login 명령어 작성 후 실행</li>
+<li>아무 키를 누르고 난 후 로그인 진행</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled13.png" alt="png"></p>
+<ul>
+<li>로그인된 것을 확인하고 난 후</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled14.png" alt="png"></p>
+<p>heroku create 홈페이지 이름을 작성하여 진행</p>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled15.png" alt="png"></p>
+<p>gitpush heroku main을 작성하여 진행한 후 페이지에</p>
+<hr>
+<p>app.py를 수정</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>templates 파일 생성 후 그 안에 index 파일 생성</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled16.png" alt="png"></p>
+<ul>
+<li>명령어 작성 후</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled17.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;en&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">	&lt;title&gt;FlaskBlog&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;aaaaa&lt;/h1&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>git 명령어 작성하여 진행</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m “updated”</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push heroku main</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>temp폴더 완성 후</li>
+<li>static 폴더 생성 후 안에 css폴더를 생성한 후 style.css 파일 넣음</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled18.png" alt="png"></p>
+<ul>
+<li>style.css 에 아래 명령어를 작성하고</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled19.png" alt="png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> <span class="number">#eee</span> solid;</span><br><span class="line">    <span class="attribute">color</span>: brown;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>index.html파일에 meta와 title 사이에 아래 명령어를 작성</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled20.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename= &#x27;css/style.css&#x27;) &#125;&#125;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>flask run으로 변경되었는지 확인</li>
+<li>이렇게 뜨면 완성</li>
+</ul>
+<p><img src="/images/0801heroku%EB%B0%B0%ED%8F%AC/Untitled21.png" alt="png"></p>
+<hr>
+<p>python 웹개발</p>
+<ul>
+<li>Django<ul>
+<li>세팅할 것이 많음</li>
+</ul>
+</li>
+<li>Flask<ul>
+<li>초기에 개발하기 수월함</li>
+<li>세팅할 것이 많지 않음</li>
+<li>REST API가 있어야만,  카카오톡 챗봇이 연동이 됨</li>
+<li>REST API &#x3D; @app.route 와 같음</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/" data-id="cl6ag62w20000uktv1jj94d3i" data-title="0801heroku배포" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-0729 pyspark_postgreSQL" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/07/29/0729%20pyspark_postgreSQL/" class="article-date">
@@ -872,121 +1065,6 @@ return result
 
 
   
-    <article id="post-0721_oracler_sql기초문법2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/07/21/0721_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%952/" class="article-date">
-  <time class="dt-published" datetime="2022-07-21T00:00:00.000Z" itemprop="datePublished">2022-07-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/07/21/0721_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%952/">0721_oracle_sql 기초문법2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="기본집계함수"><a href="#기본집계함수" class="headerlink" title="기본집계함수"></a>기본집계함수</h2><p>SELECT count(*) FROM employees;</p>
-<p>SELECT count(employee_id) FROM employees;</p>
-<h4 id="NULL은-카운트-하지-않음"><a href="#NULL은-카운트-하지-않음" class="headerlink" title="NULL은 카운트 하지 않음"></a>NULL은 카운트 하지 않음</h4><p>SELECT count(department_id) FROM employees;</p>
-<h4 id="유일한-값만-조회됨"><a href="#유일한-값만-조회됨" class="headerlink" title="유일한 값만 조회됨"></a>유일한 값만 조회됨</h4><p>SELECT count(DISTINCT department_id)<br>FROM employees;</p>
-<h4 id="정렬"><a href="#정렬" class="headerlink" title="정렬"></a>정렬</h4><p>SELECT DISTINCT department_id<br>FROM employees<br>order by 1;</p>
-<h2 id="p-154-기초-통계량"><a href="#p-154-기초-통계량" class="headerlink" title="p.154 기초 통계량"></a>p.154 기초 통계량</h2><p>####합계, 평균, 최소, 최대, 분산, 표준편차</p>
-<h4 id="SQL-gt-통계도구-amp-머신러닝-데이터-과학도구로-변환"><a href="#SQL-gt-통계도구-amp-머신러닝-데이터-과학도구로-변환" class="headerlink" title="SQL ##&gt; 통계도구 &amp; 머신러닝, 데이터 과학도구로 변환"></a>SQL ##&gt; 통계도구 &amp; 머신러닝, 데이터 과학도구로 변환</h4><p>SELECT SUM(salary)<br>FROM employees;</p>
-<p>SELECT SUM(salary), SUM(DISTINCT salary)<br>FROM employees;</p>
-<h4 id="평균값"><a href="#평균값" class="headerlink" title="평균값"></a>평균값</h4><p>SELECT AVG(salary), AVG(DISTINCT salary)<br>FROM employees;</p>
-<h4 id="최대값-최소값"><a href="#최대값-최소값" class="headerlink" title="최대값, 최소값"></a>최대값, 최소값</h4><p>SELECT MIN(salary), MAX(salary)<br>FROM employees;</p>
-<p>SELECT MIN(DISTINCT salary), MAX(DISTINCT salary)<br>FROM employees;</p>
-<h4 id="분산-및-표준편차"><a href="#분산-및-표준편차" class="headerlink" title="분산 및 표준편차"></a>분산 및 표준편차</h4><p>SELECT VARIANCE(salary), STDDEV(salary)<br>FROM employees;</p>
-<h4 id="GROUP-BY-HAVING"><a href="#GROUP-BY-HAVING" class="headerlink" title="GROUP BY, HAVING"></a>GROUP BY, HAVING</h4><h4 id="그전까지는-전체-데이터를-기준으로-집계"><a href="#그전까지는-전체-데이터를-기준으로-집계" class="headerlink" title="그전까지는 전체 데이터를 기준으로 집계"></a>그전까지는 전체 데이터를 기준으로 집계</h4><p>SELECT<br>    department_id<br>    ,SUM(salary)<br>FROM employees<br>GROUP BY department_id<br>ORDER BY department_id;</p>
-<p>SELECT*<br>FROM kor_loan_status;##가계대출 단위 십억<br>SELECT<br>    period<br>    , region<br>    , SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY period, region<br>ORDER BY period, region;</p>
-<p>####2013년  11월 총 잔액만 구하기</p>
-<p>SELECT<br>    period<br>    , region<br>    , SUM(loan_jan_amt)totl_jan<br>FROM KOR_LOAN_STATUS<br>WHERE period &#x3D; ‘201311’<br>GROUP BY region<br>ORDER BY region;</p>
-<h4 id="period-가-group-by-에-명시될만한-컬럼이-되지-않아-오류가-남"><a href="#period-가-group-by-에-명시될만한-컬럼이-되지-않아-오류가-남" class="headerlink" title="period 가 group by 에 명시될만한 컬럼이 되지 않아 오류가 남."></a>period 가 group by 에 명시될만한 컬럼이 되지 않아 오류가 남.</h4><p>SELECT<br>    period<br>    , region<br>    , SUM(loan_jan_amt)totl_jan<br>FROM KOR_LOAN_STATUS<br>WHERE period &#x3D; ‘201311’<br>GROUP BY period, region<br>HAVING SUM(loan_jan_amt)&gt;100000<br>ORDER BY region;</p>
-<h4 id="ROLLUP-CUBE"><a href="#ROLLUP-CUBE" class="headerlink" title="ROLLUP, CUBE"></a>ROLLUP, CUBE</h4><p>SELECT period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY period, gubun<br>ORDER BY period;</p>
-<h4 id="ROLLUP-추가적인-집계-정보를-순차적으로-반환"><a href="#ROLLUP-추가적인-집계-정보를-순차적으로-반환" class="headerlink" title="ROLLUP 추가적인 집계 정보를 순차적으로 반환"></a>ROLLUP 추가적인 집계 정보를 순차적으로 반환</h4><p>SELECT period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY ROLLUP(period, gubun);</p>
-<h4 id="CUBE-조합별로-집계한-정보를-반환"><a href="#CUBE-조합별로-집계한-정보를-반환" class="headerlink" title="CUBE 조합별로 집계한 정보를 반환"></a>CUBE 조합별로 집계한 정보를 반환</h4><p>SELECT period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY CUBE(period, gubun);</p>
-<h4 id="위치가-달라질-때마다-반환되는-값이-다름"><a href="#위치가-달라질-때마다-반환되는-값이-다름" class="headerlink" title="위치가 달라질 때마다 반환되는 값이 다름"></a>위치가 달라질 때마다 반환되는 값이 다름</h4><h4 id="집합연산자"><a href="#집합연산자" class="headerlink" title="집합연산자"></a>집합연산자</h4><p>CREATE TABLE exp_goods_asia (<br>           country VARCHAR2(10),<br>           seq     NUMBER,<br>           goods   VARCHAR2(80));</p>
-<pre><code>INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 1, &#39;원유제외 석유류&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 2, &#39;자동차&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 3, &#39;전자집적회로&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 4, &#39;선박&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 5,  &#39;LCD&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 6,  &#39;자동차부품&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 7,  &#39;휴대전화&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 8,  &#39;환식탄화수소&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 9,  &#39;무선송신기 디스플레이 부속품&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;한국&#39;, 10,  &#39;철 또는 비합금강&#39;);
-
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 1, &#39;자동차&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 2, &#39;자동차부품&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 3, &#39;전자집적회로&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 4, &#39;선박&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 5, &#39;반도체웨이퍼&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 6, &#39;화물차&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 7, &#39;원유제외 석유류&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 8, &#39;건설기계&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 9, &#39;다이오드, 트랜지스터&#39;);
-INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
-</code></pre>
-<p>commit;</p>
-<p>SELECT * FROM exp_goods_asia;</p>
-<p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>ORDER BY seq</p>
-<p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’<br>ORDER BY seq</p>
-<h4 id="두국가가-겹치는-수출품목은-한번만-조회하도록-함"><a href="#두국가가-겹치는-수출품목은-한번만-조회하도록-함" class="headerlink" title="두국가가 겹치는 수출품목은 한번만 조회하도록 함"></a>두국가가 겹치는 수출품목은 한번만 조회하도록 함</h4><h4 id="UNION-두-데이터-집합이-있으면-각-집합-원소를-모두-포함한-결과-반환하는-합집합-함수"><a href="#UNION-두-데이터-집합이-있으면-각-집합-원소를-모두-포함한-결과-반환하는-합집합-함수" class="headerlink" title="UNION 두 데이터 집합이 있으면 각 집합 원소를 모두 포함한 결과 반환하는 합집합 함수"></a>UNION 두 데이터 집합이 있으면 각 집합 원소를 모두 포함한 결과 반환하는 합집합 함수</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>UNION<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
-<h4 id="UNION-ALL-중복된-데이터도-모두-반환함"><a href="#UNION-ALL-중복된-데이터도-모두-반환함" class="headerlink" title="UNION ALL  중복된 데이터도 모두 반환함"></a>UNION ALL  중복된 데이터도 모두 반환함</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>UNION ALL<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
-<h4 id="INTERSECT-공통된-항목만-반환하는-교집합-함수"><a href="#INTERSECT-공통된-항목만-반환하는-교집합-함수" class="headerlink" title="INTERSECT, 공통된 항목만 반환하는 교집합 함수"></a>INTERSECT, 공통된 항목만 반환하는 교집합 함수</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>INTERSECT<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
-<h4 id="MINUS-공통된-항목을-제외한-항목만-반환하는-차집합"><a href="#MINUS-공통된-항목을-제외한-항목만-반환하는-차집합" class="headerlink" title="MINUS 공통된 항목을 제외한 항목만 반환하는 차집합"></a>MINUS 공통된 항목을 제외한 항목만 반환하는 차집합</h4><p>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘한국’<br>MINUS<br>SELECT goods<br>FROM exp_goods_asia<br>WHERE country &#x3D; ‘일본’;</p>
-<h4 id="GROUPING-SETS"><a href="#GROUPING-SETS" class="headerlink" title="GROUPING SETS"></a>GROUPING SETS</h4><p>SELECT<br>    period, gubun, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>GROUP BY GROUPING SETS(period,gubun);</p>
-<p>SELECT<br>    period, gubun, region, SUM(loan_jan_amt)totl_jan<br>FROM kor_loan_status<br>WHERE period LIKE ‘2013%’<br>    AND region IN(‘서울’,’경기’)<br>GROUP BY GROUPING SETS(period,(gubun,region));</p>
-<h4 id="불친절한-pl-x2F-sql-프로그래밍-책-읽어보기"><a href="#불친절한-pl-x2F-sql-프로그래밍-책-읽어보기" class="headerlink" title="불친절한 pl&#x2F;sql 프로그래밍 책 읽어보기"></a>불친절한 pl&#x2F;sql 프로그래밍 책 읽어보기</h4><p>SELECT a.employee_id<br>        , a.emp_name<br>        , a.department_id<br>        , b.department_name<br>FROM employees a, departments b<br>WHERE a.department_id &#x3D; b.department_id;</p>
-<h2 id="세미-조인"><a href="#세미-조인" class="headerlink" title="세미 조인"></a>세미 조인</h2><h4 id="서브-쿼리를-이용해-서브쿼리에-존재하는-데이터만-메인-쿼리에서-추출"><a href="#서브-쿼리를-이용해-서브쿼리에-존재하는-데이터만-메인-쿼리에서-추출" class="headerlink" title="서브 쿼리를 이용해 서브쿼리에 존재하는 데이터만 메인 쿼리에서 추출"></a>서브 쿼리를 이용해 서브쿼리에 존재하는 데이터만 메인 쿼리에서 추출</h4><h4 id="exist"><a href="#exist" class="headerlink" title="exist"></a>exist</h4><p>SELECT<br>    department_id<br>    , department_name<br>FROM departments a<br>WHERE EXISTS(SELECT*<br>    FROM departments a, employees b<br>    WHERE a.department_id &#x3D; b.department_id<br>    AND b.salary&gt;3000);</p>
-<p>SELECT<br>    department_id<br>    , department_name<br>FROM departments a<br>    WHERE a.department_id IN(SELECT b.department_id<br>                            FROM employees b<br>                            WHERE b.salary&gt; 3000)<br>ORDER BY department_name;</p>
-<p>SELECT<br>    a.department_id<br>    , a.department_name<br>FROM departments a, employees b<br>WHERE a.department_id &#x3D; b.department_id<br>    AND b.salary &gt;3000<br>ORDER BY a.department_name;</p>
-<h4 id="안티조인"><a href="#안티조인" class="headerlink" title="안티조인"></a>안티조인</h4><h4 id="세미조인의-반대-개념"><a href="#세미조인의-반대-개념" class="headerlink" title="세미조인의 반대 개념"></a>세미조인의 반대 개념</h4><h4 id="NOT-EXSITS-NOT-IN"><a href="#NOT-EXSITS-NOT-IN" class="headerlink" title="NOT EXSITS, NOT IN"></a>NOT EXSITS, NOT IN</h4><p>SELECT<br>    a. employee_id<br>    , a.emp_name<br>    , a.department_id<br>    , b.department_name<br>FROM employees a<br>    , departments b<br>WHERE a.department_id &#x3D; b.department_id<br>    AND a.department_id NOT IN(SELECT department_id<br>                                FROM departments<br>                                WHERE manager_id IS NULL);</p>
-<h4 id="P-180"><a href="#P-180" class="headerlink" title="P. 180"></a>P. 180</h4><p>SELECT count(*)<br>FROM employees a<br>WHERE NOT EXISTS(SELECT 1<br>                FROM departments C<br>                WHERE a.department_id &#x3D; c.department_id<br>                    AND manager_id IS NULL)</p>
-<h4 id="셀프-조인"><a href="#셀프-조인" class="headerlink" title="셀프 조인"></a>셀프 조인</h4><h4 id="조인을-하려면-두개의-테이블"><a href="#조인을-하려면-두개의-테이블" class="headerlink" title="조인을 하려면 두개의 테이블"></a>조인을 하려면 두개의 테이블</h4><h4 id="하나의-테이블을-두개로-분리"><a href="#하나의-테이블을-두개로-분리" class="headerlink" title="하나의 테이블을 두개로 분리"></a>하나의 테이블을 두개로 분리</h4><h4 id="테이블-자기자신과-연결"><a href="#테이블-자기자신과-연결" class="headerlink" title="테이블 자기자신과 연결"></a>테이블 자기자신과 연결</h4><h4 id="같은-부서-번호를-가진-사원-중-A사원번호가-B사원보다-작은-것-조회"><a href="#같은-부서-번호를-가진-사원-중-A사원번호가-B사원보다-작은-것-조회" class="headerlink" title="같은 부서 번호를 가진 사원 중 A사원번호가 B사원보다 작은 것 조회"></a>같은 부서 번호를 가진 사원 중 A사원번호가 B사원보다 작은 것 조회</h4><p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.employee_id<br>    , b.emp_name<br>    , a.department_id<br>FROM<br>    employees a<br>    , employees b<br>WHERE a.employee_id &lt; b.employee_id<br>    AND a.department_id &#x3D; b.department_id<br>    AND a.department_id &#x3D;20;</p>
-<h4 id="p-181-일반-조인"><a href="#p-181-일반-조인" class="headerlink" title="p.181 일반 조인"></a>p.181 일반 조인</h4><p>SELECT<br>    a.department_id<br>    , a.department_name<br>    , b.job_id<br>    , b.department_id<br>FROM departments a,<br>     job_history b<br>WHERE a.department_id &#x3D; b.department_id;</p>
-<h4 id="외부조인"><a href="#외부조인" class="headerlink" title="외부조인"></a>외부조인</h4><p>SELECT<br>    a.department_id<br>    , a.department_name<br>    , b.job_id<br>    , b.department_id<br>FROM departments a,<br>     job_history b<br>WHERE a.department_id &#x3D; b.department_id(+);</p>
-<p>SELECT<br>    a.employee_id<br>    , a. emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>     , job_history b<br>WHERE a.employee_id &#x3D; b.employee_id(+)<br>    AND a.department_id &#x3D; b.department_id;</p>
-<p>SELECT<br>    a.employee_id<br>    , a. emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>     , job_history b<br>WHERE a.employee_id &#x3D; b.employee_id(+)<br>    AND a.department_id &#x3D; b.department_id(+);</p>
-<h4 id="ansi조인"><a href="#ansi조인" class="headerlink" title="ansi조인"></a>ansi조인</h4><p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.department_id<br>    , b.department_name<br>FROM employees a<br>INNER JOIN departments b<br>    ON(a.department_id &#x3D; b.department_id)<br>WHERE a.hire_date&gt;&#x3D;TO_DATE(‘2003-01-01’,’YYYY-MM-DD’)</p>
-<h4 id="p-186"><a href="#p-186" class="headerlink" title="p.186"></a>p.186</h4><h4 id="외부조인-1"><a href="#외부조인-1" class="headerlink" title="외부조인"></a>외부조인</h4><p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>LEFT OUTER JOIN job_history b<br>    ON(a.employee_id &#x3D; b.employee_id<br>        and a.department_id &#x3D; b.department_id);</p>
-<p>SELECT<br>    a.employee_id<br>    , a.emp_name<br>    , b.job_id<br>    , b.department_id<br>FROM employees a<br>RIGHT OUTER JOIN job_history b<br>    ON(a.employee_id &#x3D; b.employee_id<br>        and a.department_id &#x3D; b.department_id);</p>
-<h2 id="서브쿼리"><a href="#서브쿼리" class="headerlink" title="서브쿼리"></a>서브쿼리</h2><h4 id="SQL-수업의-하이라이트"><a href="#SQL-수업의-하이라이트" class="headerlink" title="SQL 수업의 하이라이트"></a>SQL 수업의 하이라이트</h4><h4 id="서브쿼리가-사용되는-위치-SELECT-FROM-WHERE"><a href="#서브쿼리가-사용되는-위치-SELECT-FROM-WHERE" class="headerlink" title="서브쿼리가 사용되는 위치 SELECT, FROM, WHERE"></a>서브쿼리가 사용되는 위치 SELECT, FROM, WHERE</h4><p>SELECT AVG(salary)FROM employees;</p>
-<h4 id="배치-자동화"><a href="#배치-자동화" class="headerlink" title="배치 자동화"></a>배치 자동화</h4><p>SELECT count(*)<br>FROM employees<br>WHERE salary &gt;&#x3D; (SELECT AVG(salary)FROM employees);</p>
-<p>SELECT count(*)<br>FROM employees<br>WHERE salary &gt;&#x3D; 서브쿼리에서 출력되는 값이 단일 행;</p>
-<h4 id="IN-복수-결과값을-넣을-수-있음"><a href="#IN-복수-결과값을-넣을-수-있음" class="headerlink" title="IN(복수 결과값을 넣을 수 있음)"></a>IN(복수 결과값을 넣을 수 있음)</h4><p>SELECT count(*)<br>FROM employees<br>WHERE department_id IN(SELECT department_id<br>                       FROM departments<br>                       WHERE parent_id IS NULL)</p>
-<p>SELECT employee_id<br>       , emp_name<br>       , job_id<br>FROM employees<br>WHERE (employee_id,job_id) IN(SELECT EMPLOYEE_ID<br>                                     , job_id<br>                                     FROM job_history);</p>
-<h4 id="서브쿼리-SELECT-뿐아니라-UPDATE-DELETE에도-사용"><a href="#서브쿼리-SELECT-뿐아니라-UPDATE-DELETE에도-사용" class="headerlink" title="서브쿼리 SELECT 뿐아니라 UPDATE, DELETE에도 사용"></a>서브쿼리 SELECT 뿐아니라 UPDATE, DELETE에도 사용</h4><h4 id="전-사원의-급여를-평균-금액으로-갱신"><a href="#전-사원의-급여를-평균-금액으로-갱신" class="headerlink" title="전 사원의 급여를 평균 금액으로 갱신"></a>전 사원의 급여를 평균 금액으로 갱신</h4><p>CREATE TABLE employees0721 AS<br>SELECT*FROM employees;</p>
-<h4 id="p-x2F-194-하단-SELECT에-서브쿼리"><a href="#p-x2F-194-하단-SELECT에-서브쿼리" class="headerlink" title="p&#x2F;194 하단 SELECT에 서브쿼리"></a>p&#x2F;194 하단 SELECT에 서브쿼리</h4><p>SELECT<br>    a.employee_id<br>    ,(SELECT b.emp_name<br>      FROM employees b<br>      WHERE a.employee_id &#x3D;b.employee_id) AS emp_name<br>    , a.department_id<br>    , (SELECT b.department_name<br>      FROM departments b<br>      WHERE a.department_id &#x3D; b.department_id) AS dep_name<br>FROM job_history a;</p>
-<h4 id="메인쿼리"><a href="#메인쿼리" class="headerlink" title="메인쿼리"></a>메인쿼리</h4><p>SELECT<br>FROM<br>WHERE(서브쿼리(서브쿼리2))</p>
-<p>SELECT<br>    a.department_id<br>    ,a.department_name<br>FROM departments a<br>WHERE EXISTS(SELECT 1<br>             FROM employees b<br>             WHERE a.department_id &#x3D; b.department_id<br>             AND b.salary&gt;(SELECT avg(salary)FROM employees)<br>             );</p>
-<h4 id="메인-쿼리-부서테이블에서-부서-ID와-부서명"><a href="#메인-쿼리-부서테이블에서-부서-ID와-부서명" class="headerlink" title="메인 쿼리, 부서테이블에서 부서 ID와 부서명"></a>메인 쿼리, 부서테이블에서 부서 ID와 부서명</h4><h4 id="P-196"><a href="#P-196" class="headerlink" title="P.196"></a>P.196</h4><h4 id="메인쿼리-사원-테이블의-사원들의-부서별-평균-급여를-조회"><a href="#메인쿼리-사원-테이블의-사원들의-부서별-평균-급여를-조회" class="headerlink" title="메인쿼리 : 사원 테이블의 사원들의 부서별 평균 급여를 조회"></a>메인쿼리 : 사원 테이블의 사원들의 부서별 평균 급여를 조회</h4><h4 id="서브쿼리-상위부서가-기획부-부서-번호가-90-에-속함"><a href="#서브쿼리-상위부서가-기획부-부서-번호가-90-에-속함" class="headerlink" title="서브쿼리 : 상위부서가 기획부(부서 번호가 90)에 속함"></a>서브쿼리 : 상위부서가 기획부(부서 번호가 90)에 속함</h4><p>SELECT department_id,AVG(salary)<br>FROM employees<br>WHERE department_id IN(SELECT department_id<br>                       FROM departments<br>                       WHERE parent_id &#x3D; 90)<br>GROUP BY department_id;</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kimsunhyung.github.io/2022/07/21/0721_oracler_sql%EA%B8%B0%EC%B4%88%EB%AC%B8%EB%B2%952/" data-id="cl5uqia9y00009gtv34866git" data-title="0721_oracle_sql 기초문법2" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1010,7 +1088,7 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
     </div>
   </div>
 
@@ -1021,6 +1099,10 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/">0801heroku배포</a>
+          </li>
         
           <li>
             <a href="/2022/07/29/0729%20pyspark_postgreSQL/">0729_pyspark_postgreSQL</a>
@@ -1036,10 +1118,6 @@ INSERT INTO exp_goods_asia VALUES (&#39;일본&#39;, 10, &#39;기계류&#39;);
         
           <li>
             <a href="/2022/07/27/0727_%ED%99%98%EA%B2%BD%EB%B3%80%EC%88%98%20%EC%84%A4%EC%B9%98/">0727 환경변수 설치</a>
-          </li>
-        
-          <li>
-            <a href="/2022/07/27/0727_airflow%EC%84%A4%EC%B9%98/">0727 airflow설치</a>
           </li>
         
       </ul>
