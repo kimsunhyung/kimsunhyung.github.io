@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>0802webserver만들기 | 손햄의 개발 이야기</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="0802webserver만들기 web_development 폴더 생성 후 vs code 접속 확장에서 korean(사용법)이 설치되어 있는지 확인    beautify 자동 정렬해주는 확장팩을 설치하면 java 시 편리함. auto rename 확장팩 설치(태그하기 편리함)    live server 확장팩 설치    확장팩 설치 후 index.html 파">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0802webserver만들기">
+<meta property="og:url" content="https://kimsunhyung.github.io/2022/08/02/0802webserver/index.html">
+<meta property="og:site_name" content="손햄의 개발 이야기">
+<meta property="og:description" content="0802webserver만들기 web_development 폴더 생성 후 vs code 접속 확장에서 korean(사용법)이 설치되어 있는지 확인    beautify 자동 정렬해주는 확장팩을 설치하면 java 시 편리함. auto rename 확장팩 설치(태그하기 편리함)    live server 확장팩 설치    확장팩 설치 후 index.html 파">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled1.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled2.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled3.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled4.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled5.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled6.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled7.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled8.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled9.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled10.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled11.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled12.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled13.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled14.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled15.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled16.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled17.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled18.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled19.png">
+<meta property="og:image" content="https://kimsunhyung.github.io/images/0802webserver/Untitled20.png">
+<meta property="article:published_time" content="2022-08-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-08-03T08:07:39.821Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kimsunhyung.github.io/images/0802webserver">
+  
+    <link rel="alternate" href="/atom.xml" title="손햄의 개발 이야기" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">손햄의 개발 이야기</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kimsunhyung.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-0802webserver" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/08/02/0802webserver/" class="article-date">
+  <time class="dt-published" datetime="2022-08-02T00:00:00.000Z" itemprop="datePublished">2022-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      0802webserver만들기
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="0802webserver만들기"><a href="#0802webserver만들기" class="headerlink" title="0802webserver만들기"></a>0802webserver만들기</h1><ul>
+<li>web_development 폴더 생성 후 vs code 접속</li>
+<li>확장에서 korean(사용법)이 설치되어 있는지 확인</li>
+</ul>
+<p><img src="/images/0802webserver"></p>
+<ul>
+<li>beautify 자동 정렬해주는 확장팩을 설치하면 java 시 편리함.</li>
+<li>auto rename 확장팩 설치(태그하기 편리함)</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled1.png"></p>
+<ul>
+<li>live server 확장팩 설치</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled2.png"></p>
+<ul>
+<li>확장팩 설치 후 index.html 파일 생성</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled3.png"></p>
+<ul>
+<li>utf-8 인코딩 버전을 의미함</li>
+<li>기본 세팅 코드</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled4.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>human title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0802webserver/Untitled5.png"></p>
+<ul>
+<li>GO live를 누르게 되면 human title 싸이트가 열림.</li>
+</ul>
+<hr>
+<p><img src="/images/0802webserver/Untitled6.png"></p>
+<ul>
+<li>h1 - h6 ****는 6단계의 구획 제목을 나타냅니다. 구획 단계는 h1이 가장 높고 h6은 가장 낮습니다.</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled7.png"></p>
+<ul>
+<li>p 태그는 paragraph, 즉 문단의 약자로, 하나의 문단을 만들 때 쓰임</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled8.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>human title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>this is a paragraph<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0802webserver/Untitled9.png"></p>
+<p><img src="/images/0802webserver/Untitled10.png"></p>
+<ul>
+<li>lang &#x3D; “en” 번역을 옵션</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled11.png"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>human title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        Macine Learning, Web Development</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><br/> 띄어쓰기</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled12.png"></p>
+<p><img src="/images/0802webserver/Untitled13.png"></p>
+<ul>
+<li>pre 태그</li>
+<li>미리 정의된 형식(preformatted)의 텍스트를 정의할 때 사용합니다.</li>
+<li>요소 내의 텍스트는 시스템에서 미리 지정된 고정폭 글꼴(fixed-width font)을 사용하여 표현되며, 텍스트에 사용된 여백과 줄바꿈이 모두 그대로 브라우저 화면에 나타납니다.</li>
+<li>독특한 서식의 텍스트나 컴퓨터 코드 등을 HTML 문서에 그대로 표현할 수 있습니다.</li>
+</ul>
+<hr>
+<ul>
+<li>a href 링크를 달아서 site로 이동할 수 있도록 함.</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.naver.com&quot;</span>&gt;</span>네이버<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>ctrl + , → word wrap을 친 후  editor를 off 에서 on으로 변경하면 자동 줄 바꿈이 됨</p>
+<p><img src="/images/0802webserver/Untitled14.png"></p>
+<ul>
+<li>이미지 불러오기</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">image</span> <span class="attr">src</span>=<span class="string">&quot;https://shopv.pstatic.net/web/cnsv/iu/cnsv/cnts_prod/22/0726/mpnva2lcjf.jpg&quot;</span>, <span class="attr">width</span> = <span class="string">&quot;500&quot;</span>,<span class="attr">height</span> = <span class="string">&quot;1000&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>리스트 만들기</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>human title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">hl</span>&gt;</span>List를 만들자.<span class="tag">&lt;/<span class="name">hl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>책읽기<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>산책하기<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ol</span> <span class="attr">type</span>=<span class="string">&quot;a&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>책읽기<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>산책하기<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ol</span> <span class="attr">type</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>책읽기<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>산책하기<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/0802webserver/Untitled15.png"></p>
+<hr>
+<ul>
+<li><p>css 꾸미기</p>
+<ul>
+<li>보통 다이렉트로 body에서 꾸미기도 하지만, head에서 공통적으로 꾸미기도 함.</li>
+</ul>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>human title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">table</span>, <span class="selector-tag">th</span>, <span class="selector-tag">td</span>&#123;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">border</span> :<span class="number">1px</span> solid black;</span></span><br><span class="line"><span class="language-css">                <span class="attribute">border-spacing</span>: <span class="number">1ch</span>;&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>A<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>B<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>홍길동<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">th</span>&gt;</span>둘리<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">   </span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  <img src="/images/0802webserver/Untitled16.png">
+  </p>
+</li>
+<li><p>마음에 드는 꾸미기 코드를 복사해서 붙여 넣어도 좋음.</p>
+</li>
+<li><p>css 폴더를 만들고, 그안에 style.css 파일을 넣은 후 꾸미기 코드를 넣음.</p>
+</li>
+<li><p>코드 작성 시</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML Table Generator<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>, <span class="attr">href</span>=<span class="string">&quot;css/style.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>이렇게 작성하면 모든 바디에 내가 style파일에 넣어둔 꾸미기 코드가 적용됨.</li>
+<li>부트스트랩 <a target="_blank" rel="noopener" href="https://getbootstrap.kr/">https://getbootstrap.kr/</a>을 활용</li>
+<li>부트스트랩 스타터 템플릿을 복사하여 진행하면 페이지 시작하는데 도움이 됨.</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled17.png"></p>
+<ul>
+<li>부트 스트랩에서 제공하는 다양한 것들을 삽입하여 홈페이지 꾸미기를 진행할 수 있음.</li>
+</ul>
+<hr>
+<h2 id="8-x2F-3"><a href="#8-x2F-3" class="headerlink" title="8&#x2F;3"></a>8&#x2F;3</h2><ul>
+<li>새폴더 생성 후</li>
+<li>iris.csv파일 생성</li>
+<li>가상환경 접속</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled18.png"></p>
+<ul>
+<li>sklearn, django, jupyterlab, pandas 설치</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled19.png"></p>
+<ul>
+<li>주피터 랩 실행 후 model.ipynb파일 생성</li>
+</ul>
+<p><img src="/images/0802webserver/Untitled20.png"></p>
+<p>파일을 잘 만들고 난 후 저장 후 종료</p>
+<hr>
+<ul>
+<li>django 배포 관련 내용 자세하게 나와있음.</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://dschloe.github.io/python/django/django_iris_sklearn/">https://dschloe.github.io/python/django/django_iris_sklearn&#x2F;</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kimsunhyung.github.io/2022/08/02/0802webserver/" data-id="cl6dbpn7s0000zgtv488k3msc" data-title="0802webserver만들기" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">0801heroku배포</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/08/02/0802webserver/">0802webserver만들기</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/01/0801heroku%EB%B0%B0%ED%8F%AC/">0801heroku배포</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/29/0729%20pyspark_postgreSQL/">0729_pyspark_postgreSQL</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/28/0728airflow_pipeline_spark_install/">0728_airflow pipeline 구축 및 spark 설치</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/0727_WSL2%EC%84%A4%EC%B9%98_WINDOW%20SUBSYSTEM%20FOR%20linux%EC%84%A4%EC%B9%98/">0727 WSL2 설치</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
